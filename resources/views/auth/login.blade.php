@@ -2,27 +2,29 @@
 
 @section('content')
 <div class="card card-primary">
-  <div class="card-header"><h4>Login</h4></div>
+  <div class="card-header">
+    <h4>Login</h4>
+  </div>
 
   <div class="card-body">
-    <form method="POST" action="{{ route('login') }} ">
-        @csrf
+    <form method="POST" action="{{ route('login') }} " class="user">
+      @csrf
       <div class="form-group">
-        <label for="email">Email</label>
-        <input aria-describedby="emailHelpBlock" id="email" name="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Registered email address" tabindex="1" value="{{ old('email') }}" autofocus>
+        <label for="nik">Nomor Induk Kependudukan (NIK)</label>
+        <input aria-describedby="nikHelpBlock" id="nik" name="nik" type="nik" class="form-control{{ $errors->has('nik') ? ' is-invalid' : '' }}" name="nik" placeholder="Registered nik address" tabindex="1" value="{{ old('nik') }}" autofocus>
         <div class="invalid-feedback">
-          {{ $errors->first('email') }}
+          {{ $errors->first('nik') }}
         </div>
         @if(App::environment('demo'))
         <small id="emailHelpBlock" class="form-text text-muted">
-            Demo Email: admin@example.com
+          Demo nik: admin@example.com
         </small>
         @endif
       </div>
 
       <div class="form-group">
         <div class="d-block">
-            <label for="password" class="control-label">Password</label>
+          <label for="password" class="control-label">Password</label>
           <div class="float-right">
             <a href=" " class="text-small">
               Forgot Password?
@@ -35,14 +37,14 @@
         </div>
         @if(App::environment('demo'))
         <small id="passwordHelpBlock" class="form-text text-muted">
-            Demo Password: 1234
+          Demo Password: 1234
         </small>
         @endif
       </div>
 
       <div class="form-group">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember"{{ old('remember') ? ' checked': '' }}>
+          <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember" {{ old('remember') ? ' checked': '' }}>
           <label class="custom-control-label" for="remember">Remember Me</label>
         </div>
       </div>
