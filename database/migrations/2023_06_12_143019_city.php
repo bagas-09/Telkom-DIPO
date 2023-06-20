@@ -15,7 +15,8 @@ class City extends Migration
     {
         //
         Schema::create('city', function (Blueprint $table) {
-            $table->string('nama_city')->primary()->unique();
+            $table->id();
+            $table->string('nama_city')->unique();
         });
     }
 
@@ -28,6 +29,5 @@ class City extends Migration
     {
         //
         Schema::dropIfExists('city');
-        
     }
 }

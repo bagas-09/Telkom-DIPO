@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('auth.login');
 // });
 
-// Route::get('/admin', function () {
-//     return view('admin.dashboard.index');
-// });
+Route::get('/admin', function () {
+    return view('admin.dashboard.index');
+});
+
+Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
 
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => 'auth:account'], function () {
@@ -30,5 +32,4 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
     Route::get('/login', [\App\Http\Controllers\LoginController::class, 'formLogin'])->name('login');
     Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-
 });
