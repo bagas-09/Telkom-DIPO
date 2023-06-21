@@ -30,15 +30,21 @@ Dashboard
             <div class="row">
               <div class="col-12">
                 <div class="card">
+                  {{-- ADD CITY --}}
                   <div class="card-header">
-                    <h4>Simple</h4>
+                    <div class="col-8">
+                      <h4>Simple</h4>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add City</button>
+                    </div>
                   </div>
                   <div class="card-body">
                     <table class="table">
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col">Nama Kota</th>
+                          <th scope="col" class="w-50">Nama Kota</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -51,10 +57,10 @@ Dashboard
                           <td>
                             <a class="btn btn-sm btn-danger" 
                             {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
+                            style="color: white"
                             >Delete</a>
                             <a class="btn btn-sm btn-warning" href="#">Edit</a>
                           </td>
-                          <td></td>
                         </tr>
                         @endforeach
                       </tbody>

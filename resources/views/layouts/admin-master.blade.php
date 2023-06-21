@@ -45,4 +45,5 @@
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   @yield('scripts')
 </body>
+@include('layouts.modals')
 </html>

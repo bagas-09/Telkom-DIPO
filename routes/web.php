@@ -22,6 +22,7 @@ Route::get('/admin', function () {
 });
 
 Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
+Route::post('/city/add', [App\Http\Controllers\CityController::class, 'storeCity'])->name('admin.storeCity');
 
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => 'auth:account'], function () {
