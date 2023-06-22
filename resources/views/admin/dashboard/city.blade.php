@@ -27,6 +27,13 @@ Dashboard
               Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
             </p>
 
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show">
+              {{ session('success') }}
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+            @endif
+
             <div class="row">
               <div class="col-12">
                 <div class="card">

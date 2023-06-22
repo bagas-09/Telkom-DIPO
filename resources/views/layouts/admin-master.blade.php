@@ -44,6 +44,7 @@
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   @yield('scripts')
+  {{-- <script src="{{ asset('assets/js/modal.js') }}"></script> --}}
 </body>
 @include('layouts.modals')
 </html>
