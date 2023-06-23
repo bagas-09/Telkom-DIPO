@@ -19,4 +19,9 @@ class Account extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'id_nama_kota');
+    }
 }

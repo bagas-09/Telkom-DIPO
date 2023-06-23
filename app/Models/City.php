@@ -14,4 +14,10 @@ class City extends Model
     protected $fillable = [
         'nama_city'
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class, 'id_nama_kota');
+    }
+
 }
