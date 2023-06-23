@@ -30,7 +30,7 @@ class CityController extends Controller
             // "id" => 2,
             "nama_city" => $request->nama_city,
         ]);
-        return redirect()->intended(route('admin.dashboard.city'))->with("success", "Berhasil menambahkan Kota");;
+        return redirect()->intended(route('admin.dashboard.city'))->with("success", "Berhasil menambahkan Kota");
     }
 
     // public function deleteCity($id)
@@ -85,5 +85,14 @@ class CityController extends Controller
             // Tangkap pengecualian umum dan tampilkan pesan error
             return redirect()->intended(route('admin.dashboard.city'))->with("error", $e->getMessage());
         }
+    }
+
+    public function updateCity(Request $request, $id)
+    {
+        City::where('id', $id)->update([
+            "nama_city" => $request->nama_city,
+        ]);
+
+        return redirect()->intended(route('admin.dashboard.city'))->with("success", "Berhasil mengubah Kota");
     }
 }

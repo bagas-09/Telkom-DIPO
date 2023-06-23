@@ -97,7 +97,41 @@ Dashboard
                                   </div>
                                 </div>
                             </div>
-                            <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                            {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
+
+                            {{-- UPDATE CITY --}}
+                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editCityModal-{{$admins->id}}" style="color: white" 
+                            >Edit</a>
+                            <div class="modal fade" tabindex="-1" role="dialog" id="editCityModal-{{$admins->id}}" data-backdrop="static">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Ubah Kota</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <form id="cityUpdateForm" class="form-validation" action="{{route('admin.updateCity', [$admins->id])}}" method="POST">
+                                  @csrf
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <label for="nama_update_city" class="col-form-label">Nama Kota: </label>
+                                        <input type="text" id="nama_update_city" name="nama_city" class="form-control required-input" value="{{ $admins->nama_city }}" required>
+                                        {{-- <span id="nama_city_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
+                                        {{-- @if($errors->has('nama_city'))
+                                          <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
+                                        @endif --}}
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer bg-whitesmoke br">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateCity">Close</button>
+                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+
                           </td>
                         </tr>
                         @endforeach

@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     var forms = document.getElementsByClassName("form-validation");
 
+    // Fungsi untuk mereset validasi form
+    function resetFormValidation(form) {
+        var inputFields = form.getElementsByClassName("required-input");
+        var errorMessages = form.getElementsByClassName("error-message");
+
+        // Menghapus pesan error dan kelas 'is-invalid'
+        Array.from(inputFields).forEach(function (inputField) {
+            inputField.classList.remove("is-invalid");
+        });
+
+        Array.from(errorMessages).forEach(function (errorMessage) {
+            errorMessage.style.display = "none";
+        });
+    }
+
     // Melakukan iterasi pada setiap form
     Array.from(forms).forEach(function (form) {
         form.addEventListener("submit", function (event) {
@@ -40,19 +55,4 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFormValidation(form); // Memanggil fungsi resetFormValidation
         });
     });
-
-    // Fungsi untuk mereset validasi form
-    function resetFormValidation(form) {
-        var inputFields = form.getElementsByClassName("required-input");
-        var errorMessages = form.getElementsByClassName("error-message");
-
-        // Menghapus pesan error dan kelas 'is-invalid'
-        Array.from(inputFields).forEach(function (inputField) {
-            inputField.classList.remove("is-invalid");
-        });
-
-        Array.from(errorMessages).forEach(function (errorMessage) {
-            errorMessage.style.display = "none";
-        });
-    }
 });
