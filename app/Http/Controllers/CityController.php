@@ -29,4 +29,10 @@ class CityController extends Controller
         ]);
         return redirect()->intended(route('admin.dashboard.city'))->with("success", "Berhasil menambahkan Kota");;
     }
+
+    public function deleteCity($id)
+    {
+        City::where('id', $id)->delete();
+        return redirect()->intended(route('admin.dashboard.city'))->with("success", "Berhasil menghapus Kota");
+    }
 }

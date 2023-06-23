@@ -65,7 +65,29 @@ Dashboard
                             <a class="btn btn-sm btn-danger" 
                             {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
                             style="color: white"
+                            data-toggle="modal" data-target="#deleteCityModal{{ $admins->id }}"
                             >Delete</a>
+                            {{-- MODAL DELETE --}}
+                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteCityModal{{ $admins->id }}" data-backdrop="static">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Hapus Kota</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    @csrf
+                                      <div class="modal-body">
+                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Kota yang dipilih.
+                                      </div>
+                                      <div class="modal-footer bg-whitesmoke br">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCity2">Cancel</button>
+                                        <a class="btn btn-danger" href="{{ route('admin.deleteCity', [$admins->id]) }}" value="Delete">Delete</a>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
                             <a class="btn btn-sm btn-warning" href="#">Edit</a>
                           </td>
                         </tr>
