@@ -15,7 +15,8 @@ class Role extends Migration
     {
         //
         Schema::create('role', function (Blueprint $table) {
-            $table->string('nama_role')->primary();
+            $table->id();
+            $table->string('nama_role');
         });
     }
 
@@ -28,8 +29,5 @@ class Role extends Migration
     {
         //
         Schema::dropIfExists('role');
-
-        
-        
     }
 }
