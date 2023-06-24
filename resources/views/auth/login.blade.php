@@ -7,16 +7,19 @@
   </div>
 
   <div class="card-body">
-    <form method="POST" action="{{ route('login') }} " class="user">
-      @csrf
+    <form method="POST" action="{{ route('login') }}" class="account">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      @if ($message = Session::get('error'))
+      <div style="color: rgb(136, 25, 25); font-weight: bold; padding: 3px 3px"> {{ $message }}</div>
+      @endif
       <div class="form-group">
         <label for="nik">Nomor Induk Kependudukan (NIK)</label>
-        <input aria-describedby="nikHelpBlock" id="nik" name="nik" type="nik" class="form-control{{ $errors->has('nik') ? ' is-invalid' : '' }}" name="nik" placeholder="Registered nik address" tabindex="1" value="{{ old('nik') }}" autofocus>
+        <input aria-describedby="nikHelpBlock" id="nik" name="nik" type="nik" class="form-control{{ $errors->has('nik') ? ' is-invalid' : '' }}" name="nik" placeholder="Registered nik address" tabindex="1" value="{{ old('nik') }}">
         <div class="invalid-feedback">
           {{ $errors->first('nik') }}
         </div>
         @if(App::environment('demo'))
-        <small id="emailHelpBlock" class="form-text text-muted">
+        <small id="nikHelpBlock" class="form-text text-muted">
           Demo nik: admin@example.com
         </small>
         @endif
@@ -58,6 +61,6 @@
   </div>
 </div>
 <div class="mt-5 text-muted text-center">
-  Don't have an account? <a href=" ">Create One</a>
+  Don't have an account? <a href="/admin">Create One</a>
 </div>
 @endsection
