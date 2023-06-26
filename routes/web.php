@@ -31,6 +31,7 @@ Route::post('/role/add', [App\Http\Controllers\RoleController::class, 'storeRole
 Route::get('/role/deleteRole/{id}', [App\Http\Controllers\RoleController::class, 'deleteRole'])->name('admin.deleteRole');
 Route::post('/Role/update/{id}', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('admin.updateRole');
 
+
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => 'auth:account'], function () {
 
