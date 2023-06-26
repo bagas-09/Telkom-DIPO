@@ -55,6 +55,38 @@ Dashboard
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add City</button>
                     </div>
                   </div>
+
+                  <!-- TAMBAH CITY -->
+                  <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal" data-backdrop="static">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Tambah Kota</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeCity1">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form id="cityForm" action="{{route('admin.storeCity')}}" method="POST">
+                        @csrf
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label for="nama_city" class="col-form-label">Nama Kota: </label>
+                              <input type="text" id="nama_city" name="nama_city" class="form-control">
+                              <span id="nama_city_error" style="display: none; color: red;">Field Nama Kota harus diisi!</span>
+                              {{-- @if($errors->has('nama_city'))
+                                <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
+                              @endif --}}
+                            </div>
+                          </div>
+                          <div class="modal-footer bg-whitesmoke br">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCity2">Close</button>
+                            <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="card-body">
                     <table class="table">
                       <thead>
@@ -145,4 +177,10 @@ Dashboard
         </section>
   </div>
 </section>
+<style>
+  .is-invalid {
+    border-color: red;
+    /* Atau atur properti lainnya untuk mengubah tampilan field input menjadi merah */
+  }
+</style>
 @endsection
