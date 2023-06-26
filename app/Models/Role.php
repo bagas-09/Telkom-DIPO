@@ -9,11 +9,14 @@ class Role extends Model
 {
     use HasFactory;
     protected $table = "role";
-    // protected $primaryKey = "nama_role";
     protected $primaryKey = "id";
     public $timestamps = false;
-    // protected $fillable = "nama_role";
     protected $fillable = [
         'nama_role'
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class, 'id_nama_kota');
+    }
 }

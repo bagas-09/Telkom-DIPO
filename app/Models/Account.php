@@ -24,4 +24,8 @@ class Account extends Authenticatable
     {
         return $this->belongsTo(City::class, 'id_nama_kota');
     }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_nama_kota');
+    }
 }
