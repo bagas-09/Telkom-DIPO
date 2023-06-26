@@ -1,6 +1,6 @@
-{{-- MODAL CITY --}}  
+<!-- MODAL CITY  -->
 
-{{-- TAMBAH CITY --}}
+<!-- TAMBAH CITY -->
 <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal" data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -30,6 +30,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <style>
   .is-invalid {
@@ -70,4 +73,36 @@
   });
 </script>
 
-{{-- UBAH CITY --}}
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm() {
+    var inputField = document.getElementById('nama_role');
+    var errorMessage = document.getElementById('nama_role_error');
+    
+    inputField.value = ''; // Menghapus nilai di field input
+    inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
+    errorMessage.style.display = 'none'; // Menyembunyikan pesan error
+  }
+
+  // Event listener untuk menutup modal
+  $('#addRole').on('hidden.bs.modal', function (e) {
+    resetForm(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('roleForm').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_role');
+    var errorMessage = document.getElementById('nama_role_error');
+
+    if (inputField.value.trim() === '') {
+      event.preventDefault(); // Mencegah pengiriman form
+      inputField.classList.add('is-invalid'); // Menambahkan kelas CSS 'is-invalid'
+      errorMessage.style.display = 'block'; // Menampilkan pesan error
+    } else {
+      inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
+      errorMessage.style.display = 'none'; // Menyembunyikan pesan error
+    }
+  });
+</script>
+
+<!-- UBAH CITY  -->
