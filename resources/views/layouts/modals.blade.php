@@ -1,7 +1,7 @@
 {{-- VALIDASI ADD CITY --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm() {
+  function resetForm1() {
     var inputField = document.getElementById('nama_city');
     var errorMessage = document.getElementById('nama_city_error');
     
@@ -12,7 +12,7 @@
 
   // Event listener untuk menutup modal
   $('#exampleModal').on('hidden.bs.modal', function (e) {
-    resetForm(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm1(); // Memanggil fungsi resetForm saat modal ditutup
   });
 
   // Event listener saat form dikirim
@@ -34,7 +34,7 @@
 {{-- VALIDASI ADD ROLE --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm() {
+  function resetForm2() {
     var inputField = document.getElementById('nama_role');
     var errorMessage = document.getElementById('nama_role_error');
     
@@ -45,7 +45,7 @@
 
   // Event listener untuk menutup modal
   $('#addRole').on('hidden.bs.modal', function (e) {
-    resetForm(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm2(); // Memanggil fungsi resetForm saat modal ditutup
   });
 
   // Event listener saat form dikirim
@@ -67,7 +67,7 @@
 {{-- VALIDASI ADD STATUS --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm() {
+  function resetForm3() {
     var inputField = document.getElementById('nama_status');
     var errorMessage = document.getElementById('nama_status_error');
     
@@ -78,7 +78,7 @@
 
   // Event listener untuk menutup modal
   $('#addStatus').on('hidden.bs.modal', function (e) {
-    resetForm(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
   });
 
   // Event listener saat form dikirim
