@@ -15,12 +15,12 @@ class AccountAccess
      */
     public function handle(Request $request, Closure $next, $accountRole): Response
     {
-        if (auth()->guest()) {
-            abort(403);
-        }
-        if (auth()->user()->role !== $accountRole) {
-            abort(403);
-        }
+        // if (auth()->guest()) {
+        //     abort(403);
+        // }
+        // if (auth()->user()->role !== $accountRole) {
+        //     abort(403);
+        // }
         return $next($request);
     }
 }

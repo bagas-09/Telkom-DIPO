@@ -39,12 +39,12 @@ Route::post('/status/update/{id}', [App\Http\Controllers\StatusController::class
 
 
 Route::group(['middleware' => 'revalidate'], function () {
-    Route::group(['middleware' => 'auth:account', 'account-access:1'], function () {
+    Route::group(['middleware' => ['auth:account', 'account-access:1']], function () {
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
     });
 
-    Route::group(['middleware' => 'auth:account', 'account-access:2'], function () {
+    Route::group(['middleware' => ['auth:account', 'account-access:2']], function () {
 
         // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
         Route::get('/role', [App\Http\Controllers\RoleController::class, 'index'])->name('admin.dashboard.role');
