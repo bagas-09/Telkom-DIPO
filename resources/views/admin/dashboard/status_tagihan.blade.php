@@ -52,12 +52,12 @@ Dashboard
                       <h4>Simple</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStatus">Add Status</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStatusTagihan">Add Status</button>
                     </div>
                   </div>
 
-                    <!-- TAMBAH ROLE -->
-                    <div class="modal fade" tabindex="-1" role="dialog" id="addStatus" data-backdrop="static">
+                    <!-- TAMBAH STATUS TAGIHAN -->
+                    <div class="modal fade" tabindex="-1" role="dialog" id="addStatusTagihan" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -66,13 +66,16 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="Statusform" action="{{ route('admin.storestatustagihan') }}" method="POST">
+                        <form id="StatusTagihanform" action="{{ route('admin.storestatustagihan') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_status_tagihan" class="col-form-label">Nama Status Tagihan: </label>
                                 <input type="text" id="nama_status_tagihan" name="nama_status_tagihan" class="form-control">
                                 <span id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
+                                {{-- @if($errors->has('nama_status_tagihan'))
+                                <span class="invalid-feedback">{{ $errors->first('nama_status_tagihan') }}</span>
+                                @endif --}}
                             </div>
                             </div>
                             <div class="modal-footer bg-whitesmoke br">
@@ -153,10 +156,10 @@ Dashboard
                                       <div class="form-group">
                                         <label for="nama_update_Status" class="col-form-label">Nama Status Tagihan: </label>
                                         <input type="text" id="nama_update_Status" name="nama_status_tagihan" class="form-control required-input" value="{{ $admins->nama_status_tagihan }}" required>
-                                        <!-- <span id="nama_role_error" class="error-message">Field Nama Kota harus diisi!</span>
-                                        @if($errors->has('nama_role'))
-                                          <span class="invalid-feedback">{{ $errors->first('nama_role') }}</span>
-                                        @endif -->
+                                        <span id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
+                                        {{-- @if($errors->has('nama_status_tagihan'))
+                                          <span class="invalid-feedback">{{ $errors->first('nama_status_tagihan') }}</span>
+                                        @endif --}}
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">
