@@ -37,6 +37,10 @@ Route::post('/status/add', [App\Http\Controllers\StatusController::class, 'store
 Route::get('/status/deleteStatus/{id}', [App\Http\Controllers\StatusController::class, 'deleteStatus'])->name('admin.deleteStatus');
 Route::post('/status/update/{id}', [App\Http\Controllers\StatusController::class, 'updateStatus'])->name('admin.updateStatus');
 
+Route::get('/jenis-order', [App\Http\Controllers\JenisOrderController::class, 'index'])->name('admin.dashboard.jenisOrder');
+Route::post('/jenis-order/add', [App\Http\Controllers\JenisOrderController::class, 'storeJenisOrder'])->name('admin.storeJenisOrder');
+Route::get('/jenis-order/deleteJenisOrder/{id}', [App\Http\Controllers\JenisOrderController::class, 'deleteJenisOrder'])->name('admin.deleteJenisOrder');
+Route::post('/jenis-order/update/{id}', [App\Http\Controllers\JenisOrderController::class, 'updateJenisOrder'])->name('admin.updateJenisOrder');
 
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => 'auth:account'], function () {
