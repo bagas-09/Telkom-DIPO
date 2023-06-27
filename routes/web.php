@@ -42,6 +42,11 @@ Route::post('/jenisprogram/add', [App\Http\Controllers\JenisProgramController::c
 Route::get('/jenisprogram/deleteJenis/{id}', [App\Http\Controllers\JenisProgramController::class, 'deleteJenis'])->name('admin.deleteJenis');
 Route::post('/jenisprogram/update/{id}', [App\Http\Controllers\JenisProgramController::class, 'updateJenis'])->name('admin.updateJenis');
 
+Route::get('/statustagihan', [App\Http\Controllers\StatusTagihanController::class, 'index'])->name('admin.dashboard.statustagihan');
+Route::post('/statustagihan/add', [App\Http\Controllers\StatusTagihanController::class, 'storeStatus'])->name('admin.storestatustagihan');
+Route::get('/statustagihan/deleteJenis/{id}', [App\Http\Controllers\StatusTagihanController::class, 'deleteStatus'])->name('admin.deletestatustagihan');
+Route::post('/statustagihan/update/{id}', [App\Http\Controllers\StatusTagihanController::class, 'updateStatus'])->name('admin.updatestatustagihan');
+
 Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => 'auth:account'], function () {
 
