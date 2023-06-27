@@ -27,7 +27,7 @@ Route::get('/city/deleteCity/{id}', [App\Http\Controllers\CityController::class,
 Route::post('/city/update/{id}', [App\Http\Controllers\CityController::class, 'updateCity'])->name('admin.updateCity');
 
 
-Route::get('/role', [App\Http\Controllers\RoleController::class, 'index'])->name('admin.dashboard.role');
+//Route::get('/role', [App\Http\Controllers\RoleController::class, 'index'])->name('admin.dashboard.role');
 Route::post('/role/add', [App\Http\Controllers\RoleController::class, 'storeRole'])->name('admin.storeRole');
 Route::get('/role/deleteRole/{id}', [App\Http\Controllers\RoleController::class, 'deleteRole'])->name('admin.deleteRole');
 Route::post('/Role/update/{id}', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('admin.updateRole');
@@ -43,9 +43,15 @@ Route::get('/jenis-order/deleteJenisOrder/{id}', [App\Http\Controllers\JenisOrde
 Route::post('/jenis-order/update/{id}', [App\Http\Controllers\JenisOrderController::class, 'updateJenisOrder'])->name('admin.updateJenisOrder');
 
 Route::group(['middleware' => 'revalidate'], function () {
-    Route::group(['middleware' => 'auth:account'], function () {
+    Route::group(['middleware' => ['auth:account', 'account-access:1']], function () {
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
+    });
+
+    Route::group(['middleware' => ['auth:account', 'account-access:2']], function () {
+
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
+        Route::get('/role', [App\Http\Controllers\RoleController::class, 'index'])->name('admin.dashboard.role');
     });
     // Login untuk trader
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
