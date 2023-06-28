@@ -103,6 +103,13 @@
   function resetForm3() {
     var inputField = document.getElementById('nama_jenis_program');
     var errorMessage = document.getElementById('nama_jenis_program_error');
+
+VALIDASI ADD JENIS ORDER
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm4() {
+    var inputField = document.getElementById('nama_jenis_order');
+    var errorMessage = document.getElementById('nama_jenis_order_error');
     
     inputField.value = ''; // Menghapus nilai di field input
     inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
@@ -110,6 +117,7 @@
   }
 
   // Event listener untuk menutup modal
+CRUD-JenisProgram
   $('#addJenisProgram').on('hidden.bs.modal', function (e) {
     resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
   });
@@ -118,6 +126,15 @@
   document.getElementById('jenisform').addEventListener('submit', function(event) {
     var inputField = document.getElementById('nama_jenis_program');
     var errorMessage = document.getElementById('nama_jenis_program_error');
+
+  $('#addJenisOrder').on('hidden.bs.modal', function (e) {
+    resetForm4(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('jenisOrderForm').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_jenis_order');
+    var errorMessage = document.getElementById('nama_jenis_order_error');
 
     if (inputField.value.trim() === '') {
       event.preventDefault(); // Mencegah pengiriman form
