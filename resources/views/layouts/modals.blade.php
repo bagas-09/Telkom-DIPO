@@ -97,6 +97,7 @@
   });
 </script>
 
+
 {{-- VALIDASI ADD STATUS TAGIHAN--}}
 <script>
   // Fungsi untuk mereset field dan pesan error
@@ -104,20 +105,55 @@
     var inputField = document.getElementById('nama_status_tagihan');
     var errorMessage = document.getElementById('nama_status_tagihan_error_error');
     
+    
+    
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm3() {
+    var inputField = document.getElementById('nama_jenis_program');
+    var errorMessage = document.getElementById('nama_jenis_program_error');
+    
+    
+    
+
+
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm4() {
+    var inputField = document.getElementById('nama_jenis_order');
+    var errorMessage = document.getElementById('nama_jenis_order_error');
+    
     inputField.value = ''; // Menghapus nilai di field input
     inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
     errorMessage.style.display = 'none'; // Menyembunyikan pesan error
   }
 
   // Event listener untuk menutup modal
+
   $('#addStatusTagihan').on('hidden.bs.modal', function (e) {
+    document.getElementById('StatusTagihanform').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_status_tagihan');
+    var errorMessage = document.getElementById('nama_status_tagihan_error');
+
+
+  $('#addJenisProgram').on('hidden.bs.modal', function (e) {
+    document.getElementById('jenisform').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_jenis_program');
+    var errorMessage = document.getElementById('nama_jenis_program_error');
+
+  $('#addJenisOrder').on('hidden.bs.modal', function (e) {
+    resetForm4(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('jenisOrderForm').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_jenis_order');
+    var errorMessage = document.getElementById('nama_jenis_order_error');
+
     resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
   });
 
   // Event listener saat form dikirim
-  document.getElementById('StatusTagihanform').addEventListener('submit', function(event) {
-    var inputField = document.getElementById('nama_status_tagihan');
-    var errorMessage = document.getElementById('nama_status_tagihan_error');
 
     if (inputField.value.trim() === '') {
       event.preventDefault(); // Mencegah pengiriman form
