@@ -14,7 +14,7 @@ class Account extends Authenticatable
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'name', 'nik', 'password', 'keterangan', 'role', 'id_nama_kota'
+        'nama', 'nik', 'password', 'keterangan', 'role', 'id_nama_kota'
     ];
     protected $hidden = [
         'password',
@@ -26,6 +26,6 @@ class Account extends Authenticatable
     }
     public function role()
     {
-        return $this->belongsTo(Role::class, 'id_nama_kota');
+        return $this->belongsTo(Role::class, 'role');
     }
 }

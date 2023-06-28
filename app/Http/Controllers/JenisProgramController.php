@@ -15,6 +15,7 @@ class JenisProgramController extends Controller
         return view('admin.dashboard.jenis_program', [
             "title" => "Jenis Program",
             "type" => JenisProgram::all(),
+            // dd(["type" => JenisProgram::all()]),
         ]);
     }
 

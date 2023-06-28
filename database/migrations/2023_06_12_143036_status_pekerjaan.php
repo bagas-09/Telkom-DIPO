@@ -19,9 +19,8 @@ class StatusPekerjaan extends Migration
             Schema::create('status_pekerjaan', function (Blueprint $table) {
                 $table->id();
                 $table->string('nama_status_pekerjaan');
-                // $table->string('role');
-                $table->unsignedBigInteger('role');
-                $table->foreign('role')->references('id')->on('role');
+                $table->string('role');
+                $table->foreign('role')->references('nama_role')->on('role');
             });
         }
     }

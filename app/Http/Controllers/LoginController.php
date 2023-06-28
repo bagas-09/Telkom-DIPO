@@ -28,18 +28,18 @@ class LoginController extends Controller
         if(Auth::guard('account')->attempt($credentials)){
             $request->session()->regenerate();
             $account = Auth::guard('account')->user();
-            if($account->role == 1){
+            if($account->role == "Commerce"){
                 return redirect()->intended(route('admin.dashboard.index'));
-            }else if($account->role == 2){
-                return redirect()->intended(route('admin.dashboard.role'));
-            }else if($account->role == 3){
-                return redirect()->intended(route('admin.dashboard.role'));
-            }else if($account->role == 4){
-                return redirect()->intended(route('admin.dashboard.role'));
-            }else if($account->role == 5){
-                return redirect()->intended(route('admin.dashboard.role'));
-            }else if($account->role == 6){
-                return redirect()->intended(route('admin.dashboard.role'));
+            }else if($account->role == 'Maintenance'){
+                return redirect()->intended(route('admin.dashboard.jenisOrder'));
+            }else if($account->role == 'Konstruksi'){
+                return redirect()->intended(route('admin.dashboard.index'));
+            }else if($account->role == 'GM'){
+                return redirect()->intended(route('admin.dashboard.index'));
+            }else if($account->role == 'Admin'){
+                return redirect()->intended(route('admin.dashboard.index'));
+            }else if($account->role == 'Procurement'){
+                return redirect()->intended(route('admin.dashboard.index'));
             }else{
                 return redirect()->back()->with('error', 'NIK atau Password Salah');
             }

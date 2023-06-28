@@ -9,14 +9,14 @@ class Role extends Model
 {
     use HasFactory;
     protected $table = "role";
-    protected $primaryKey = "id";
+    protected $primaryKey = "nama_role";
     public $timestamps = false;
     protected $fillable = [
         'nama_role'
     ];
-
+    public $incrementing = false;
     public function accounts()
     {
-        return $this->hasMany(Account::class, 'id_nama_kota');
+        return $this->hasMany(Account::class, 'role');
     }
 }
