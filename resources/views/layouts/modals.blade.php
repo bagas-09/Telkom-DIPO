@@ -97,6 +97,13 @@
   });
 </script>
 
+{{-- VALIDASI ADD JENIS PROGRAM --}}
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm3() {
+    var inputField = document.getElementById('nama_jenis_program');
+    var errorMessage = document.getElementById('nama_jenis_program_error');
+
 VALIDASI ADD JENIS ORDER
 <script>
   // Fungsi untuk mereset field dan pesan error
@@ -110,6 +117,16 @@ VALIDASI ADD JENIS ORDER
   }
 
   // Event listener untuk menutup modal
+CRUD-JenisProgram
+  $('#addJenisProgram').on('hidden.bs.modal', function (e) {
+    resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('jenisform').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_jenis_program');
+    var errorMessage = document.getElementById('nama_jenis_program_error');
+
   $('#addJenisOrder').on('hidden.bs.modal', function (e) {
     resetForm4(); // Memanggil fungsi resetForm saat modal ditutup
   });
