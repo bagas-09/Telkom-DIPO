@@ -149,9 +149,9 @@ Dashboard
                                       <div class="form-group">
                                         <label for="nama_update_jenis_order" class="col-form-label">Nama Jenis Order: </label>
                                         <input type="text" id="nama_update_jenis_order" name="nama_jenis_order" class="form-control required-input" value="{{ $admins->nama_jenis_order }}" required>
-                                        {{-- <span id="nama_city_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
-                                        {{-- @if($errors->has('nama_city'))
-                                          <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
+                                        {{-- <span id="nama_jenis_order_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
+                                        {{-- @if($errors->has('nama_jenis_order'))
+                                          <span class="invalid-feedback">{{ $errors->first('nama_jenis_order') }}</span>
                                         @endif --}}
                                       </div>
                                     </div>
