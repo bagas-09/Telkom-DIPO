@@ -24,18 +24,18 @@ class RedirectIfAuthenticated
         switch ($guard) {
             case "account":
                 if ($account) {
-                    if($account->role == 1){
+                    if($account->role == 'Commerce'){
                         return redirect()->route('admin.dashboard.index');
-                    }else if($account->role == 2){
-                        return redirect()->route('admin.dashboard.role');
-                    }else if($account->role == 3){
-                        return redirect()->route('admin.dashboard.role');
-                    }else if($account->role == 4){
-                        return redirect()->route('admin.dashboard.role');
-                    }else if($account->role == 5){
-                        return redirect()->route('admin.dashboard.role');
-                    }else if($account->role == 6){
-                        return redirect()->route('admin.dashboard.role');
+                    }else if($account->role == 'Maintenance'){
+                        return redirect()->route('admin.dashboard.jenisOrder');
+                    }else if($account->role == 'Konstruksi'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'GM'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'Admin'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'Procurement'){
+                        return redirect()->route('admin.dashboard.index');
                     }
                 }
                 break;

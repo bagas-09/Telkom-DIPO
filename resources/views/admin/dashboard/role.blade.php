@@ -101,18 +101,18 @@ Dashboard
                         @foreach ($role as $admins)
                         <tr>
                           <th scope="row">{{$i++}}</th>
-                          <td>{{ $admins ->nama_role}}</td>
+                          <td>{{$admins->nama_role}}</td>
                           <td>
 
                           <!-- MODAL DELETE -->
                           <a class="btn btn-sm btn-danger" 
                             data-toggle="modal" 
-                            data-target="#deleteRoleModal{{$admins->id}}"
+                            data-target="#deleteRoleModal"
                             style="color: white"
                             data-toggle="modal" 
                             
                             >Delete</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteRoleModal{{ $admins->id }}" data-backdrop="static">
+                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteRoleModal{{ $admins->nama_role }}" data-backdrop="static">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -127,7 +127,7 @@ Dashboard
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeRole2">Cancel</button>
-                                        <a class="btn btn-danger" href="{{ route('admin.deleteRole', [$admins->id]) }}" value="Delete">Delete</a>
+                                        <a class="btn btn-danger" href="{{ route('admin.deleteRole', [$admins->nama_role]) }}" value="Delete">Delete</a>
                                       </div>
                                   </div>
                                 </div>
@@ -135,11 +135,11 @@ Dashboard
 
                             <!-- MODAL UPDATE -->
                             <a class="btn btn-sm btn-warning" data-toggle="modal" 
-                            data-target="#editRoleModal-{{$admins->id}}"
+                            data-target="#editRoleModal-{{$admins->nama_role}}"
                             
                             style="color: white" 
                             >Edit</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="editRoleModal-{{$admins->id}}" data-backdrop="static">
+                            <div class="modal fade" tabindex="-1" role="dialog" id="editRoleModal-{{$admins->nama_role}}" data-backdrop="static">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -149,7 +149,7 @@ Dashboard
                                     </button>
                                   </div>
                                   <form id="RoleUpdateForm" class="form-validation" 
-                                  action="{{route('admin.updateRole', [$admins->id])}}" 
+                                  action="{{route('admin.updateRole', [$admins->nama_role])}}" 
                                   method="POST">
                                   @csrf
                                     <div class="modal-body">

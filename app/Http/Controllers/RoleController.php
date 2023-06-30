@@ -15,7 +15,8 @@ class RoleController extends Controller
         $role = array();
         return view('admin.dashboard.role', [
             "title" => "Role",
-            "role" => Role::all(),
+            "role" => Role::all()
+            // dd(["role" => Role::all()]),
         ]);
     }
     public function storeRole(Request $request)

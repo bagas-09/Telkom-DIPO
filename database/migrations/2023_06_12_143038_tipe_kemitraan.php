@@ -19,8 +19,8 @@ class TipeKemitraan extends Migration
             Schema::create('tipe_kemitraan', function (Blueprint $table) {
                 $table->id();
                 $table->string('nama_tipe_kemitraan');
-                $table->unsignedBigInteger('role');
-                $table->foreign('role')->references('id')->on('role');
+                $table->string('role');
+                $table->foreign('role')->references('nama_role')->on('role');
             });
         }
     }
