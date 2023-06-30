@@ -101,7 +101,7 @@
 {{-- VALIDASI ADD JENIS PROGRAM --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm3() {
+  function resetForm4() {
     var inputField = document.getElementById('nama_jenis_program');
     var errorMessage = document.getElementById('nama_jenis_program_error');
     
@@ -111,7 +111,7 @@
   }
   // Event listener untuk menutup modal
   $('#addJenisProgram').on('hidden.bs.modal', function (e) {
-    resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm4(); // Memanggil fungsi resetForm saat modal ditutup
   });
   // Event listener saat form dikirim
   document.getElementById('jenisform').addEventListener('submit', function(event) {
@@ -132,7 +132,7 @@
 {{-- VALIDASI ADD STATUS TAGIHAN--}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm4() {
+  function resetForm5() {
     var inputField = document.getElementById('nama_status_tagihan');
     var errorMessage = document.getElementById('nama_status_tagihan_error_error');
     
@@ -142,7 +142,7 @@
   }
   // Event listener untuk menutup modal
   $('#addStatusTagihan').on('hidden.bs.modal', function (e) {
-    resetForm3(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm5(); // Memanggil fungsi resetForm saat modal ditutup
   });
   // Event listener saat form dikirim
   document.getElementById('StatusTagihanform').addEventListener('submit', function(event) {
@@ -162,7 +162,7 @@
 {{-- VALIDASI ADD JENIS ORDER --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
-  function resetForm4() {
+  function resetForm6() {
     var inputField = document.getElementById('nama_jenis_order');
     var errorMessage = document.getElementById('nama_jenis_order_error');
     
@@ -172,7 +172,7 @@
   }
   // Event listener untuk menutup modal
   $('#addJenisOrder').on('hidden.bs.modal', function (e) {
-    resetForm4(); // Memanggil fungsi resetForm saat modal ditutup
+    resetForm6(); // Memanggil fungsi resetForm saat modal ditutup
   });
   // Event listener saat form dikirim
   document.getElementById('jenisOrderForm').addEventListener('submit', function(event) {
@@ -187,4 +187,54 @@
       errorMessage.style.display = 'none'; // Menyembunyikan pesan error
     }
   });
+</script>
+
+{{-- VALIDASI ADD STATUS PEKERJAAN --}}
+<script>
+  // Fungsi untuk mereset field dan pesan error
+// Fungsi untuk mereset field dan pesan error
+function resetForm7() {
+  var inputField = document.getElementsByClassName('nama_status_pekerjaan');
+  var roleSelect = document.getElementsByClassName('role_status_pekerjaan');
+  var namaError = document.getElementsByClassName('nama_status_pekerjaan_error');
+  var roleError = document.getElementsByClassName('role_status_pekerjaan_error');
+
+  inputField[0].value = '';
+  roleSelect[0].value = ''; // Menyeting nilai kolom select menjadi kosong
+  inputField[0].classList.remove('is-invalid');
+  roleSelect[0].classList.remove('is-invalid');
+  namaError[0].style.display = 'none';
+  roleError[0].style.display = 'none';
+}
+
+// Event listener untuk menutup modal
+$('#addStatusPekerjaan').on('hidden.bs.modal', function (e) {
+  resetForm7(); // Memanggil fungsi resetForm saat modal ditutup
+});
+
+// Event listener saat form dikirim
+document.getElementById('statusPekerjaanForm').addEventListener('submit', function(event) {
+  var inputField = document.getElementsByClassName('nama_status_pekerjaan');
+  var roleSelect = document.getElementsByClassName('role_status_pekerjaan');
+  var namaError = document.getElementsByClassName('nama_status_pekerjaan_error');
+  var roleError = document.getElementsByClassName('role_status_pekerjaan_error');
+
+  if (inputField[0].value.trim() === '') {
+    event.preventDefault();
+    inputField[0].classList.add('is-invalid');
+    namaError[0].style.display = 'block';
+  } else {
+    inputField[0].classList.remove('is-invalid');
+    namaError[0].style.display = 'none';
+  }
+
+  if (roleSelect[0].value === '') {
+    event.preventDefault();
+    roleSelect[0].classList.add('is-invalid');
+    roleError[0].style.display = 'block';
+  } else {
+    roleSelect[0].classList.remove('is-invalid');
+    roleError[0].style.display = 'none';
+  }
+});
 </script>
