@@ -238,3 +238,53 @@ document.getElementById('statusPekerjaanForm').addEventListener('submit', functi
   }
 });
 </script>
+
+{{-- VALIDASI ADD STATUS PEKERJAAN --}}
+<script>
+  // Fungsi untuk mereset field dan pesan error
+// Fungsi untuk mereset field dan pesan error
+function resetForm8() {
+  var inputField = document.getElementsByClassName('nama_tipe_kemitraan');
+  var roleSelect = document.getElementsByClassName('role_tipe_kemitraan');
+  var namaError = document.getElementsByClassName('nama_tipe_kemitraan_error');
+  var roleError = document.getElementsByClassName('role_tipe_kemitraan_error');
+
+  inputField[0].value = '';
+  roleSelect[0].value = ''; // Menyeting nilai kolom select menjadi kosong
+  inputField[0].classList.remove('is-invalid');
+  roleSelect[0].classList.remove('is-invalid');
+  namaError[0].style.display = 'none';
+  roleError[0].style.display = 'none';
+}
+
+// Event listener untuk menutup modal
+$('#addTipeKemitraan').on('hidden.bs.modal', function (e) {
+  resetForm8(); // Memanggil fungsi resetForm saat modal ditutup
+});
+
+// Event listener saat form dikirim
+document.getElementById('tipeKemitraanForm').addEventListener('submit', function(event) {
+  var inputField = document.getElementsByClassName('nama_tipe_kemitraan');
+  var roleSelect = document.getElementsByClassName('role_tipe_kemitraan');
+  var namaError = document.getElementsByClassName('nama_tipe_kemitraan_error');
+  var roleError = document.getElementsByClassName('role_tipe_kemitraan_error');
+
+  if (inputField[0].value.trim() === '') {
+    event.preventDefault();
+    inputField[0].classList.add('is-invalid');
+    namaError[0].style.display = 'block';
+  } else {
+    inputField[0].classList.remove('is-invalid');
+    namaError[0].style.display = 'none';
+  }
+
+  if (roleSelect[0].value === '') {
+    event.preventDefault();
+    roleSelect[0].classList.add('is-invalid');
+    roleError[0].style.display = 'block';
+  } else {
+    roleSelect[0].classList.remove('is-invalid');
+    roleError[0].style.display = 'none';
+  }
+});
+</script>
