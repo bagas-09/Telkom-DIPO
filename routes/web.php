@@ -72,6 +72,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/statuspekerjaan/add', [App\Http\Controllers\StatusPekerjaanController::class, 'storeStatusPekerjaan'])->name('admin.storeStatusPekerjaan');
         Route::get('/statuspekerjaan/deleteJenis/{id}', [App\Http\Controllers\StatusPekerjaanController::class, 'deleteStatusPekerjaan'])->name('admin.deleteStatusPekerjaan');
         Route::post('/statuspekerjaan/update/{id}', [App\Http\Controllers\StatusPekerjaanController::class, 'updateStatusPekerjaan'])->name('admin.updateStatusPekerjaan');
+
+        Route::get('/tipekemitraan', [App\Http\Controllers\TipeKemitraanController::class, 'index'])->name('admin.dashboard.tipe_kemitraan');
+        Route::post('/tipekemitraan/add', [App\Http\Controllers\TipeKemitraanController::class, 'storeTipeKemitraan'])->name('admin.storeTipeKemitraan');
+        Route::get('/tipekemitraan/deleteJenis/{id}', [App\Http\Controllers\TipeKemitraanController::class, 'deleteTipeKemitraan'])->name('admin.deleteTipeKemitraan');
+        Route::post('/tipekemitraan/update/{id}', [App\Http\Controllers\TipeKemitraanController::class, 'updateTipeKemitraan'])->name('admin.updateTipeKemitraan');
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
