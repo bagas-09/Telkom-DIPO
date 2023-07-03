@@ -9,6 +9,8 @@ class HomeController extends Controller
     //
     public function index(Request $request)
     {
-        return view('admin.dashboard.index');
+        return view('admin.dashboard.index', [
+            "title" => "Dashboard",
+        ]);
     }
 }

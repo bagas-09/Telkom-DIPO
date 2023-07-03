@@ -29,7 +29,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $account = Auth::guard('account')->user();
             if($account->role == "Commerce"){
-                return redirect()->intended(route('admin.dashboard.index'));
+                return redirect()->intended(route('commerce.dashboard.index'));
             }else if($account->role == 'Maintenance'){
                 return redirect()->intended(route('admin.dashboard.jenisOrder'));
             }else if($account->role == 'Konstruksi'){
