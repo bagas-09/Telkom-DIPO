@@ -288,3 +288,35 @@ document.getElementById('tipeKemitraanForm').addEventListener('submit', function
   }
 });
 </script>
+
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm9() {
+    var inputField = document.getElementById('nama_tipe_provisioning');
+    var errorMessage = document.getElementById('nama_tipe_provisioning_error');
+    
+    inputField.value = ''; // Menghapus nilai di field input
+    inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
+    errorMessage.style.display = 'none'; // Menyembunyikan pesan error
+  }
+
+  // Event listener untuk menutup modal
+  $('#addTipeProvisioning').on('hidden.bs.modal', function (e) {
+    resetForm9(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('tipeProvisioningForm').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_tipe_provisioning');
+    var errorMessage = document.getElementById('nama_tipe_provisioning_error');
+
+    if (inputField.value.trim() === '') {
+      event.preventDefault(); // Mencegah pengiriman form
+      inputField.classList.add('is-invalid'); // Menambahkan kelas CSS 'is-invalid'
+      errorMessage.style.display = 'block'; // Menampilkan pesan error
+    } else {
+      inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
+      errorMessage.style.display = 'none'; // Menyembunyikan pesan error
+    }
+  });
+</script>

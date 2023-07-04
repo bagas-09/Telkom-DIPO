@@ -77,6 +77,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/tipekemitraan/add', [App\Http\Controllers\TipeKemitraanController::class, 'storeTipeKemitraan'])->name('admin.storeTipeKemitraan');
         Route::get('/tipekemitraan/deleteJenis/{id}', [App\Http\Controllers\TipeKemitraanController::class, 'deleteTipeKemitraan'])->name('admin.deleteTipeKemitraan');
         Route::post('/tipekemitraan/update/{id}', [App\Http\Controllers\TipeKemitraanController::class, 'updateTipeKemitraan'])->name('admin.updateTipeKemitraan');
+
+        Route::get('/tipeprovisioning', [App\Http\Controllers\TipeProvisioningController::class, 'index'])->name('admin.dashboard.tipe_provisioning');
+        Route::post('/tipeprovisioning/add', [App\Http\Controllers\TipeProvisioningController::class, 'storeTipeProvisioning'])->name('admin.storeTipeProvisioning');
+        Route::get('/tipeprovisioning/deleteJenis/{id}', [App\Http\Controllers\TipeProvisioningController::class, 'deleteTipeProvisioning'])->name('admin.deleteTipeProvisioning');
+        Route::post('/tipeprovisioning/update/{id}', [App\Http\Controllers\TipeProvisioningController::class, 'updateTipeProvisioning'])->name('admin.updateTipeProvisioning');
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
