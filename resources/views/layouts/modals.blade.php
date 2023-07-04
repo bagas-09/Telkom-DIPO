@@ -320,3 +320,50 @@ document.getElementById('tipeKemitraanForm').addEventListener('submit', function
     }
   });
 </script>
+
+<script>
+function resetForm10() {
+  var inputField = document.getElementsByClassName('nama_mitra');
+  var roleSelect = document.getElementsByClassName('role_mitra');
+  var namaError = document.getElementsByClassName('nama_mitra_error');
+  var roleError = document.getElementsByClassName('role_mitra_error');
+
+  inputField[0].value = '';
+  roleSelect[0].value = ''; // Menyeting nilai kolom select menjadi kosong
+  inputField[0].classList.remove('is-invalid');
+  roleSelect[0].classList.remove('is-invalid');
+  namaError[0].style.display = 'none';
+  roleError[0].style.display = 'none';
+}
+
+// Event listener untuk menutup modal
+$('#addMitra').on('hidden.bs.modal', function (e) {
+  resetForm10(); // Memanggil fungsi resetForm saat modal ditutup
+});
+
+// Event listener saat form dikirim
+document.getElementById('mitraForm').addEventListener('submit', function(event) {
+  var inputField = document.getElementsByClassName('nama_mitra');
+  var roleSelect = document.getElementsByClassName('role_mitra');
+  var namaError = document.getElementsByClassName('nama_mitra_error');
+  var roleError = document.getElementsByClassName('role_mitra_error');
+
+  if (inputField[0].value.trim() === '') {
+    event.preventDefault();
+    inputField[0].classList.add('is-invalid');
+    namaError[0].style.display = 'block';
+  } else {
+    inputField[0].classList.remove('is-invalid');
+    namaError[0].style.display = 'none';
+  }
+
+  if (roleSelect[0].value === '') {
+    event.preventDefault();
+    roleSelect[0].classList.add('is-invalid');
+    roleError[0].style.display = 'block';
+  } else {
+    roleSelect[0].classList.remove('is-invalid');
+    roleError[0].style.display = 'none';
+  }
+});
+</script>
