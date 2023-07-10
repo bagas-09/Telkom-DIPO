@@ -15,9 +15,11 @@ class CitySeeder extends Seeder
     {
         $cities = [
             [
+                'id' => 1,
                 'nama_city' => 'Semarang',
             ],
             [
+                'id' => 2,
                 'nama_city' => 'Pekalongan',
             ],
         ];
