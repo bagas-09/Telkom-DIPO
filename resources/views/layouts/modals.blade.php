@@ -367,3 +367,54 @@ document.getElementById('mitraForm').addEventListener('submit', function(event) 
   }
 });
 </script>
+
+<script>
+  // Fungsi untuk mereset field dan pesan error
+  function resetForm() {
+    var inputs = document.querySelectorAll("#accountForm .form-control");
+    var errorElements = document.querySelectorAll("#accountForm .input-error");
+
+    inputs.forEach(function(input) {
+      input.value = '';
+      input.classList.remove("is-invalid");
+    });
+
+    errorElements.forEach(function(errorElement) {
+      errorElement.style.display = "none";
+    });
+  }
+
+  // Event listener untuk menutup modal
+  $('#exampleModal').on('hidden.bs.modal', function (e) {
+    resetForm(); // Memanggil fungsi resetForm saat modal ditutup
+  });
+
+  // Event listener saat form dikirim
+  document.getElementById('accountForm').addEventListener('submit', function(event) {
+    var inputs = this.querySelectorAll('.form-control');
+    var isValid = true;
+
+    inputs.forEach(function(input) {
+      if (input.value.trim() === '') {
+        isValid = false;
+        input.classList.add('is-invalid');
+        var errorElement = input.nextElementSibling;
+        if (errorElement && errorElement.classList.contains('input-error')) {
+          errorElement.style.display = 'block';
+        }
+      } else {
+        input.classList.remove('is-invalid');
+      }
+    });
+
+    if (!isValid) {
+      event.preventDefault(); // Mencegah pengiriman form
+    }
+  });
+  
+  // Event listener saat tombol close diklik
+  document.getElementById('closeAccount1').addEventListener('click', function() {
+    resetForm(); // Memanggil fungsi resetForm saat tombol close diklik
+  });
+</script>
+
