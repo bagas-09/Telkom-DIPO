@@ -17,7 +17,7 @@ class LaporanKonstruksi extends Migration
         Schema::create('laporan_konstruksi', function (Blueprint $table) {
             $table->string("PID_konstruksi")->primary();
             $table->string('ID_SAP_konstruksi');
-            $table->integer('NO_PR_konstruksi');
+            $table->string('NO_PR_konstruksi');
             $table->date('tanggal_PR');
             $table->unsignedBigInteger('status_pekerjaan_id');
             $table->foreign('status_pekerjaan_id')->references('id')->on('status_pekerjaan');

@@ -46,7 +46,7 @@ Dashboard
             <div class="row">
               <div class="col-12">
                 <div class="card">
-                  {{-- ADD TIPE KEMITRAAN--}}
+                  <!-- {{-- ADD TIPE KEMITRAAN--}} -->
                   <div class="card-header">
                     <div class="col-8">
                       <h4>Simple</h4>

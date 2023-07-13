@@ -88,11 +88,16 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/mitra/deleteJenis/{id}', [App\Http\Controllers\MitraController::class, 'deleteMitra'])->name('admin.deleteMitra');
         Route::post('/mitra/update/{id}', [App\Http\Controllers\MitraController::class, 'updateMitra'])->name('admin.updateMitra');
 
+    
+        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('admin.dashboard.laporan_maintenance');
+        Route::post('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('Maintenance.addLaporanMaintenance');
+        Route::get('/laporanmaintenance/deleteJenis/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('admin.deleteLaporanMaintenance');
+        Route::post('/laporanmaintenance/update/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('admin.updateLaporanMaintenance');
+
         Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('admin.dashboard.account');
         Route::post('/account/add', [App\Http\Controllers\AccountController::class, 'storeAccount'])->name('admin.storeAccount');
         Route::get('/account/deleteAccount/{id}', [App\Http\Controllers\AccountController::class, 'deleteAccount'])->name('admin.deleteAccount');
         Route::post('/account/update/{id}', [App\Http\Controllers\AccountController::class, 'updateAccount'])->name('admin.updateAccount');
-
         Route::get('/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('konstruksi.laporan_konstruksi');
         Route::get('/laporankonstruksi/delete/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'deleteLaporanKonstruksi'])->name('konstruksi.deleteLaporanKonstruksi');
         Route::get('/laporankonstruksi/add/', [App\Http\Controllers\LaporanKonstruksiController::class, 'addLaporanKonstruksi'])->name('konstruksi.addLaporanKonstruksi');

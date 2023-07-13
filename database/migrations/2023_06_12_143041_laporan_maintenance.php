@@ -26,6 +26,8 @@ class LaporanMaintenance extends Migration
             $table->unsignedBigInteger('tipe_kemitraan_id');
             $table->foreign('tipe_kemitraan_id')->references('id')->on('tipe_kemitraan');
             $table->unsignedBigInteger('jenis_program_id');
+            $table->unsignedBigInteger('tipe_provisioning_id');
+            $table->foreign('tipe_provisioning_id')->references('id')->on('tipe_provisioning');
             $table->foreign('jenis_program_id')->references('id')->on('jenis_program');
             $table->date('periode_pekerjaan');
             $table->string('lokasi');
