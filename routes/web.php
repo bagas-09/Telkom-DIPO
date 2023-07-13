@@ -87,6 +87,15 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/mitra/add', [App\Http\Controllers\MitraController::class, 'storeMitra'])->name('admin.storeMitra');
         Route::get('/mitra/deleteJenis/{id}', [App\Http\Controllers\MitraController::class, 'deleteMitra'])->name('admin.deleteMitra');
         Route::post('/mitra/update/{id}', [App\Http\Controllers\MitraController::class, 'updateMitra'])->name('admin.updateMitra');
+    
+        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('admin.dashboard.laporan_maintenance');
+        Route::post('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('Maintenance.addLaporanMaintenance');
+        Route::get('/laporanmaintenance/deleteJenis/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('admin.deleteLaporanMaintenance');
+        Route::post('/laporanmaintenance/update/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('admin.updateLaporanMaintenance');
+
+    
+    
+    
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
