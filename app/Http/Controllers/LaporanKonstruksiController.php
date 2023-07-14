@@ -91,8 +91,25 @@ class LaporanKonstruksiController extends Controller
             // "id" => 2,
             "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
             "role" => $request->role,
+            'PID_konstruksi' => $request->PID_konstruksi,
+            'ID_SAP_konstruksi' => $request->ID_SAP_konstruksi,
+            'NO_PR_konstruksi' => $request->NO_PR_konstruksi,
+            'tanggal_PR' => $request->tanggal_PR,
+            'status_pekerjaan_id' => $request->status_pekerjaan_id,
+            'mitra_id' => $request->mitra_id,
+            'tipe_kemitraan_id' => $request->tipe_kemitraan_id,
+            'jenis_order_id' => $request->jenis_order_id,
+            'tipe_provisioning_id' => $request->tipe_provisioning_id,
+            'lokasi' => $request->lokasi,
+            'material_DRM' => $request->material_DRM,
+            'jasa_DRM' => $request->jasa_DRM,
+            'total_DRM' => $request->total_DRM,
+            'material_aktual' => $request->material_aktual,
+            'jasa_aktual' => $request->jasa_aktual,
+            'total_aktual' => $request->total_aktual,
+            'keterangan' => $request->keterangan,
         ]);
-        return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("success", "Berhasil menambahkan Tipe Kemitraan");
+        return redirect()->intended(route('konstruksi.laporan_konstruksi'))->with("success", "Berhasil menambahkan Laporan Konstruksi");
     }
 
     public function deleteLaporanKonstruksi($id)

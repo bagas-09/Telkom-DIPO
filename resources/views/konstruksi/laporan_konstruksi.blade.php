@@ -130,7 +130,7 @@ Dashboard
                                       <div class="modal-footer bg-whitesmoke br">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
                                         <a class="btn btn-danger" 
-                                        {{-- href="{{ route('konstruksi.deleteLaporanKonstruksi', [$admins->id]) }}"  --}}
+                                        href="{{ route('konstruksi.deleteLaporanKonstruksi', [$admins->PID_konstruksi]) }}" 
                                         value="Delete">Delete</a>
                                       </div>
                                       </div>
