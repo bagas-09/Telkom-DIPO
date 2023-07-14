@@ -156,9 +156,9 @@ Dashboard
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="row justify-content-end">
+                    <div class="row justify-content-end">
                       <a class="btn btn-primary" href="{{ route("konstruksi.addLaporanKonstruksi") }}">Buat Laporan</a>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
