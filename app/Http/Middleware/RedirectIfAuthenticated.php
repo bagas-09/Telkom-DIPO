@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
             case "account":
                 if ($account) {
                     if($account->role == 'Commerce'){
-                        return redirect()->route('commerce.dashboard.index');
+                        return redirect()->route('commerce.laporan.index');
                     }else if($account->role == 'Maintenance'){
                         return redirect()->route('admin.dashboard.jenisOrder');
                     }else if($account->role == 'Konstruksi'){

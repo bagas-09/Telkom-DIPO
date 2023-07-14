@@ -31,9 +31,9 @@ class LaporanCommerce extends Migration
             $table->integer('total_aktual');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
-            $table->string('PID_konstruksi_id');
+            $table->string('PID_konstruksi_id')->nullable();
             $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');
-            $table->string('PID_maintenance_id');
+            $table->string('PID_maintenance_id')->nullable();
             $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
             $table->string('lokasi');
         });
