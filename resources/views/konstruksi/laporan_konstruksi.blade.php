@@ -107,18 +107,18 @@ Dashboard
                           <td>
                             <a class="btn btn-sm btn-danger" 
                             style="color: white"
-                            data-toggle="modal" data-target="#deleteLaporanKonstruksiModal{{ $admins->id }}"
+                            data-toggle="modal" data-target="#deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}"
                             >Delete</a>
 
 
                             {{-- MODAL DELETE --}}
                             <div class="modal fade" tabindex="-1" role="dialog" 
-                            id="deleteLaporanKonstruksiModal{{ $admins->id }}" 
+                            id="deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}" 
                             data-backdrop="static">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Akun</h5>
+                                      <h5 class="modal-title">Hapus Laporan Konstruksi</h5>
                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanKonstruksi1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>

@@ -89,8 +89,8 @@ class LaporanKonstruksiController extends Controller
 
         LaporanKonstruksi::insert([
             // "id" => 2,
-            "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
-            "role" => $request->role,
+            // "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
+            // "role" => $request->role,
             'PID_konstruksi' => $request->PID_konstruksi,
             'ID_SAP_konstruksi' => $request->ID_SAP_konstruksi,
             'NO_PR_konstruksi' => $request->NO_PR_konstruksi,
@@ -129,7 +129,7 @@ class LaporanKonstruksiController extends Controller
 
             DB::commit();
 
-            return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("success", "Berhasil menghapus Tipe Kemitraan");
+            return redirect()->intended(route('konstruksi.laporan_konstruksi'))->with("success", "Berhasil menghapus Laporan Konstruksi");
         } catch (QueryException $e) {
             DB::rollback();
 
