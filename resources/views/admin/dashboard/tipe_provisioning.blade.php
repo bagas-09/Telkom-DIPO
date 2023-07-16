@@ -45,7 +45,7 @@ Dashboard
             <div class="row">
               <div class="col-12">
                 <div class="card">
-                  {{-- ADD TIPE PROVISIONING--}}
+                  <!-- {{-- ADD TIPE PROVISIONING--}} -->
                   <div class="card-header">
                     <div class="col-8">
                       <h4>Simple</h4>
@@ -55,7 +55,7 @@ Dashboard
                     </div>
                   </div>
 
-                {{-- MODAL TAMBAH TIPE PROVISIONING--}}
+                <!-- MODAL TAMBAH TIPE PROVISIONING -->
                 <div class="modal fade" tabindex="-1" role="dialog" id="addTipeProvisioning" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -105,14 +105,14 @@ Dashboard
                           <td>{{ $admins ->nama_tipe_provisioning}}</td>
                           <td>
 
-                            {{-- MODAL DELETE --}}
+                            <!-- {{-- MODAL DELETE --}} -->
                             <a class="btn btn-sm btn-danger" 
                             style="color: white"
                             data-toggle="modal" 
                             data-target="#deleteTipeProvisioningModal{{ $admins->id }}"
                             >Delete</a>
 
-                            {{-- MODAL DELETE --}}
+                            <!-- {{-- MODAL DELETE --}} -->
                             <div class="modal fade" tabindex="-1" role="dialog" id="deleteTipeProvisioningModal{{ $admins->id }}" data-backdrop="static">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
@@ -134,7 +134,7 @@ Dashboard
                                 </div>
                             </div>
 
-                            {{-- MODAL UPDATE --}}
+                            <!-- {{-- MODAL UPDATE --}} -->
                             <a class="btn btn-sm btn-warning" data-toggle="modal" 
                             data-target="#editTipeProvisioningModal-{{$admins->id}}" 
                             style="color: white" 
