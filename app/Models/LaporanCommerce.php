@@ -29,7 +29,8 @@ class LaporanCommerce extends Model
         'status_id',
         'PID_konstruksi_id',
         'PID_maintenance_id',
-        'lokasi'
+        'lokasi',
+        'draft'
     ];
 
 

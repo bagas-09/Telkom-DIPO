@@ -13,6 +13,21 @@
             <div class="breadcrumb-item"><a href="#">Forms</a></div>
             <div class="breadcrumb-item">Laporan Commerce</div>
         </div>
+        @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show">
+              {{ session('success') }}
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
     </div>
 
     <div class="section-body">
@@ -52,7 +67,7 @@
                                     <span id="tanggal_SP_error" style="display: none; color: red;">Field Tanggal SP harus diisi!</span>
 
                                     <label for="TOC" class="col-form-label">TOC: </label>
-                                    <input type="text" id="TOC" name="TOC" class="form-control mb-2" value="">
+                                    <input type="date" id="TOC" name="TOC" class="form-control mb-2" value="">
                                     <span id="TOC_error" style="display: none; color: red;">Field TOC harus diisi!</span>
 
                                     <label for="No_BAUT" class="col-form-label">Nomor BAUT: </label>
