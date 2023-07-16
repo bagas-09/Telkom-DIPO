@@ -108,6 +108,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('konstruksi.laporan_konstruksi');
         Route::get('/laporankonstruksi/delete/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'deleteLaporanKonstruksi'])->name('konstruksi.deleteLaporanKonstruksi');
         Route::get('/laporankonstruksi/add/', [App\Http\Controllers\LaporanKonstruksiController::class, 'addLaporanKonstruksi'])->name('konstruksi.addLaporanKonstruksi');
+        Route::post('laporankonstruksi/add/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'storeLaporanKonstruksi'])->name('konstruksi.storeLaporanKonstruksi');
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
