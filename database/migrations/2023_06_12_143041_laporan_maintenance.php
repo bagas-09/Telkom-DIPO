@@ -38,7 +38,7 @@ class LaporanMaintenance extends Migration
             $table->integer('jasa_aktual');
             $table->integer('total_aktual');
             $table->string('keterangan');
-
+            $table->integer("commerce")->nullable();
             
         });
     }
