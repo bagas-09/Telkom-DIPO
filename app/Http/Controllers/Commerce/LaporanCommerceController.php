@@ -57,6 +57,8 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+
+        DB::beginTransaction();
         LaporanCommerce::insert([
             "no_PO" => $request->no_PO,
             'tanggal_PO' => $request->tanggal_PO,
@@ -76,6 +78,10 @@ class LaporanCommerceController extends Controller
             'PID_konstruksi_id'  => $id,
             'lokasi' => $lokasiValue
         ]);
+        LaporanKonstruksi::insert([
+            "commerce" => 1
+        ]);
+        DB::commit();
         return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 

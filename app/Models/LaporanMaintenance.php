@@ -29,7 +29,8 @@ class LaporanMaintenance extends Model
         'Material Aktual',
         'Jasa Aktual',
         'Total Aktual',
-        'Keterangan'
+        'Keterangan',
+        'commerce'
     ];
 
 }

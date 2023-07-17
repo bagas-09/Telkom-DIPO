@@ -36,6 +36,7 @@ class LaporanCommerce extends Migration
             $table->string('PID_maintenance_id')->nullable();
             $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
             $table->string('lokasi');
+            $table->integer("draft")->nullable();
         });
     }
 
