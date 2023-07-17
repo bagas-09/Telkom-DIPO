@@ -18,7 +18,7 @@ class LaporanMaintenanceController extends Controller
     //
     public function index()
     {
-        $laporanMaintenance = array();
+        $laporanMaintenances = array();
         $roles = DB::table('role')
             ->select('*')
             ->get();
@@ -54,9 +54,9 @@ class LaporanMaintenanceController extends Controller
         }
 
 
-        return view('Maintenance.laporan_maintenance', [
+        return view('maintenance.laporan_maintenance', [
             "title" => "Laporan Maintenance",
-            "laporan_maintenance" => LaporanMaintenance::all(),
+            "laporanMaintenances" => LaporanMaintenance::all(),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,
@@ -64,6 +64,13 @@ class LaporanMaintenanceController extends Controller
             "tipe_kemitraan_id" => $tipe_kemitraan_id,
             "jenis_program_id" => $jenis_program_id,
             "tipe_provisioning_id" => $tipe_provisioning_id,
+        ]);
+    }
+
+    public function addLaporanMaintenance(Request $request)
+    {
+        return view('maintenance.laporan_maintenance_add',[
+            "title" => "Buat Laporan Maintenance",
             "addcity" => City::all(),
             "addsp" => StatusPekerjaan::all(),
             "mitrass" => Mitra::all(),
@@ -72,16 +79,63 @@ class LaporanMaintenanceController extends Controller
             "tipeprov" => TipeProvisioning::all(),
         ]);
     }
+    
     public function storeLaporanMaintenance(Request $request)
     {
-        // $request->validate([
-        //     'nama_city' => 'required'
-        // ]);
-
         LaporanMaintenance::insert([
-            // "id" => 2,
-            "nama_laporanmaintenance" => $request->nama_laporanmaintenance,
+            "PID_maintenance" => $request->PID_maintenance,
+            "ID_SAP_maintenance" => $request->ID_SAP_maintenance,
+            'NO_PR_maintenance' => $request->NO_PR_maintenance,
+            'tanggal_PR' => $request->tanggal_PR,
+            'status_pekerjaan_id' => $request->status_pekerjaan_id,
+            'mitra_id' => $request->mitra_id,
+            'tipe_kemitraan_id' => $request->tipe_kemitraan_id,
+            'jenis_program_id' => $request->jenis_program_id,
+            'tipe_provisioning_id' => $request->tipe_provisioning_id,
+            'periode_pekerjaan' => $request->periode_pekerjaan,
+            'lokasi' => $request->lokasi,
+            'material_DRM' => $request->material_DRM,
+            'jasa_DRM' => $request->jasa_DRM,
+            'total_DRM' => $request->total_DRM,
+            'material_aktual' => $request->material_aktual,
+            'jasa_aktual' => $request->jasa_aktual,
+            'total_aktual' => $request->total_aktual,
+            'keterangan' => $request->keterangan
+
         ]);
-        return redirect()->intended(route('admin.dashboard.laporan_maintenance'))->with("success", "Berhasil menambahkan Laporan");
+        return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Laporan Berhasil Dibuat");
     }
+
+    public function deleteLaporanMaintenance($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $laporanMaintenance = LaporanMaintenance::find($id);
+
+            // Pengecekan di setiap tabel terkait
+            // if ($status->laporanCommerce()->count() > 0) {
+            //     throw new \Exception("Kota ini sedang digunakan di Tabel Account dan tidak dapat dihapus.");
+            // }
+
+            // Jika tidak ada pengecualian, hapus kota
+            $laporanMaintenance->delete();
+
+            DB::commit();
+
+            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Berhasil menghapus Laporan Maintenance");
+        } catch (QueryException $e) {
+            DB::rollback();
+
+            // Tangkap pengecualian QueryException jika terjadi kesalahan database
+            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            // Tangkap pengecualian umum dan tampilkan pesan error
+            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("error", $e->getMessage());
+        }
+    }
+
 }
+
