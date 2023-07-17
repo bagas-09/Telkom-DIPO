@@ -86,7 +86,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporanKonstruksis as $admins)
                     <tr>
-                      {{-- <th scope="row">{{$i++}}</th> --}}
+                      <!-- <th scope="row">{{$i++}}</th> -->
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -104,7 +104,7 @@ Dashboard
                       <td>{{ $admins ->jasa_aktual }}</td>
                       <td>{{ $admins ->total_aktual }}</td>
                       <td>{{ $admins ->keterangan }}</td>
-                      {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
+                      
 
                       <td>
                         @if(Auth::user()->role != "Commerce")

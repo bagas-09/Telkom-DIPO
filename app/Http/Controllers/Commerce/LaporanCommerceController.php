@@ -9,6 +9,7 @@ use App\Models\LaporanKonstruksi;
 use App\Models\LaporanMaintenance;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class LaporanCommerceController extends Controller
 {

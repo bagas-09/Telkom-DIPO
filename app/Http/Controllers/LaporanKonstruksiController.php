@@ -9,6 +9,7 @@ use App\Models\StatusPekerjaan;
 use App\Models\TipeKemitraan;
 use App\Models\TipeProvisioning;
 use App\Models\City;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
