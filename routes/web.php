@@ -95,10 +95,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/mitra/update/{id}', [App\Http\Controllers\MitraController::class, 'updateMitra'])->name('admin.updateMitra');
 
     
-        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('admin.dashboard.laporan_maintenance');
-        Route::post('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('Maintenance.addLaporanMaintenance');
-        Route::get('/laporanmaintenance/deleteJenis/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('admin.deleteLaporanMaintenance');
-        Route::post('/laporanmaintenance/update/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('admin.updateLaporanMaintenance');
+        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('maintenance.laporan_maintenance');
+        Route::get('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'addLaporanMaintenance'])->name('maintenance.addLaporanMaintenance');
+        Route::post('/laporanmaintenance/store', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('maintenance.storeLaporanMaintenance');
+        Route::get('/laporanmaintenance/delete/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('maintenance.deleteLaporanMaintenance');
+        Route::post('/laporanmaintenance/update/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('maintenance.updateLaporanMaintenance');
 
         Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('admin.dashboard.account');
         Route::post('/account/add', [App\Http\Controllers\AccountController::class, 'storeAccount'])->name('admin.storeAccount');
