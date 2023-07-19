@@ -59,7 +59,7 @@ Dashboard
                             <select class="status_pekerjaan_id form-control mb-2" name="status_pekerjaan_id">
                                 <option  selected>-- Pilih Status Pekerjaan --</option>
                                 @foreach ($addsp as $status_pekerjaan)
-                                    <option value=<?= $status_pekerjaan->nama_status_pekerjaan ?>>{{ $status_pekerjaan->nama_status_pekerjaan }}</option>
+                                    <option value=<?= $status_pekerjaan->id ?>>{{ $status_pekerjaan->nama_status_pekerjaan }}</option>
                                 @endforeach
                             </select>
                             <span id="status_pekerjaan_id_error" style="display: none; color: red;">Field Status Pekerjaan harus diisi!</span>
@@ -68,7 +68,7 @@ Dashboard
                             <select class="mitra_id form-control mb-2" name="mitra_id">
                                 <option selected>-- Pilih Mitra --</option>
                                 @foreach ($mitrass as $mitra)
-                                    <option value=<?= $mitra->nama_mitra ?>>{{ $mitra->nama_mitra }}</option>
+                                    <option value=<?= $mitra->id ?>>{{ $mitra->nama_mitra }}</option>
                                 @endforeach
                             </select>
                             <span id="mitra_id_error" style="display: none; color: red;">Field Mitra harus diisi!</span>
@@ -77,7 +77,11 @@ Dashboard
                             <select class="tipe_kemitraan_id form-control mb-2" name="tipe_kemitraan_id">
                                 <option  selected>-- Pilih Tipe Kemitraan --</option>
                                 @foreach ($tipek as $tipe_kemitraan)
-                                    <option value=<?= $tipe_kemitraan->nama_tipe_kemitraan ?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
+<<<<<<< Updated upstream
+                                    <option value=<?= $tipe_kemitraan->id ?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
+=======
+                                    <option value=<?= $tipe_kemitraan->id?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
+>>>>>>> Stashed changes
                                 @endforeach
                             </select>
                             <span id="tipe_kemitraan_id_error" style="display: none; color: red;">Field Tipe Kemitraan harus diisi!</span>
@@ -86,7 +90,7 @@ Dashboard
                                 <select class="jenis_program_id form-control mb-2" name="jenis_program_id">
                                     <option  selected>-- Pilih Jenis Program --</option>
                                     @foreach ($jenisp as $jenis_program)
-                                        <option value=<?= $jenis_program->nama_jenis_program ?>>{{ $jenis_program->nama_jenis_program }}</option>
+                                        <option value=<?= $jenis_program->id ?>>{{ $jenis_program->nama_jenis_program }}</option>
                                     @endforeach
                                 </select>
                             <span id="jenis_program_id_error" style="display: none; color: red;">Field Jenis Program harus diisi!</span>
@@ -95,7 +99,7 @@ Dashboard
                                 <select class="tipe_provisioning_id form-control mb-2" name="tipe_provisioning_id">
                                     <option  selected>-- Pilih Tipe Provisioning --</option>
                                     @foreach ($tipeprov as $tipe_provisioning)
-                                        <option value=<?= $tipe_provisioning->nama_tipe_provisioning ?>>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
+                                        <option value=<?= $tipe_provisioning->id ?>>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
                                     @endforeach
                                 </select>
                             <span id="tipe_provisioning_id_error" style="display: none; color: red;">Field Tipe Provisioning harus diisi!</span>
@@ -161,6 +165,16 @@ Dashboard
                             
                         </div>
                         <button type="submit" class="btn btn-primary" value="Simpan Data">Simpan Laporan</button>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </form>
             </div>

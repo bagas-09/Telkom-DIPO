@@ -104,6 +104,34 @@ class LaporanMaintenanceController extends Controller
 
         ]);
         return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Laporan Berhasil Dibuat");
+
+        $validatedData = $request->validate([
+            "PID_maintenance" => '$request',
+            "ID_SAP_maintenance" => '$request',
+            'NO_PR_maintenance' => '$request',
+            'tanggal_PR' => '$request',
+            'status_pekerjaan_id' => '$request',
+            'mitra_id' => '$request',
+            'tipe_kemitraan_id' => '$request',
+            'jenis_program_id' => '$request',
+            'tipe_provisioning_id' => '$request',
+            'periode_pekerjaan' => '$request',
+            'lokasi' => '$request',
+            'material_DRM' => '$request',
+            'jasa_DRM' => '$request',
+            'total_DRM' => '$request',
+            'material_aktual' => '$request',
+            'jasa_aktual' => '$request',
+            'total_aktual' => '$request',
+            'keterangan' => '$request',
+        ], [
+            'PID_maintenance.required' => 'PID_maintenance field is required.',
+            'ID_SAP_maintenance.required' => 'ID_SAP field is required.',
+            'NO_PR_maintenance.required' => 'No_PR field is required.',
+        
+        ]);
+        $laporanMaintenance = LaporanMaintenance::create($validatedData);
+            
     }
 
     public function deleteLaporanMaintenance($id)
