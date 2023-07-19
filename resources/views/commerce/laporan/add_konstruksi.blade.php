@@ -14,20 +14,20 @@
             <div class="breadcrumb-item">Laporan Commerce</div>
         </div>
         @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show">
-              {{ session('success') }}
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            </div>
-            @endif
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('success') }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        @endif
 
-            @if(session()->has('error'))
-            <div class="alert alert-danger alert-dismissible fade show">
-                {{ session('error') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+        @if(session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
     </div>
 
     <div class="section-body">
@@ -78,7 +78,7 @@
                                     <input type="date" id="tanggal_BAUT" name="tanggal_BAUT" class="form-control mb-2" value="">
                                     <span id="tanggal_BAUT_error" style="display: none; color: red;">Field Tanggal BAUT harus diisi!</span>
 
-                                    
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -98,19 +98,36 @@
                                     <label for="tanggal_BAST" class="col-form-label">Tanggal BAST: </label>
                                     <input type="date" id="tanggal_BAST" name="tanggal_BAST" class="form-control mb-2" value="">
                                     <span id="tanggal_BAST_error" style="display: none; color: red;">Field Tanggal BAST harus diisi!</span>
-
                                     <label for="material_aktual" class="col-form-label">Material Aktual: </label>
-                                    <input type="number" id="material_aktual" name="material_aktual" class="form-control mb-2" value="">
-                                    <span id="material_aktual_error" style="display: none; color: red;">Field Material Aktual harus diisi!</span>
-
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Rp.
+                                            </div>
+                                        </div>
+                                        <input type="number" id="material_aktual" name="material_aktual" class="form-control mb-2" onkeyup="calculator()" value="">
+                                        <span id="material_aktual_error" style="display: none; color: red;">Field Material Aktual harus diisi!</span>
+                                    </div>
                                     <label for="jasa_aktual" class="col-form-label">Jasa Aktual: </label>
-                                    <input type="number" id="jasa_aktual" name="jasa_aktual" class="form-control mb-2" value="">
-                                    <span id="jasa_aktual_error" style="display: none; color: red;">Field Jasa Aktual harus diisi!</span>
-
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Rp.
+                                            </div>
+                                        </div>
+                                        <input type="number"  id="jasa_aktual" name="jasa_aktual" class="form-control mb-2" onkeyup="calculator()"  value="">
+                                        <span id="jasa_aktual_error" style="display: none; color: red;">Field Jasa Aktual harus diisi!</span>
+                                    </div>
                                     <label for="total_aktual" class="col-form-label">Total Aktual: </label>
-                                    <input type="number" id="total_aktual" name="total_aktual" class="form-control mb-2" value="">
-                                    <span id="total_aktual_error" style="display: none; color: red;">Field Total Aktual harus diisi!</span>
-
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Rp.
+                                            </div>
+                                        </div>
+                                        <input type="number" id="total_aktual" name="total_aktual" class="form-control mb-2" onkeyup="calculator()" value="" disabled>
+                                        <span id="total_aktual_error" style="display: none; color: red;">Field Total Aktual harus diisi!</span>
+                                    </div>
                                     <label for="status_id" class="col-form-label">Status: </label>
                                     <select class="form-control mb-2" name="status_id" id="status_id">
                                         <option value="" selected>-- Pilih Status --</option>
@@ -119,7 +136,6 @@
                                         @endforeach
                                     </select>
                                     <span id="status_id_error" style="display: none; color: red;">Field Status harus diisi!</span>
-
                                 </div>
                                 <button type="submit" class="btn btn-primary" value="Simpan Data">Simpan Laporan</button>
                             </div>
@@ -137,4 +153,56 @@
         /* Atau atur properti lainnya untuk mengubah tampilan field input menjadi merah */
     }
 </style>
+<script>
+    var jasaAktualInput = document.getElementById('jasa_aktual').value;
+    // jasaAktualInput.addEventListener('input', function(e) {
+    //     this.value = formatRupiah(this.value);
+    // });
+
+    function formatRupiah(angka) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/g);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return rupiah;
+    }
+</script>
+<script>
+    var jasa = document.getElementById('jasa_aktual');
+    jasa.addEventListener('keyup', function(e) {
+        jasa.value = formatRupiah(this.value, 'Rp.');
+        
+    });
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+
+    function calculator() {
+        let jasa = document.getElementById('jasa_aktual').value;
+        let material = document.getElementById('material_aktual').value;
+        let sum = Number(jasa) + Number(material);
+        let total = document.getElementById('total_aktual').value = sum;
+    }
+</script>
 @endsection

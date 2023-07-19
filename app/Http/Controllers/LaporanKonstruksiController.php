@@ -58,6 +58,7 @@ class LaporanKonstruksiController extends Controller
         return view('konstruksi.laporan_konstruksi', [
             "title" => "Laporan Konstruksi",
             "laporanKonstruksis" => LaporanKonstruksi::all(),
+            "laporan_konstruksi_commerce"=> LaporanKonstruksi::all()->where("commerce", "!=", 1),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,

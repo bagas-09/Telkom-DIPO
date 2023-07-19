@@ -78,7 +78,7 @@ class LaporanCommerceController extends Controller
             'PID_konstruksi_id'  => $id,
             'lokasi' => $lokasiValue
         ]);
-        LaporanKonstruksi::insert([
+        LaporanKonstruksi::where('PID_konstruksi', $id)->update([
             "commerce" => 1
         ]);
         DB::commit();
