@@ -47,7 +47,7 @@
                                             <th scope="col" class="w-50">Tanggal BAUT</th>
                                             <th scope="col" class="w-50">Nomor BAR</th>
                                             <th scope="col" class="w-50">Tanggal BAR</th>
-                                            <!-- <th scope="col" class="w-50">Nomor BAST</th> -->
+                                            <th scope="col" class="w-50">Nomor BAST</th>
                                             <th scope="col" class="w-50">Tanggal BAST</th>
                                             <th scope="col" class="w-50">Material Aktual</th>
                                             <th scope="col" class="w-50">Jasa Aktual</th>
@@ -73,7 +73,7 @@
                                             <td>{{ $admins ->tanggal_BAUT}}</td>
                                             <td>{{ $admins ->NO_BAR}}</td>
                                             <td>{{ $admins ->tanggal_BAR}}</td>
-                                            
+                                            <td>{{ $admins ->NO_BAST}}</td>
                                             <td>{{ $admins ->tanggal_BAST}}</td>
                                             <td>{{ $admins ->material_aktual}}</td>
                                             <td>{{ $admins ->jasa_aktual}}</td>

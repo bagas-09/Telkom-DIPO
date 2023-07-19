@@ -9,7 +9,6 @@ use App\Models\LaporanKonstruksi;
 use App\Models\LaporanMaintenance;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
 
 class LaporanCommerceController extends Controller
 {
@@ -21,6 +20,8 @@ class LaporanCommerceController extends Controller
             "commerce" => LaporanCommerce::all(),
         ]);
     }
+
+    
 
     public function index_maintenance()
     {
@@ -57,8 +58,69 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+        if ($_POST['submit'] == 'draft') {
+            $messages = [
+                'required' => ':attribute wajib diisi',
+                'unique' => ':attribute sudah ada',
+                'no_PO.required' => 'Nomor PO wajib diisi',
+                'no_PO.unique' => 'Nomor PO sudah ada',
+                'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+            ];
+            $this->validate($request, [
+                "no_PO" => 'required|unique:laporan_commerce',
+                "PID_konstruksi_id" => 'required|unique:laporan_commerce'
+            ], $messages);
+            LaporanCommerce::insert([
+                "no_PO" => $request->no_PO,
+                'tanggal_PO' => $request->tanggal_PO,
+                'No_SP' => $request->No_SP,
+                'tanggal_SP' => $request->tanggal_SP,
+                'TOC' => $request->TOC,
+                'No_BAUT' => $request->No_BAUT,
+                'tanggal_BAUT' => $request->tanggal_BAUT,
+                'NO_BAR' => $request->NO_BAR,
+                'tanggal_BAR' => $request->tanggal_BAR,
+                'NO_BAST' => $request->NO_BAST,
+                'tanggal_BAST' => $request->tanggal_BAST,
+                'material_aktual' => $request->material_aktual,
+                'jasa_aktual'  => $request->jasa_aktual,
+                'total_aktual'  => $request->total_aktual,
+                'status_id' => $request->status_id,
+                'PID_konstruksi_id'  => $id,
+                'lokasi' => $lokasiValue
+            ]);
+            LaporanKonstruksi::where('PID_konstruksi', $id)->update([
+                "commerce" => 1
+            ]);
+        } else if ($_POST['submit'] == 'save') {
+            DB::beginTransaction();
+        $messages = [
+            'required' => ':attribute wajib diisi',
+            'unique' => ':attribute sudah ada',
+            'no_PO.required' => 'Nomor Po wajib diisi',
+            'no_PO.unique' => 'Nomor Po sudah ada',
+            'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+        ];
 
-        DB::beginTransaction();
+        $this->validate($request, [
+            "no_PO" => 'required|unique:laporan_commerce',
+            "PID_konstruksi_id" => 'unique:laporan_commerce',
+            'tanggal_PO' => 'required',
+            'No_SP' => 'required',
+            'tanggal_SP' => 'required',
+            'TOC' => 'required',
+            'No_BAUT' => 'required',
+            'tanggal_BAUT' => 'required',
+            'NO_BAR' => 'required',
+            'tanggal_BAR' => 'required',
+            'NO_BAST' => 'required',
+            'tanggal_BAST' => 'required',
+            'material_aktual' => 'required',
+            'jasa_aktual'  => 'required',
+            'total_aktual'  => 'required',
+            'status_id' => 'required',
+        ], $messages);
+
         LaporanCommerce::insert([
             "no_PO" => $request->no_PO,
             'tanggal_PO' => $request->tanggal_PO,
@@ -69,7 +131,7 @@ class LaporanCommerceController extends Controller
             'tanggal_BAUT' => $request->tanggal_BAUT,
             'NO_BAR' => $request->NO_BAR,
             'tanggal_BAR' => $request->tanggal_BAR,
-            'NO-BAST' => $request->NO_BAST,
+            'NO_BAST' => $request->NO_BAST,
             'tanggal_BAST' => $request->tanggal_BAST,
             'material_aktual' => $request->material_aktual,
             'jasa_aktual'  => $request->jasa_aktual,
@@ -82,6 +144,12 @@ class LaporanCommerceController extends Controller
             "commerce" => 1
         ]);
         DB::commit();
+        } else {
+            //invalid action!
+        }
+        
+
+        
         return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 
