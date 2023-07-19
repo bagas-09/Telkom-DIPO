@@ -27,11 +27,16 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::group(['middleware' => ['auth:account', 'account-access:Commerce']], function () {
 
         Route::get('/commerce', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'index'])->name('commerce.laporan.index');
+        Route::get('/draft', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'draft'])->name('commerce.laporan.draft');
         Route::get('/commerce/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('commerce.konstruksi.index');
         Route::get('/commerce/add/konstruksi/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'add_konstruksi'])->name('commerce.laporan.add_konstruksi');
         Route::post('/commerce/add/storekonstruksi/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'store_konstruksi'])->name('commerce.laporan.store_konstruksi');
         Route::get('/commerce/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('commerce.maintenance.index');
         Route::get('/commerce/delete/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('commerce.delete_laporan_commerce');
+
+        Route::get('/commerce/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('commerce.maintenance.index');
+        Route::get('/commerce/add/maintenance/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'add_maintenance'])->name('commerce.laporan.add_maintenance');
+        Route::post('/commerce/add/storemaintenance/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'store_maintenance'])->name('commerce.laporan.store_maintenance');
 
     });
 
