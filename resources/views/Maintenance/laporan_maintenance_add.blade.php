@@ -77,7 +77,11 @@ Dashboard
                             <select class="tipe_kemitraan_id form-control mb-2" name="tipe_kemitraan_id">
                                 <option  selected>-- Pilih Tipe Kemitraan --</option>
                                 @foreach ($tipek as $tipe_kemitraan)
+<<<<<<< Updated upstream
                                     <option value=<?= $tipe_kemitraan->id ?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
+=======
+                                    <option value=<?= $tipe_kemitraan->id?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
+>>>>>>> Stashed changes
                                 @endforeach
                             </select>
                             <span id="tipe_kemitraan_id_error" style="display: none; color: red;">Field Tipe Kemitraan harus diisi!</span>
@@ -161,6 +165,16 @@ Dashboard
                             
                         </div>
                         <button type="submit" class="btn btn-primary" value="Simpan Data">Simpan Laporan</button>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                 </form>
             </div>
