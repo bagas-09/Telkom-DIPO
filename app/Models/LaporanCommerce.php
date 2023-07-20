@@ -21,7 +21,7 @@ class LaporanCommerce extends Model
         'tanggal_BAUT',
         'NO_BAR',
         'tanggal_BAR',
-        'NO-BAST',
+        'NO_BAST',
         'tanggal_BAST',
         'material_aktual',
         'jasa_aktual',

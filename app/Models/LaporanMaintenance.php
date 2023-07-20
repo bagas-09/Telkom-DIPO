@@ -11,6 +11,7 @@ class LaporanMaintenance extends Model
     protected $table = "laporan_maintenance";
     protected $primaryKey = "PID_maintenance";
     public $timestamps = false;
+    public $incrementing = false;
     protected $fillable = [
         'PID',
         'ID SAP',

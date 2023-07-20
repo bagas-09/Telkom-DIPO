@@ -16,20 +16,20 @@ class LaporanCommerce extends Migration
         //
         Schema::create('laporan_commerce', function (Blueprint $table) {
             $table->id("no_PO");
-            $table->date('tanggal_PO');
-            $table->string('No_SP');
-            $table->date('tanggal_SP');
-            $table->string('TOC');
-            $table->string('No_BAUT');
-            $table->date('tanggal_BAUT');
-            $table->string('NO_BAR');
-            $table->date('tanggal_BAR');
-            $table->string('NO-BAST');
-            $table->date('tanggal_BAST');
-            $table->integer('material_aktual');
-            $table->integer('jasa_aktual');
-            $table->integer('total_aktual');
-            $table->unsignedBigInteger('status_id');
+            $table->date('tanggal_PO')->nullable();
+            $table->string('No_SP')->nullable();
+            $table->date('tanggal_SP')->nullable();
+            $table->date('TOC')->nullable();
+            $table->string('No_BAUT')->nullable();
+            $table->date('tanggal_BAUT')->nullable();
+            $table->string('NO_BAR')->nullable();
+            $table->date('tanggal_BAR')->nullable();
+            $table->string('NO_BAST')->nullable();
+            $table->date('tanggal_BAST')->nullable();
+            $table->integer('material_aktual')->nullable();
+            $table->integer('jasa_aktual')->nullable();
+            $table->integer('total_aktual')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('status');
             $table->string('PID_konstruksi_id')->nullable();
             $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');

@@ -63,6 +63,7 @@ Dashboard
                 <table class="table" style="overflow-x:auto;">
                   <thead>
                     <tr>
+                    <th scope="col">No</th>
                       <th scope="col">PID</th>
                       <th scope="col">ID SAP</th>
                       <th scope="col">NO PR</th>
@@ -84,11 +85,12 @@ Dashboard
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
+                  @if(Auth::user()->role != "Commerce")
                   <tbody>
                     <?php $i = 1 ?>
                     @foreach ($laporanMaintenances as $admins)
                     <tr>
-                      <!-- <th scope="row">{{$i++}}</th> -->
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins -> PID_maintenance}}</td>
                       <td>{{ $admins -> ID_SAP_maintenance}}</td>
                       <td>{{ $admins -> NO_PR_maintenance}}</td>
@@ -171,6 +173,38 @@ Dashboard
                     </tr>
                     @endforeach
                   </tbody>
+                  @endif
+                  @if(Auth::user()->role == "Commerce")
+                  <tbody>
+                    <?php $i = 1 ?>
+                    @foreach ($laporan_maintenance_commerce as $admins)
+                    <tr>
+                      <th scope="row">{{$i++}}</th>
+                      <td>{{ $admins -> PID_maintenance}}</td>
+                      <td>{{ $admins -> ID_SAP_maintenance}}</td>
+                      <td>{{ $admins -> NO_PR_maintenance}}</td>
+                      <td>{{ $admins -> tanggal_PR}}</td>
+                      <td>{{ $status_pekerjaan_id [$admins -> status_pekerjaan_id]}}</td>
+                      <td>{{ $mitra_id [$admins -> mitra_id]}}</td>
+                      <td>{{ $tipe_kemitraan_id [$admins -> tipe_kemitraan_id]}}</td>
+                      <td>{{ $jenis_program_id [$admins -> jenis_program_id]}}</td>
+                      <td>{{ $tipe_provisioning_id [$admins -> tipe_provisioning_id]}}</td>
+                      <td>{{ $admins -> periode_pekerjaan}}</td>
+                      <td>{{ $admins -> lokasi }}</td>
+                      <td>{{ $admins -> material_DRM}}</td>
+                      <td>{{ $admins -> jasa_DRM}}</td>
+                      <td>{{ $admins -> total_DRM}}</td>
+                      <td>{{ $admins -> material_aktual}}</td>
+                      <td>{{ $admins -> jasa_aktual}}</td>
+                      <td>{{ $admins -> total_aktual}}</td>
+                      <td>{{ $admins ->keterangan }}</td>
+                      <td>
+                      <a class="btn btn-primary" href="{{ route('commerce.laporan.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                  @endif
                 </table>
               </div>
             </div>

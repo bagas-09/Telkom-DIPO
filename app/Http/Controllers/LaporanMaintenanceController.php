@@ -64,6 +64,7 @@ class LaporanMaintenanceController extends Controller
             "tipe_kemitraan_id" => $tipe_kemitraan_id,
             "jenis_program_id" => $jenis_program_id,
             "tipe_provisioning_id" => $tipe_provisioning_id,
+            "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
         ]);
     }
 
