@@ -30,12 +30,12 @@ class LaporanKonstruksi extends Migration
             $table->unsignedBigInteger('tipe_provisioning_id');
             $table->foreign('tipe_provisioning_id')->references('id')->on('tipe_provisioning');
             $table->string('lokasi');
-            $table->integer('material_DRM');
-            $table->integer('jasa_DRM');
-            $table->integer('total_DRM');
-            $table->integer('material_aktual');
-            $table->integer('jasa_aktual');
-            $table->integer('total_aktual');
+            $table->string('material_DRM');
+            $table->string('jasa_DRM');
+            $table->string('total_DRM');
+            $table->string('material_aktual');
+            $table->string('jasa_aktual');
+            $table->string('total_aktual');
             $table->string('keterangan');
             $table->integer("commerce")->nullable();
             
