@@ -121,27 +121,69 @@ Dashboard
                                 <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
 
                                 <label for="material_DRM" class="col-form-label">Material DRM: </label>
-                                <input type="number" id="material_DRM" name="material_DRM" class="form-control mb-2" onkeyup="totalDRM()">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="material_DRM" name="material_DRM" class="form-control mb-2" onkeyup="totalDRM();" oninput="formatCurrency(this)">  
+                                </div>
                                 <span id="material_DRM_error" style="display: none; color: red;">Field Material DRM harus diisi!</span>
 
                                 <label for="jasa_DRM" class="col-form-label">Jasa DRM: </label>
-                                <input type="number" id="jasa_DRM" name="jasa_DRM" class="form-control mb-2" onkeyup="totalDRM()">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="jasa_DRM" name="jasa_DRM" class="form-control mb-2" onkeyup="totalDRM()" oninput="formatCurrency(this)">
+                                </div>
                                 <span id="jasa_DRM_error" style="display: none; color: red;">Field Jasa DRM harus diisi!</span>
 
                                 <label for="total_DRM" class="col-form-label">Total DRM: </label>
-                                <input type="number" id="total_DRM" name="total_DRM" class="form-control mb-2" onkeyup="totalDRM()" disabled>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="total_DRM" name="total_DRM" class="form-control mb-2" onkeyup="totalDRM()" readonly>
+                                </div>
                                 <span id="total_DRM_error" style="display: none; color: red;">Field Total DRM harus diisi!</span>
 
                                 <label for="material_aktual" class="col-form-label">Material Aktual: </label>
-                                <input type="number" id="material_aktual" name="material_aktual" class="form-control mb-2" onkeyup="totalAktual()">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="material_aktual" name="material_aktual" class="form-control mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)">
+                                </div>
                                 <span id="material_aktual_error" style="display: none; color: red;">Field Material Aktual harus diisi!</span>
 
                                 <label for="jasa_aktual" class="col-form-label">Jasa Aktual: </label>
-                                <input type="number" id="jasa_aktual" name="jasa_aktual" class="form-control mb-2" onkeyup="totalAktual()">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="jasa_aktual" name="jasa_aktual" class="form-control mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)">
+                                </div>
                                 <span id="jasa_aktual_error" style="display: none; color: red;">Field Jasa Aktual harus diisi!</span>
 
                                 <label for="total_aktual" class="col-form-label">Total Aktual: </label>
-                                <input type="number" id="total_aktual" name="total_aktual" class="form-control mb-2" onkeyup="totalAktual()" disabled>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp.
+                                        </div>
+                                    </div>
+                                    <input type="text" id="total_aktual" name="total_aktual" class="form-control mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)" readonly>
+                                </div> 
                                 <span id="total_aktual_error" style="display: none; color: red;">Field Total Aktual harus diisi!</span>
 
                             </div>
@@ -193,22 +235,50 @@ Dashboard
   }
 
   // TOTAL AKTUAL DAN TOTAL DRM
-  function totalAktual(){
-    let jasaAktual = document.getElementById('jasa_aktual').value;
-    let materialAktual = document.getElementById('material_aktual').value;
-    let sumAktual = Number(jasaAktual) + Number(materialAktual);
-    let totalAktual = document.getElementById('total_aktual').value = sumAktual;
-  }
+//   function totalAktual(){
+//     let jasaAktual = document.getElementById('jasa_aktual').value;
+//     let materialAktual = document.getElementById('material_aktual').value;
+//     let sumAktual = Number(jasaAktual) + Number(materialAktual);
+//     let totalAktual = document.getElementById('total_aktual').value = sumAktual;
+//   }
+    function totalAktual() {
+        let jasaAktual = document.getElementById('jasa_aktual').value.replace(/[^\d]/g, '');
+        let materialAktual = document.getElementById('material_aktual').value.replace(/[^\d]/g, '');
+        
+        // Mengubah nilai mata uang dalam format teks menjadi angka
+        let sumAktual = Number(jasaAktual.replace(/\./g, '')) + Number(materialAktual.replace(/\./g, ''));
+        
+        // Menampilkan hasil jumlah kembali dalam format mata uang dengan pemisah ribuan (.)
+        let total_Aktual_input = document.getElementById('total_aktual');
+        total_Aktual_input.value = sumAktual.toLocaleString('id-ID');
+    }
 
-  function totalDRM(){
-    let jasaDRM = document.getElementById('jasa_DRM').value;
-    let materialDRM = document.getElementById('material_DRM').value;
-    let sumDRM = Number(jasaDRM) + Number(materialDRM);
-    let totalDRM = document.getElementById('total_DRM').value = sumDRM;
-  }
+    function totalDRM() {
+        let jasaDRM = document.getElementById('jasa_DRM').value.replace(/[^\d]/g, '');
+        let materialDRM = document.getElementById('material_DRM').value.replace(/[^\d]/g, '');
+        
+        // Mengubah nilai mata uang dalam format teks menjadi angka
+        let sumDRM = Number(jasaDRM.replace(/\./g, '')) + Number(materialDRM.replace(/\./g, ''));
+        
+        // Menampilkan hasil jumlah kembali dalam format mata uang dengan pemisah ribuan (.)
+        let total_DRM_input = document.getElementById('total_DRM');
+        total_DRM_input.value = sumDRM.toLocaleString('id-ID');
+    }
 
   // FORMAT RUPIAH
-  
+    function formatCurrency(input) {
+        // Menghilangkan semua karakter selain angka
+        let rawValue = input.value.replace(/[^\d]/g, '');
+        
+        // Memastikan input tidak kosong
+        if (rawValue) {
+            // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
+            let formattedValue = Number(rawValue).toLocaleString('id-ID');
+            
+            // Menampilkan hasil format uang di input
+            input.value = formattedValue;
+        }
+    }
 //   console.log(autoGeneratedLokasi()); 
 </script>
 @endsection
