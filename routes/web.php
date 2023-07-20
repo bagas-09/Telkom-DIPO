@@ -37,6 +37,9 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/commerce/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('commerce.maintenance.index');
         Route::get('/commerce/add/maintenance/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'add_maintenance'])->name('commerce.laporan.add_maintenance');
         Route::post('/commerce/add/storemaintenance/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'store_maintenance'])->name('commerce.laporan.store_maintenance');
+        Route::get('/commerce/edit/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'edit'])->name('commerce.laporan.edit');
+        Route::post('/commerce/update/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'update'])->name('commerce.laporan.update');
+
 
     });
 

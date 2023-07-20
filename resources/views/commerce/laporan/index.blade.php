@@ -13,7 +13,7 @@
     <div class="section-body">
         <section class="section">
             <div class="section-body">
-            
+
                 @if(session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show">
                     {{ session('success') }}
@@ -105,40 +105,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
-
-                                                {{-- UPDATE LaporanCommerce --}}
-                                                <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanCommerceModal-{{$admins->id}}" style="color: white">Edit</a>
-                                                <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanCommerceModal-{{$admins->id}}" data-backdrop="static">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Ubah Kota</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommerce1">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <form id="LaporanCommerceUpdateForm" class="form-validation" action="" method="POST">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="form-group">
-                                                                        <label for="nama_update_LaporanCommerce" class="col-form-label">Nama Kota: </label>
-                                                                        <input type="text" id="nama_update_LaporanCommerce" name="nama_LaporanCommerce" class="form-control required-input" value="{{ $admins->nama_LaporanCommerce }}" required>
-                                                                        {{-- <span id="nama_LaporanCommerce_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
-                                                                        {{-- @if($errors->has('nama_LaporanCommerce'))
-                                                                        <span class="invalid-feedback">{{ $errors->first('nama_LaporanCommerce') }}</span>
-                                                                        @endif --}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer bg-whitesmoke br">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateLaporanCommerce">Close</button>
-                                                                    <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </td>
                                         </tr>
                                         @endforeach
