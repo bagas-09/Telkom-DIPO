@@ -7,7 +7,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Laporan Commerce (Selesai)</h1>
+        <h1>Laporan Commerce (Draft)</h1>
     </div>
 
     <div class="section-body">

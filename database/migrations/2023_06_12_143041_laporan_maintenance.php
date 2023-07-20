@@ -29,7 +29,7 @@ class LaporanMaintenance extends Migration
             $table->unsignedBigInteger('tipe_provisioning_id');
             $table->foreign('tipe_provisioning_id')->references('id')->on('tipe_provisioning');
             $table->foreign('jenis_program_id')->references('id')->on('jenis_program');
-            $table->date('periode_pekerjaan');
+            $table->string('periode_pekerjaan');
             $table->string('lokasi');
             $table->integer('material_DRM');
             $table->integer('jasa_DRM');
@@ -38,7 +38,7 @@ class LaporanMaintenance extends Migration
             $table->integer('jasa_aktual');
             $table->integer('total_aktual');
             $table->string('keterangan');
-
+            $table->integer("commerce")->nullable();
             
         });
     }
