@@ -78,7 +78,7 @@
                                             <td>{{ $admins ->material_aktual}}</td>
                                             <td>{{ $admins ->jasa_aktual}}</td>
                                             <td>{{ $admins ->total_aktual}}</td>
-                                            <td>{{ $admins ->status_id}}</td>
+                                            <td>{{ $status[$admins ->status_id]}}</td>
                                             <td>{{ $admins ->PID_konstruksi_id}}</td>
                                             <td>{{ $admins ->PID_maintenance_id}}</td>
                                             <td>{{ $admins ->lokasi}}</td>

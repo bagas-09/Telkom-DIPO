@@ -14,19 +14,28 @@ class LaporanCommerceController extends Controller
 {
     public function index()
     {
-
+        $status_id = array();
+        foreach (Status::all() as $statusP) {
+            $status_id[$statusP->id] = $statusP->nama_status;
+        }
         return view('commerce.laporan.index', [
             "title" => "Laporan Commerce",
             "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
+            "status"=> $status_id
         ]);
     }
 
 
     public function draft()
     {
+        $status_id = array();
+        foreach (Status::all() as $statusP) {
+            $status_id[$statusP->id] = $statusP->nama_status;
+        }
         return view('commerce.laporan.draft', [
             "title" => "Draft",
             "commerce" => LaporanCommerce::all()->where('draft', '=', 1),
+            "status"=> $status_id
         ]);
     }
 
