@@ -143,7 +143,7 @@
                                                 Rp.
                                             </div>
                                         </div>
-                                        <input type="number" id="material_aktual" name="material_aktual" class="form-control @error('material_aktual') is-invalid @enderror mb-2" onkeyup="calculator()" value="{{ old('material_aktual') }}">
+                                        <input type="text" id="material_aktual" name="material_aktual" class="form-control @error('material_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)" value="{{ old('material_aktual') }}">
                                         <span id="material_aktual_error" style="display: none; color: red;">Field Material Aktual harus diisi!</span>
                                         @error('material_aktual')
                                         <div class="invalid-feedback">
@@ -158,7 +158,7 @@
                                                 Rp.
                                             </div>
                                         </div>
-                                        <input type="number" id="jasa_aktual" name="jasa_aktual" class="form-control @error('jasa_aktual') is-invalid @enderror mb-2" onkeyup="calculator()" value="{{ old('jasa_aktual') }}">
+                                        <input type="text" id="jasa_aktual" name="jasa_aktual" class="form-control @error('jasa_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)" value="{{ old('jasa_aktual') }}">
                                         <span id="jasa_aktual_error" style="display: none; color: red;">Field Jasa Aktual harus diisi!</span>
                                         @error('jasa_aktual')
                                         <div class="invalid-feedback">
@@ -173,7 +173,7 @@
                                                 Rp.
                                             </div>
                                         </div>
-                                        <input type="number" id="total_aktual" name="total_aktual" class="form-control @error('total_aktual') is-invalid @enderror mb-2" onkeyup="calculator()" value="{{ old('total_aktual') }}" readonly>
+                                        <input type="text" id="total_aktual" name="total_aktual" class="form-control @error('total_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)" value="{{ old('total_aktual') }}" readonly>
                                         <span id="total_aktual_error" style="display: none; color: red;">Field Total Aktual harus diisi!</span>
                                         @error('total_aktual')
                                         <div class="invalid-feedback">
@@ -213,56 +213,31 @@
         /* Atau atur properti lainnya untuk mengubah tampilan field input menjadi merah */
     }
 </style>
-<!-- <script>
-    var jasaAktualInput = document.getElementById('jasa_aktual').value;
-    // jasaAktualInput.addEventListener('input', function(e) {
-    //     this.value = formatRupiah(this.value);
-    // });
-
-    function formatRupiah(angka) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/g);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return rupiah;
-    }
-</script> -->
 <script>
-    // var jasa = document.getElementById('jasa_aktual');
-    // jasa.addEventListener('keyup', function(e) {
-    //     jasa.value = formatRupiah(this.value, 'Rp.');
+    function totalAktual() {
+        let jasaAktual = document.getElementById('jasa_aktual').value.replace(/[^\d]/g, '');
+        let materialAktual = document.getElementById('material_aktual').value.replace(/[^\d]/g, '');
+        
+        // Mengubah nilai mata uang dalam format teks menjadi angka
+        let sumAktual = Number(jasaAktual.replace(/\./g, '')) + Number(materialAktual.replace(/\./g, ''));
+        
+        // Menampilkan hasil jumlah kembali dalam format mata uang dengan pemisah ribuan (.)
+        let total_Aktual_input = document.getElementById('total_aktual');
+        total_Aktual_input.value = sumAktual.toLocaleString('id-ID');
+    }
 
-    // });
-
-    // function formatRupiah(angka, prefix) {
-    //     var number_string = angka.replace(/[^,\d]/g, '').toString(),
-    //         split = number_string.split(','),
-    //         sisa = split[0].length % 3,
-    //         rupiah = split[0].substr(0, sisa),
-    //         ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-    //     if (ribuan) {
-    //         separator = sisa ? '.' : '';
-    //         rupiah += separator + ribuan.join('.');
-    //     }
-
-    //     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    //     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    // }
-
-    function calculator() {
-        let jasa = document.getElementById('jasa_aktual').value;
-        let material = document.getElementById('material_aktual').value;
-        let sum = Number(jasa) + Number(material);
-        let total = document.getElementById('total_aktual').value = sum;
+    function formatCurrency(input) {
+        // Menghilangkan semua karakter selain angka
+        let rawValue = input.value.replace(/[^\d]/g, '');
+        
+        // Memastikan input tidak kosong
+        if (rawValue) {
+            // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
+            let formattedValue = Number(rawValue).toLocaleString('id-ID');
+            
+            // Menampilkan hasil format uang di input
+            input.value = formattedValue;
+        }
     }
 </script>
 @endsection
