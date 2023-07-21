@@ -15,7 +15,7 @@ class LaporanCommerce extends Migration
     {
         //
         Schema::create('laporan_commerce', function (Blueprint $table) {
-            $table->id("no_PO");
+            $table->string('no_PO')->primary();
             $table->date('tanggal_PO')->nullable();
             $table->string('No_SP')->nullable();
             $table->date('tanggal_SP')->nullable();
@@ -26,9 +26,9 @@ class LaporanCommerce extends Migration
             $table->date('tanggal_BAR')->nullable();
             $table->string('NO_BAST')->nullable();
             $table->date('tanggal_BAST')->nullable();
-            $table->integer('material_aktual')->nullable();
-            $table->integer('jasa_aktual')->nullable();
-            $table->integer('total_aktual')->nullable();
+            $table->string('material_aktual')->nullable();
+            $table->string('jasa_aktual')->nullable();
+            $table->string('total_aktual')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('status');
             $table->string('PID_konstruksi_id')->nullable();

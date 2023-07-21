@@ -11,6 +11,7 @@ class LaporanCommerce extends Model
     protected $table = "laporan_commerce";
     protected $primaryKey = "no_PO";
     public $timestamps = false;
+    public $incrementing = false;
     protected $fillable = [
         "no_PO",
         'tanggal_PO',
