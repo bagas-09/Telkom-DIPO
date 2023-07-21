@@ -145,10 +145,10 @@ class LaporanKonstruksiController extends Controller
         $tipeProvisioning = $request->tipe_provisioning_id;
         $lokasi = $request->lokasi;
 
-        // $order = JenisOrder::where("id", "=", $jenisOrder)
-        //     ->get(["nama_jenis_order"]);
-        // $orderObject = json_decode($order[0]);
-        // $orderValue = $orderObject->nama_jenis_order;
+        $order = JenisOrder::where("id", "=", $jenisOrder)
+            ->get(["nama_jenis_order"]);
+        $orderObject = json_decode($order[0]);
+        $orderValue = $orderObject->nama_jenis_order;
 
         $tipeProv = TipeProvisioning::where("id", "=", $tipeProvisioning)
             ->get(["nama_tipe_provisioning"]);
@@ -160,7 +160,7 @@ class LaporanKonstruksiController extends Controller
             $nilaiDitambahkan = $orderValue . " - " . $tipeProvValue . " - " . $lokasi;
         } else {
             $nilaiDitambahkan = $lokasi;
-        }
+        }    
 
         LaporanKonstruksi::insert([
             // "id" => 2,
