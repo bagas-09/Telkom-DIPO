@@ -15,19 +15,28 @@ class LaporanCommerceController extends Controller
 {
     public function index()
     {
-
+        $status_id = array();
+        foreach (Status::all() as $statusP) {
+            $status_id[$statusP->id] = $statusP->nama_status;
+        }
         return view('commerce.laporan.index', [
             "title" => "Laporan Commerce",
             "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
+            "status"=> $status_id
         ]);
     }
 
 
     public function draft()
     {
+        $status_id = array();
+        foreach (Status::all() as $statusP) {
+            $status_id[$statusP->id] = $statusP->nama_status;
+        }
         return view('commerce.laporan.draft', [
             "title" => "Draft",
             "commerce" => LaporanCommerce::all()->where('draft', '=', 1),
+            "status"=> $status_id
         ]);
     }
 
@@ -103,6 +112,7 @@ class LaporanCommerceController extends Controller
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "commerce" => 1
             ]);
+            return redirect()->intended(route('commerce.laporan.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
             DB::beginTransaction();
             $messages = [
@@ -156,13 +166,11 @@ class LaporanCommerceController extends Controller
                 "commerce" => 1
             ]);
             DB::commit();
+            return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
         } else {
             //invalid action!
         }
 
-
-
-        return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 
 
@@ -207,6 +215,7 @@ class LaporanCommerceController extends Controller
             LaporanMaintenance::where('PID_maintenance', $id)->update([
                 "commerce" => 1
             ]);
+            return redirect()->intended(route('commerce.laporan.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
             DB::beginTransaction();
             $messages = [
@@ -260,13 +269,10 @@ class LaporanCommerceController extends Controller
                 "commerce" => 1
             ]);
             DB::commit();
+            return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
         } else {
             //invalid action!
         }
-
-
-
-        return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 
     public function deleteLaporanCommerce($id)
@@ -297,6 +303,101 @@ class LaporanCommerceController extends Controller
 
             // Tangkap pengecualian umum dan tampilkan pesan error
             return redirect()->intended(route('commerce.laporan.index'))->with("error", $e->getMessage());
+        }
+    }
+
+    public function edit($id){
+        return view('commerce.laporan.edit', [
+            "title" => "Edit Laporan Commerce",
+            "commerce" => LaporanCommerce::where("no_PO", "=", $id)->get(),
+            "statusmany" => Status::all(),
+            "id" => $id,
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        if ($_POST['submit'] == 'draft') {
+            $messages = [
+                'required' => ':attribute wajib diisi',
+                'unique' => ':attribute sudah ada',
+                'no_PO.required' => 'Nomor PO wajib diisi',
+                'no_PO.unique' => 'Nomor PO sudah ada',
+            ];
+            $this->validate($request, [
+                // "no_PO" => 'required',
+            ], $messages);
+            LaporanCommerce::where("no_PO", '=', $id)->update([
+                // "no_PO" => $request->no_PO,
+                'tanggal_PO' => $request->tanggal_PO,
+                'No_SP' => $request->No_SP,
+                'tanggal_SP' => $request->tanggal_SP,
+                'TOC' => $request->TOC,
+                'No_BAUT' => $request->No_BAUT,
+                'tanggal_BAUT' => $request->tanggal_BAUT,
+                'NO_BAR' => $request->NO_BAR,
+                'tanggal_BAR' => $request->tanggal_BAR,
+                'NO_BAST' => $request->NO_BAST,
+                'tanggal_BAST' => $request->tanggal_BAST,
+                'material_aktual' => $request->material_aktual,
+                'jasa_aktual'  => $request->jasa_aktual,
+                'total_aktual'  => $request->total_aktual,
+                'status_id' => $request->status_id,
+                'PID_konstruksi_id'  => $request->PID_konstruksi_id,
+                'PID_maintenance_id'  => $request->PID_maintenance_id,
+                'lokasi' => $request->lokasi,
+                'draft' => 1
+            ]);
+            return redirect()->intended(route('commerce.laporan.draft'))->with("success", "Laporan Berhasil Dibuat");
+        } else if ($_POST['submit'] == 'save') {
+            $messages = [
+                'required' => ':attribute wajib diisi',
+                'unique' => ':attribute sudah ada',
+                'no_PO.required' => 'Nomor Po wajib diisi',
+                'no_PO.unique' => 'Nomor Po sudah ada',
+            ];
+
+            $this->validate($request, [
+                // "no_PO" => 'required',
+                'tanggal_PO' => 'required',
+                'No_SP' => 'required',
+                'tanggal_SP' => 'required',
+                'TOC' => 'required',
+                'No_BAUT' => 'required',
+                'tanggal_BAUT' => 'required',
+                'NO_BAR' => 'required',
+                'tanggal_BAR' => 'required',
+                'NO_BAST' => 'required',
+                'tanggal_BAST' => 'required',
+                'material_aktual' => 'required',
+                'jasa_aktual'  => 'required',
+                'total_aktual'  => 'required',
+                'status_id' => 'required',
+            ], $messages);
+
+            LaporanCommerce::where("no_PO", '=', $id)->update([
+                // "no_PO" => $request->no_PO,
+                'tanggal_PO' => $request->tanggal_PO,
+                'No_SP' => $request->No_SP,
+                'tanggal_SP' => $request->tanggal_SP,
+                'TOC' => $request->TOC,
+                'No_BAUT' => $request->No_BAUT,
+                'tanggal_BAUT' => $request->tanggal_BAUT,
+                'NO_BAR' => $request->NO_BAR,
+                'tanggal_BAR' => $request->tanggal_BAR,
+                'NO_BAST' => $request->NO_BAST,
+                'tanggal_BAST' => $request->tanggal_BAST,
+                'material_aktual' => $request->material_aktual,
+                'jasa_aktual'  => $request->jasa_aktual,
+                'total_aktual'  => $request->total_aktual,
+                'status_id' => $request->status_id,
+                'PID_konstruksi_id'  => $request->PID_konstruksi_id,
+                'PID_maintenance_id'  => $request->PID_maintenance_id,
+                'lokasi' => $request->lokasi,
+                'draft' => 0
+            ]);
+            return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
+        } else {
+            //invalid action!
         }
     }
 }
