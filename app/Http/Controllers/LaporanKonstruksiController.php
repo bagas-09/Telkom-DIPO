@@ -58,7 +58,7 @@ class LaporanKonstruksiController extends Controller
         return view('konstruksi.laporan_konstruksi', [
             "title" => "Laporan Konstruksi",
             "laporanKonstruksis" => LaporanKonstruksi::all(),
-            "laporan_konstruksi_commerce"=> LaporanKonstruksi::all()->where("commerce", "!=", 1),
+            "laporan_konstruksi_commerce" => LaporanKonstruksi::all()->where("commerce", "!=", 1),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,
@@ -93,9 +93,31 @@ class LaporanKonstruksiController extends Controller
 
     public function storeLaporanKonstruksi(Request $request)
     {
+        $messages = [
+            'required' => ':Field wajib diisi',
+            'unique' => ':Nilai sudah ada',
+        ];
 
-
-
+        $this->validate($request, [
+            'PID_konstruksi' => 'required|unique:laporan_konstruksi',
+            'ID_SAP_konstruksi' => 'required',
+            'NO_PR_konstruksi' => 'required',
+            'tanggal_PR' => 'required',
+            'status_pekerjaan_id' => 'required',
+            'mitra_id' => 'required',
+            'tipe_kemitraan_id' => 'required',
+            'jenis_order_id' => 'required',
+            'tipe_provisioning_id' => 'required',
+            'lokasi' => 'required',
+            'material_DRM' => 'required',
+            'jasa_DRM' => 'required',
+            'total_DRM' => 'required',
+            'material_aktual' => 'required',
+            'jasa_aktual' => 'required',
+            'total_aktual' => 'required',
+            'keterangan' => 'required',
+        ], $messages);
+        
         // Mengambil nilai dari form
         $jenisOrder = $request->jenis_order_id;
         $tipeProvisioning = $request->tipe_provisioning_id;
@@ -123,10 +145,10 @@ class LaporanKonstruksiController extends Controller
         $tipeProvisioning = $request->tipe_provisioning_id;
         $lokasi = $request->lokasi;
 
-        $order = JenisOrder::where("id", "=", $jenisOrder)
-            ->get(["nama_jenis_order"]);
-        $orderObject = json_decode($order[0]);
-        $orderValue = $orderObject->nama_jenis_order;
+        // $order = JenisOrder::where("id", "=", $jenisOrder)
+        //     ->get(["nama_jenis_order"]);
+        // $orderObject = json_decode($order[0]);
+        // $orderValue = $orderObject->nama_jenis_order;
 
         $tipeProv = TipeProvisioning::where("id", "=", $tipeProvisioning)
             ->get(["nama_tipe_provisioning"]);
@@ -138,7 +160,7 @@ class LaporanKonstruksiController extends Controller
             $nilaiDitambahkan = $orderValue . " - " . $tipeProvValue . " - " . $lokasi;
         } else {
             $nilaiDitambahkan = $lokasi;
-        }    
+        }
 
         LaporanKonstruksi::insert([
             // "id" => 2,
