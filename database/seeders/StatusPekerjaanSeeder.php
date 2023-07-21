@@ -16,33 +16,63 @@ class StatusPekerjaanSeeder extends Seeder
         $statuspekerjaan = [
             [
                 'id' => 1,
-                'nama_status_pekerjaan' => 'dispatch mitra',
+                'nama_status_pekerjaan' => 'Dispatch Mitra',
                 'role' => 'Konstruksi'
             ],
             [
                 'id' => 2,
-                'nama_status_pekerjaan' => 'perijinan',
+                'nama_status_pekerjaan' => 'Perijinan',
                 'role' => 'Konstruksi'
             ],
             [
                 'id' => 3,
-                'nama_status_pekerjaan' => 'aanweedjing',
+                'nama_status_pekerjaan' => 'Aanweedjing',
                 'role' => 'Konstruksi'
             ],
             [
                 'id' => 4,
-                'nama_status_pekerjaan' => 'bon material',
+                'nama_status_pekerjaan' => 'Bon Material',
                 'role' => 'Konstruksi'
             ],
             [
                 'id' => 5,
-                'nama_status_pekerjaan' => 'penanaman tiang',
+                'nama_status_pekerjaan' => 'Penanaman Tiang',
                 'role' => 'Konstruksi'
             ],
             [
                 'id' => 6,
-                'nama_status_pekerjaan' => 'penarikan',
+                'nama_status_pekerjaan' => 'Penarikan',
                 'role' => 'Konstruksi'
+            ],
+            [
+                'id' => 7,
+                'nama_status_pekerjaan' => 'Dispatch Mitra',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 8,
+                'nama_status_pekerjaan' => 'Perijinan',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 9,
+                'nama_status_pekerjaan' => 'Aanweedjing',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 10,
+                'nama_status_pekerjaan' => 'Bon Material',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 11,
+                'nama_status_pekerjaan' => 'Penanaman Tiang',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 12,
+                'nama_status_pekerjaan' => 'Penarikan',
+                'role' => 'Maintenance'
             ],
         ];
 

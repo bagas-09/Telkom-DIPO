@@ -16,18 +16,33 @@ class TipeKemitraanSeeder extends Seeder
         $tipe_kemitraan = [
             [
                 'id' => 1,
-                'nama_tipe_kemitraan' => 'turnkey',
+                'nama_tipe_kemitraan' => 'Turnkey',
                 "role" => "Konstruksi"
             ],
             [
                 'id' => 2,
-                'nama_tipe_kemitraan' => 'jasa only',
+                'nama_tipe_kemitraan' => 'Jasa Only',
                 "role" => "Konstruksi"
             ],
             [
                 'id' => 3,
-                'nama_tipe_kemitraan' => 'selected material',
+                'nama_tipe_kemitraan' => 'Selected Material',
                 "role" => "Konstruksi"
+            ],
+            [
+                'id' => 4,
+                'nama_tipe_kemitraan' => 'Turnkey',
+                "role" => "Maintenance"
+            ],
+            [
+                'id' => 5,
+                'nama_tipe_kemitraan' => 'Jasa Only',
+                "role" => "Maintenance"
+            ],
+            [
+                'id' => 6,
+                'nama_tipe_kemitraan' => 'Selected Material',
+                "role" => "Maintenance"
             ],
         ];
 
