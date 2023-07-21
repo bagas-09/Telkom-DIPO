@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Commerce;
+namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\LaporanCommerce;
+use App\Models\LaporanProcurement;
 use App\Models\LaporanKonstruksi;
 use App\Models\LaporanMaintenance;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 
-class LaporanCommerceController extends Controller
+class LaporanProcurementController extends Controller
 {
     public function index()
     {
 
-        return view('commerce.laporan.index', [
-            "title" => "Laporan Commerce",
-            "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
+        return view('procurement.laporan.index', [
+            "title" => "Laporan Procurement",
+            "procurement" => LaporanProcurement::all()->where('draft', '=', 0),
         ]);
     }
 
 
     public function draft()
     {
-        return view('commerce.laporan.draft', [
+        return view('procurement.laporan.draft', [
             "title" => "Draft",
-            "commerce" => LaporanCommerce::all()->where('draft', '=', 1),
+            "procurement" => LaporanProcurement::all()->where('draft', '=', 1),
         ]);
     }
 
@@ -38,9 +38,9 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
-        return view('commerce.laporan.add_maintenance', [
-            "title" => "Tambah Laporan Commerce",
-            "commerce" => LaporanCommerce::all(),
+        return view('procurement.laporan.add_maintenance', [
+            "title" => "Tambah Laporan Procurement",
+            "procurement" => LaporanProcurement::all(),
             "statusmany" => Status::all(),
             "id" => $id,
             "lokasi" => $lokasiValue
@@ -53,9 +53,9 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
-        return view('commerce.laporan.add_konstruksi', [
-            "title" => "Tambah Laporan Commerce",
-            "commerce" => LaporanCommerce::all(),
+        return view('procurement.laporan.add_konstruksi', [
+            "title" => "Tambah Laporan Procurement",
+            "procurement" => LaporanProcurement::all(),
             "statusmany" => Status::all(),
             "id" => $id,
             "lokasi" => $lokasiValue
@@ -74,13 +74,13 @@ class LaporanCommerceController extends Controller
                 'unique' => ':attribute sudah ada',
                 'no_PO.required' => 'Nomor PO wajib diisi',
                 'no_PO.unique' => 'Nomor PO sudah ada',
-                'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+                'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan procurement',
             ];
             $this->validate($request, [
-                "no_PO" => 'required|unique:laporan_commerce',
-                "PID_konstruksi_id" => 'required|unique:laporan_commerce'
+                "no_PO" => 'required|unique:laporan_procurement',
+                "PID_konstruksi_id" => 'required|unique:laporan_procurement'
             ], $messages);
-            LaporanCommerce::insert([
+            LaporanProcurement::insert([
                 "no_PO" => $request->no_PO,
                 'tanggal_PO' => $request->tanggal_PO,
                 'No_SP' => $request->No_SP,
@@ -101,7 +101,7 @@ class LaporanCommerceController extends Controller
                 'draft' => 1
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
-                "commerce" => 1
+                "procurement" => 1
             ]);
         } else if ($_POST['submit'] == 'save') {
             DB::beginTransaction();
@@ -110,12 +110,12 @@ class LaporanCommerceController extends Controller
                 'unique' => ':attribute sudah ada',
                 'no_PO.required' => 'Nomor Po wajib diisi',
                 'no_PO.unique' => 'Nomor Po sudah ada',
-                'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+                'PID_konstruksi_id.unique' => 'Laporan sudah ada, silahkan periksa laporan procurement',
             ];
 
             $this->validate($request, [
-                "no_PO" => 'required|unique:laporan_commerce',
-                "PID_konstruksi_id" => 'unique:laporan_commerce',
+                "no_PO" => 'required|unique:laporan_procurement',
+                "PID_konstruksi_id" => 'unique:laporan_procurement',
                 'tanggal_PO' => 'required',
                 'No_SP' => 'required',
                 'tanggal_SP' => 'required',
@@ -132,7 +132,7 @@ class LaporanCommerceController extends Controller
                 'status_id' => 'required',
             ], $messages);
 
-            LaporanCommerce::insert([
+            LaporanProcurement::insert([
                 "no_PO" => $request->no_PO,
                 'tanggal_PO' => $request->tanggal_PO,
                 'No_SP' => $request->No_SP,
@@ -153,7 +153,7 @@ class LaporanCommerceController extends Controller
                 'draft' => 0
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
-                "commerce" => 1
+                "procurement" => 1
             ]);
             DB::commit();
         } else {
@@ -162,7 +162,7 @@ class LaporanCommerceController extends Controller
 
 
 
-        return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
+        return redirect()->intended(route('procurement.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 
 
@@ -178,13 +178,13 @@ class LaporanCommerceController extends Controller
                 'unique' => ':attribute sudah ada',
                 'no_PO.required' => 'Nomor PO wajib diisi',
                 'no_PO.unique' => 'Nomor PO sudah ada',
-                'PID_maintenance_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+                'PID_maintenance_id.unique' => 'Laporan sudah ada, silahkan periksa laporan procurement',
             ];
             $this->validate($request, [
-                "no_PO" => 'required|unique:laporan_commerce',
-                "PID_maintenance_id" => 'required|unique:laporan_commerce'
+                "no_PO" => 'required|unique:laporan_procurement',
+                "PID_maintenance_id" => 'required|unique:laporan_procurement'
             ], $messages);
-            LaporanCommerce::insert([
+            LaporanProcurement::insert([
                 "no_PO" => $request->no_PO,
                 'tanggal_PO' => $request->tanggal_PO,
                 'No_SP' => $request->No_SP,
@@ -205,7 +205,7 @@ class LaporanCommerceController extends Controller
                 'draft' => 1
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
-                "commerce" => 1
+                "procurement" => 1
             ]);
         } else if ($_POST['submit'] == 'save') {
             DB::beginTransaction();
@@ -214,12 +214,12 @@ class LaporanCommerceController extends Controller
                 'unique' => ':attribute sudah ada',
                 'no_PO.required' => 'Nomor Po wajib diisi',
                 'no_PO.unique' => 'Nomor Po sudah ada',
-                'PID_maintenance_id.unique' => 'Laporan sudah ada, silahkan periksa laporan commerce',
+                'PID_maintenance_id.unique' => 'Laporan sudah ada, silahkan periksa laporan procurement',
             ];
 
             $this->validate($request, [
-                "no_PO" => 'required|unique:laporan_commerce',
-                "PID_konstruksi_id" => 'unique:laporan_commerce',
+                "no_PO" => 'required|unique:laporan_procurement',
+                "PID_konstruksi_id" => 'unique:laporan_procurement',
                 'tanggal_PO' => 'required',
                 'No_SP' => 'required',
                 'tanggal_SP' => 'required',
@@ -236,7 +236,7 @@ class LaporanCommerceController extends Controller
                 'status_id' => 'required',
             ], $messages);
 
-            LaporanCommerce::insert([
+            LaporanProcurement::insert([
                 "no_PO" => $request->no_PO,
                 'tanggal_PO' => $request->tanggal_PO,
                 'No_SP' => $request->No_SP,
@@ -257,7 +257,7 @@ class LaporanCommerceController extends Controller
                 'draft' => 0
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
-                "commerce" => 1
+                "procurement" => 1
             ]);
             DB::commit();
         } else {
@@ -266,37 +266,37 @@ class LaporanCommerceController extends Controller
 
 
 
-        return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
+        return redirect()->intended(route('procurement.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
     }
 
-    public function deleteLaporanCommerce($id)
+    public function deleteLaporanProcurement($id)
     {
         try {
             DB::beginTransaction();
 
-            $commerce = LaporanCommerce::find($id);
+            $procurement = LaporanProcurement::find($id);
 
             // Pengecekan di setiap tabel terkait
-            // if ($status->laporanCommerce()->count() > 0) {
+            // if ($status->laporanProcurement()->count() > 0) {
             //     throw new \Exception("Kota ini sedang digunakan di Tabel Account dan tidak dapat dihapus.");
             // }
 
             // Jika tidak ada pengecualian, hapus kota
-            $commerce->delete();
+            $procurement->delete();
 
             DB::commit();
 
-            return redirect()->intended(route('commerce.laporan.index'))->with("success", "Berhasil menghapus Laporan Commerce");
+            return redirect()->intended(route('procurement.laporan.index'))->with("success", "Berhasil menghapus Laporan Procurement");
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('commerce.laporan.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('procurement.laporan.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('commerce.laporan.index'))->with("error", $e->getMessage());
+            return redirect()->intended(route('procurement.laporan.index'))->with("error", $e->getMessage());
         }
     }
 }

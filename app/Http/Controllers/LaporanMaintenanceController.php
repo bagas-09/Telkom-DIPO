@@ -84,6 +84,31 @@ class LaporanMaintenanceController extends Controller
     
     public function storeLaporanMaintenance(Request $request)
     {
+        $messages = [
+            'required' => ':Field wajib diisi',
+            'unique' => ':Nilai sudah ada',
+        ];
+        $this->validate($request, [
+            "PID_maintenance" => 'required|unique:laporan_maintenance',
+            "ID_SAP_maintenance" => 'required',
+            'NO_PR_maintenance' => 'required',
+            'tanggal_PR' => 'required',
+            'status_pekerjaan_id' => 'required',
+            'mitra_id' => 'required',
+            'tipe_kemitraan_id' => 'required',
+            'jenis_program_id' => 'required',
+            'tipe_provisioning_id' => 'required',
+            'periode_pekerjaan' => 'required',
+            'lokasi' => 'required',
+            'material_DRM' => 'required',
+            'jasa_DRM' => 'required',
+            'total_DRM' => 'required',
+            'material_aktual' => 'required',
+            'jasa_aktual' => 'required',
+            'total_aktual' => 'required',
+            'keterangan' => 'required',
+        ], $messages);
+        
         // LOKASI (Mengambil nilai dari form)
         $jenisProgram = $request->jenis_program_id;
         $tipeProvisioning = $request->tipe_provisioning_id;
@@ -130,33 +155,7 @@ class LaporanMaintenanceController extends Controller
         ]);
         return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Laporan Berhasil Dibuat");
 
-        $validatedData = $request->validate([
-            "PID_maintenance" => '$request',
-            "ID_SAP_maintenance" => '$request',
-            'NO_PR_maintenance' => '$request',
-            'tanggal_PR' => '$request',
-            'status_pekerjaan_id' => '$request',
-            'mitra_id' => '$request',
-            'tipe_kemitraan_id' => '$request',
-            'jenis_program_id' => '$request',
-            'tipe_provisioning_id' => '$request',
-            'periode_pekerjaan' => '$request',
-            'lokasi' => '$request',
-            'material_DRM' => '$request',
-            'jasa_DRM' => '$request',
-            'total_DRM' => '$request',
-            'material_aktual' => '$request',
-            'jasa_aktual' => '$request',
-            'total_aktual' => '$request',
-            'keterangan' => '$request',
-        ], [
-            'PID_maintenance.required' => 'PID_maintenance field is required.',
-            'ID_SAP_maintenance.required' => 'ID_SAP field is required.',
-            'NO_PR_maintenance.required' => 'No_PR field is required.',
         
-        ]);
-        $laporanMaintenance = LaporanMaintenance::create($validatedData);
-            
     }
 
     public function deleteLaporanMaintenance($id)
