@@ -29,10 +29,25 @@ class MitraSeeder extends Seeder
                 'nama_mitra' => 'Cipta Utama Karya',
                 'role' => 'Konstruksi'
             ],
+            [
+                'id' => 4,
+                'nama_mitra' => 'Upaya Teknik',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 5,
+                'nama_mitra' => 'Putra Jaya Raharja',
+                'role' => 'Maintenance'
+            ],
+            [
+                'id' => 6,
+                'nama_mitra' => 'Cipta Utama Karya',
+                'role' => 'Maintenance'
+            ],
         ];
 
         foreach ($mitras as $mitra) {
-           Mitra::create($mitra);
+            Mitra::create($mitra);
         }
     }
 }
