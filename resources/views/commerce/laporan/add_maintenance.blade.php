@@ -1,4 +1,4 @@
-@extends('layouts.commerce-master')
+@extends('layouts.admin-master')
 
 @section('title')
 
@@ -189,6 +189,7 @@
                                         <option value="{{ $status->id }}" @selected(old('status_id')==$status->id)>{{ $status->nama_status }}</option>
                                         @endforeach
                                     </select>
+                                    <span id="status_id_error" style="display: none; color: red;">Status harus "CASH IN" jika ingin menyimpan!</span>
                                     @error('status_id')
                                     <div class="invalid-feedback">
                                         Status Wajib Dipilih!!!

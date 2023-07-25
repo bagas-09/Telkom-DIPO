@@ -1,4 +1,4 @@
-@extends('layouts.commerce-master')
+@extends('layouts.admin-master')
 
 @section('title')
 
@@ -88,7 +88,7 @@
                                             <td>{{ $admins ->PID_maintenance_id}}</td>
                                             <td>{{ $admins ->lokasi}}</td>
                                             <td>
-
+                                                @if(Auth::user()->role == "Commerce")
                                                 <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id }}">Delete</a>
                                                 {{-- MODAL DELETE --}}
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id }}" data-backdrop="static">
@@ -113,6 +113,7 @@
                                                 </div>
                                                 {{-- UPDATE LaporanCommerce --}}
                                                 <a class="btn btn-sm btn-warning" href="{{ route('commerce.laporan.edit', [$admins->no_PO]) }}" style="color: white">Edit</a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

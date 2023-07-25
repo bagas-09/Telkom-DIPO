@@ -51,6 +51,10 @@ Route::group(['middleware' => 'revalidate'], function () {
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
+        Route::get('/admin/commerce', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'index'])->name('admin.laporan_commerce.index');
+        Route::get('/admin/draft', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'draft'])->name('admin.laporan_commerce.draft');
+        Route::get('/admin/draft/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'drafted'])->name('admin.laporan_commerce.drafted');
+
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
         Route::post('/city/add', [App\Http\Controllers\CityController::class, 'storeCity'])->name('admin.storeCity');

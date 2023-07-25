@@ -413,4 +413,11 @@ class LaporanCommerceController extends Controller
             //invalid action!
         }
     }
+
+    public function drafted($id){
+        LaporanCommerce::where("no_PO", '=', $id)->update([
+            'draft' => 1
+        ]);
+        return redirect()->intended(route('admin.laporan_commerce.draft'))->with("success", "Laporan Berhasil Menjadi Draft");
+    }
 }

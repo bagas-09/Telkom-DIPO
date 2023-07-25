@@ -1,4 +1,4 @@
-@extends('layouts.commerce-master')
+@extends('layouts.admin-master')
 
 @section('title')
 
@@ -188,6 +188,7 @@
                                         <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>{{ $status->nama_status }}</option>
                                         @endforeach
                                     </select>
+                                    <span id="status_id_error" style="display: none; color: red;">Status harus "CASH IN" jika ingin menyimpan!</span>
                                     @error('status_id')
                                     <div class="invalid-feedback">
                                         Status Wajib Dipilih!!!
@@ -241,21 +242,21 @@
     }
 
     function validateStatus() {
-    // Find the dropdown element
-    var statusDropdown = document.getElementById('status_id');
+        // Find the dropdown element
+        var statusDropdown = document.getElementById('status_id');
 
-    // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
-    var simpanButton = document.querySelector('button[value="save"]');
-    if (simpanButton && statusDropdown.value != 10) {
-        // Add the 'is-invalid' class to the dropdown to show the error state
-        statusDropdown.classList.add('is-invalid');
-        // Display the error message
-        var errorMessage = document.getElementById('status_id_error');
-        errorMessage.style.display = 'block';
+        // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
+        var simpanButton = document.querySelector('button[value="save"]');
+        if (simpanButton && statusDropdown.value != 10) {
+            // Add the 'is-invalid' class to the dropdown to show the error state
+            statusDropdown.classList.add('is-invalid');
+            // Display the error message
+            var errorMessage = document.getElementById('status_id_error');
+            errorMessage.style.display = 'block';
 
-        // Prevent form submission
-        event.preventDefault();
+            // Prevent form submission
+            event.preventDefault();
+        }
     }
-}
 </script>
 @endsection
