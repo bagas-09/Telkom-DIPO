@@ -15,21 +15,34 @@ class StatusSeeder extends Seeder
     {
         $status = [
             [
-                'id' => 1,
+                'nama_status' => 'MENUGGU PELIMPAHAN',
+            ],
+            [
                 'nama_status' => 'Surat Pesanan',
             ],
             [
-                'id' => 2,
                 'nama_status' => 'BAUT',
             ],
             [
-                'nama_status' => 'MENUGGU PELIMPAHAN',
+                'nama_status' => 'BAR',
             ],
             [
                 'nama_status' => 'BAST',
             ],
             [
                 'nama_status' => 'INPUT MODEL SD',
+            ],
+            [
+                'nama_status' => 'ABD VALID 4',
+            ],
+            [
+                'nama_status' => 'INVOICE',
+            ],
+            [
+                'nama_status' => 'PAYMENT EXCEEDED',
+            ],
+            [
+                'nama_status' => 'CASH IN',
             ],
         ];
         foreach ($status as $s) {

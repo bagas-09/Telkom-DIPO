@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('layouts.commerce-master')
 
 @section('title')
 
@@ -13,21 +13,6 @@
             <div class="breadcrumb-item"><a href="#">Forms</a></div>
             <div class="breadcrumb-item">Laporan Commerce</div>
         </div>
-        @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('success') }}
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        </div>
-        @endif
-
-        @if(session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show">
-            {{ session('error') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endif
     </div>
 
     <div class="section-body">
@@ -36,7 +21,22 @@
                 <div class="card">
                     <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan dari Konstruksi</b></div>
                     <div class="px-5 pt-2 pb-0">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</div>
-                    <form id="cityForm" action="{{route('commerce.laporan.store_konstruksi', [$id])}}" method="POST">
+                    @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {{ session('success') }}
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    </div>
+                    @endif
+
+                    @if(session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+                    <form id="storeForm" action="{{route('commerce.laporan.store_konstruksi', [$id])}}" method="POST">
                         <div class="row">
                             @csrf
                             <div class="col-lg-6">
@@ -76,7 +76,7 @@
                                     <input type="date" id="tanggal_SP" name="tanggal_SP" class="form-control @error('tanggal_SP') is-invalid @enderror mb-2" value="{{ old('tanggal_SP') }}">
                                     @error('tanggal_SP')
                                     <div class="invalid-feedback">
-                                        Tanggal SP Wajib Diisi!!!
+                                        {{$message}}
                                     </div>
                                     @enderror
                                     <label for="TOC" class="col-form-label">TOC: </label>
@@ -185,7 +185,7 @@
                                     <select class="form-control @error('status_id') is-invalid @enderror mb-2" name="status_id" id="status_id" value="">
                                         <option value="" selected>-- Pilih Status --</option>
                                         @foreach ($statusmany as $status)
-                                        <option value="{{ $status->id }}" @selected(old('status_id') == $status->id)>{{ $status->nama_status }}</option>
+                                        <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>{{ $status->nama_status }}</option>
                                         @endforeach
                                     </select>
                                     @error('status_id')
@@ -198,7 +198,7 @@
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
                             <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
-                            <button type="submit" name="submit" class="btn btn-primary" value="save">Simpan</button>
+                            <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -217,10 +217,10 @@
     function totalAktual() {
         let jasaAktual = document.getElementById('jasa_aktual').value.replace(/[^\d]/g, '');
         let materialAktual = document.getElementById('material_aktual').value.replace(/[^\d]/g, '');
-        
+
         // Mengubah nilai mata uang dalam format teks menjadi angka
         let sumAktual = Number(jasaAktual.replace(/\./g, '')) + Number(materialAktual.replace(/\./g, ''));
-        
+
         // Menampilkan hasil jumlah kembali dalam format mata uang dengan pemisah ribuan (.)
         let total_Aktual_input = document.getElementById('total_aktual');
         total_Aktual_input.value = sumAktual.toLocaleString('id-ID');
@@ -229,15 +229,33 @@
     function formatCurrency(input) {
         // Menghilangkan semua karakter selain angka
         let rawValue = input.value.replace(/[^\d]/g, '');
-        
+
         // Memastikan input tidak kosong
         if (rawValue) {
             // Mengubah angka menjadi format uang dengan pemisah ribuan (.)
             let formattedValue = Number(rawValue).toLocaleString('id-ID');
-            
+
             // Menampilkan hasil format uang di input
             input.value = formattedValue;
         }
     }
+
+    function validateStatus() {
+    // Find the dropdown element
+    var statusDropdown = document.getElementById('status_id');
+
+    // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
+    var simpanButton = document.querySelector('button[value="save"]');
+    if (simpanButton && statusDropdown.value != 10) {
+        // Add the 'is-invalid' class to the dropdown to show the error state
+        statusDropdown.classList.add('is-invalid');
+        // Display the error message
+        var errorMessage = document.getElementById('status_id_error');
+        errorMessage.style.display = 'block';
+
+        // Prevent form submission
+        event.preventDefault();
+    }
+}
 </script>
 @endsection

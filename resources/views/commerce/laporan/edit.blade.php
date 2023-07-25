@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('layouts.commerce-master')
 
 @section('title')
 
@@ -37,7 +37,7 @@
                     <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Draft Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</div>
                     @foreach ($commerce as $laporan)
-                    <form id="cityForm" action="{{route('commerce.laporan.update', [$id])}}" method="POST">
+                    <form id="storeForm" action="{{route('commerce.laporan.update', [$id])}}" method="POST">
                         <div class="row">
                             @csrf
                             <div class="col-lg-6">
@@ -199,9 +199,10 @@
                                     <select class="form-control @error('status_id') is-invalid @enderror mb-2" name="status_id" id="status_id" value="{{ old('status_id', $laporan->status_id) }}">
                                         <option value="" selected>-- Pilih Status --</option>
                                         @foreach ($statusmany as $status)
-                                        <option value="{{ $status->id }}" {{ strcmp($laporan->status_id,"$status->id")==0? 'selected':''; }}>{{ $status->nama_status }}</option>
+                                        <option value="{{ $status->id }}" {{ old('status_id', $laporan->status_id) == $status->id ? 'selected' : '' }}>{{ $status->nama_status }}</option>
                                         @endforeach
                                     </select>
+                                    <span id="status_id_error" style="display: none; color: red;">Status harus "CASH IN" jika ingin menyimpan!</span>
                                     @error('status_id')
                                     <div class="invalid-feedback">
                                         Status Wajib Dipilih!!!
@@ -212,7 +213,7 @@
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
                             <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
-                            <button type="submit" name="submit" class="btn btn-primary" value="save">Simpan</button>
+                            <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
                         </div>
                     </form>
                     @endforeach
@@ -254,5 +255,22 @@
             input.value = formattedValue;
         }
     }
+    function validateStatus() {
+    // Find the dropdown element
+    var statusDropdown = document.getElementById('status_id');
+
+    // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
+    var simpanButton = document.querySelector('button[value="save"]');
+    if (simpanButton && statusDropdown.value != 10) {
+        // Add the 'is-invalid' class to the dropdown to show the error state
+        statusDropdown.classList.add('is-invalid');
+        // Display the error message
+        var errorMessage = document.getElementById('status_id_error');
+        errorMessage.style.display = 'block';
+
+        // Prevent form submission
+        event.preventDefault();
+    }
+}
 </script>
 @endsection
