@@ -189,6 +189,7 @@
                                         <option value="{{ $status->id }}" @selected(old('status_id')==$status->id)>{{ $status->nama_status }}</option>
                                         @endforeach
                                     </select>
+                                    <span id="status_id_error" style="display: none; color: red;">Status harus "CASH IN" jika ingin menyimpan!</span>
                                     @error('status_id')
                                     <div class="invalid-feedback">
                                         Status Wajib Dipilih!!!
@@ -199,7 +200,7 @@
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
                             <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
-                            <button type="submit" name="submit" class="btn btn-primary" value="save">Simpan</button>
+                            <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -240,5 +241,22 @@
             input.value = formattedValue;
         }
     }
+    function validateStatus() {
+    // Find the dropdown element
+    var statusDropdown = document.getElementById('status_id');
+
+    // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
+    var simpanButton = document.querySelector('button[value="save"]');
+    if (simpanButton && statusDropdown.value != 10) {
+        // Add the 'is-invalid' class to the dropdown to show the error state
+        statusDropdown.classList.add('is-invalid');
+        // Display the error message
+        var errorMessage = document.getElementById('status_id_error');
+        errorMessage.style.display = 'block';
+
+        // Prevent form submission
+        event.preventDefault();
+    }
+}
 </script>
 @endsection

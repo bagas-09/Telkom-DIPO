@@ -25,6 +25,13 @@
 
       </ul>
     </li>
+    <li class="nav-item dropdown {{ $title==='Laporan Commerce' || $title==='Draft' ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Laporan Commerce</span></a>
+      <ul class="dropdown-menu">
+        <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_commerce.index')}}"><i class="fa fa-envelope"></i><span>Selesai</span></a></li>
+        <li class="{{ $title==='Draft' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_commerce.draft')}}"><i class="fa fa-envelope-open"></i><span>Draft</span></a></li>
+      </ul>
+    </li>
     @endif
     @if(Auth::user()->role == "Commerce")
     <li class="nav-item dropdown {{ $title==='Laporan Commerce' || $title==='Draft' ? 'active' : '' }}">
