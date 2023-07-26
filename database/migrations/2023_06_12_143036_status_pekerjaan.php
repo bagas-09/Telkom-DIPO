@@ -34,7 +34,5 @@ class StatusPekerjaan extends Migration
     {
         //
         Schema::dropIfExists('status_pekerjaan');
-
-        
     }
 }

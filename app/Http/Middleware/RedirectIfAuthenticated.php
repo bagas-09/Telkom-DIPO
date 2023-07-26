@@ -12,17 +12,38 @@ class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
-     *
+     * @param \Illuminate\Http\Request $request
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param string|null ...$guards
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        $account = Auth::guard("account")->user();
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+        switch ($guard) {
+            case "account":
+                if ($account) {
+                    if($account->role == 'Commerce'){
+                        return redirect()->route('commerce.laporan.index');
+                    }else if($account->role == 'Maintenance'){
+                        return redirect()->route('admin.dashboard.jenisOrder');
+                    }else if($account->role == 'Konstruksi'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'GM'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'Admin'){
+                        return redirect()->route('admin.dashboard.index');
+                    }else if($account->role == 'Procurement'){
+                        return redirect()->route('admin.dashboard.index');
+                    }
+                }
+                break;
+            default:
+                if (Auth::guard($guard)->check()) {
+                    return redirect('/login');
+                }
+                break;
         }
 
         return $next($request);

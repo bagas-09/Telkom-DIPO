@@ -28,8 +28,5 @@ class Role extends Migration
     {
         //
         Schema::dropIfExists('role');
-
-        
-        
     }
 }
