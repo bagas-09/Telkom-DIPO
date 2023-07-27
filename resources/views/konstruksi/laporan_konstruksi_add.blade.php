@@ -12,7 +12,7 @@ Dashboard
             <div class="card">
                 {{-- ADD LAPORAN KONSTRUKSI --}}
                 <div class="card-body d-flex justify-content-start" style="padding-bottom:0; margin-bottom:0;">
-                    <div class="breadcrumb-item"><a href="/laporankonstruksi">Laporan Konstruksi</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('konstruksi.laporanKonstruksi.index') }}">Laporan Konstruksi</a></div>
                     <div class="breadcrumb-item active">Buat Laporan Konstruksi</div>
                 </div>
                 <div class="card-header" style="padding-bottom:0;">

@@ -13,20 +13,14 @@ Dashboard
   <div class="section-body">
     <section class="section">
       <div class="section-header">
-        <h1>Table</h1>
+        <h1>Laporan Konstruksi</h1>
         <div class="section-header-breadcrumb">
-          <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-          <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
-          <div class="breadcrumb-item">Table</div>
+          <div class="breadcrumb-item"><a href="#">Dashboard</a></div>
+          <div class="breadcrumb-item active"><a href="{{ route('konstruksi.laporanKonstruksi.index') }}">Laporan Konstruksi</a></div>
         </div>
       </div>
 
       <div class="section-body">
-        <h2 class="section-title">Tables</h2>
-        <p class="section-lead">
-          Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
-        </p>
-
         @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show">
           {{ session('success') }}
@@ -47,17 +41,17 @@ Dashboard
           <div class="col-12">
             <div class="card">
               {{-- ADD LAPORAN KONSTRUKSI --}}
-              @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin")
+              
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
                 </div>
+                @if(Auth::user()->role == "Konstruksi")
                 <div class="col-4 d-flex justify-content-end">
                   <a class="btn btn-primary" href="{{ route('konstruksi.laporan_konstruksi_add') }}">Buat Laporan</a>
-
                 </div>
-              </div>
-              @endif
+                @endif
+              </div> 
               <div class="card-body table-responsive">
                 <table class="table" style="overflow-x: auto;">
                   <thead>
@@ -80,6 +74,9 @@ Dashboard
                       <th scope="col">Total Aktual</th>
                       <th scope="col">Keterangan</th>
                       <th scope="col">Action</th>
+                      @if(Auth::user()->role == "Admin" )
+                      <th scope="col">Access</th>
+                      @endif
                     </tr>
                   </thead>
                   @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin")
@@ -108,9 +105,11 @@ Dashboard
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
 
                       <td>
+                        @if(Auth::user()->role == "Konstruksi" && $admins->editable == 1)
                         <a class="btn btn-sm btn-warning"  
                           href={{ route('konstruksi.laporan_konstruksi_edit', [$admins->PID_konstruksi]) }}
                           style="color: white">Edit</a>
+                        @endif
 
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}">Delete</a>
                         {{-- MODAL DELETE --}}
@@ -128,13 +127,33 @@ Dashboard
                                 Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Konstruksi yang dipilih.
                               </div>
                               <div class="modal-footer bg-whitesmoke br">
+                                @if(Auth::user()->role == "Konstruksi")
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
                                 <a class="btn btn-danger" href="{{ route('konstruksi.laporan_konstruksi_delete', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
+                                @endif
+                                @if(Auth::user()->role == "Admin")
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
+                                <a class="btn btn-danger" href="{{ route('admin.deleteLaporanKonstruksi', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
+                                @endif
                               </div>
                             </div>
                           </div>
                         </div>
                       </td>
+                       @if(Auth::user()->role == "Admin")
+                      <td>
+                          @if($admins->editable == 0)
+                            <a class="btn btn-sm btn-warning"  
+                              href={{ route('admin.editableKonstruksi', [$admins->PID_konstruksi]) }}
+                              style="color: white">Able Edit</a>
+                          @endif
+                          @if($admins->editable == 1)
+                            <a class="btn btn-sm btn-danger"  
+                              href={{ route('admin.uneditableKonstruksi', [$admins->PID_konstruksi]) }}
+                              style="color: white">Unable Edit</a>
+                          @endif
+                      </td>
+                      @endif
                     </tr>
                     @endforeach
                   </tbody>

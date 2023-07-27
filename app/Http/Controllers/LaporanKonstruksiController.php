@@ -66,6 +66,7 @@ class LaporanKonstruksiController extends Controller
             "tipe_kemitraan_id" => $tipe_kemitraan_id,
             "jenis_order_id" => $jenis_order_id,
             "tipe_provisioning_id" => $tipe_provisioning_id,
+            // "editable" => LaporanKonstruksi::select("editable"),
         ]);
     }
 
@@ -277,5 +278,23 @@ class LaporanKonstruksiController extends Controller
             'keterangan' => $request->keterangan,
         ]);
         return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("success", "Berhasil mengubah Laporan Konstruksi");
+    }
+
+    public function Editable($id)
+    {
+        LaporanKonstruksi::where('PID_konstruksi', $id)->update([
+            "editable" => 1
+        ]);
+
+        return redirect()->intended(route('admin.laporan_konstruksi'))->with("success", "Berhasil memberi akses edit pada Laporan Konstruksi");
+    }
+
+    public function Uneditable($id)
+    {
+        LaporanKonstruksi::where('PID_konstruksi', $id)->update([
+            "editable" => 0
+        ]);
+
+        return redirect()->intended(route('admin.laporan_konstruksi'))->with("success", "Berhasil mengubah akses edit pada Laporan Konstruksi");
     }
 }
