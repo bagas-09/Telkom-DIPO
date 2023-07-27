@@ -53,7 +53,8 @@ Dashboard
                   <h4>Simple</h4>
                 </div>
                 <div class="col-4 d-flex justify-content-end">
-                  <a class="btn btn-primary" href="{{ route('konstruksi.addLaporanKonstruksi') }}">Buat Laporan</a>
+                  <a class="btn btn-primary" href="{{ route('konstruksi.laporan_konstruksi_add') }}">Buat Laporan</a>
+
                 </div>
               </div>
               @endif
@@ -107,7 +108,10 @@ Dashboard
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
 
                       <td>
-                        <a class="btn btn-sm btn-warning" data-toggle="modal" {{-- data-target="#editAccountModal-{{$admins->id}}" --}} style="color: white">Edit</a>
+                        <a class="btn btn-sm btn-warning"  
+                          href={{ route('konstruksi.laporan_konstruksi_edit', [$admins->PID_konstruksi]) }}
+                          style="color: white">Edit</a>
+
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}">Delete</a>
                         {{-- MODAL DELETE --}}
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}" data-backdrop="static">
@@ -125,7 +129,7 @@ Dashboard
                               </div>
                               <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
-                                <a class="btn btn-danger" href="{{ route('konstruksi.deleteLaporanKonstruksi', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
+                                <a class="btn btn-danger" href="{{ route('konstruksi.laporan_konstruksi_delete', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
                               </div>
                             </div>
                           </div>
