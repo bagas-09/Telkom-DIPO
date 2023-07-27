@@ -111,8 +111,16 @@ Dashboard
                           style="color: white">Edit</a>
                         @endif
 
+                        @if(Auth::user()->role == "Konstruksi")
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}">Delete</a>
+                        @endif
+
+                        @if(Auth::user()->role == "Admin")
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanAdminModal{{ $admins->PID_konstruksi }}">Delete</a>
+                        @endif
+
                         {{-- MODAL DELETE --}}
+                        @if(Auth::user()->role == "Konstruksi")
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanKonstruksiModal{{ $admins->PID_konstruksi }}" data-backdrop="static">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -127,18 +135,35 @@ Dashboard
                                 Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Konstruksi yang dipilih.
                               </div>
                               <div class="modal-footer bg-whitesmoke br">
-                                @if(Auth::user()->role == "Konstruksi")
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
                                 <a class="btn btn-danger" href="{{ route('konstruksi.laporan_konstruksi_delete', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
-                                @endif
-                                @if(Auth::user()->role == "Admin")
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
-                                <a class="btn btn-danger" href="{{ route('admin.deleteLaporanKonstruksi', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
-                                @endif
                               </div>
                             </div>
                           </div>
                         </div>
+                        @endif
+                        @if(Auth::user()->role == "Admin")
+                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->PID_konstruksi }}" data-backdrop="static">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Hapus Laporan Konstruksi</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanKonstruksi1">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              @csrf
+                              <div class="modal-body">
+                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Konstruksi yang dipilih.
+                              </div>
+                              <div class="modal-footer bg-whitesmoke br">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanKonstruksi2">Cancel</button>
+                                <a class="btn btn-danger" href="{{ route('admin.deleteLaporanKonstruksi', [$admins->PID_konstruksi]) }}" value="Delete">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        @endif
                       </td>
                        @if(Auth::user()->role == "Admin")
                       <td>

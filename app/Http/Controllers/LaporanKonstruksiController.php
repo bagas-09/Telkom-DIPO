@@ -12,6 +12,7 @@ use App\Models\City;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class LaporanKonstruksiController extends Controller
@@ -169,6 +170,7 @@ class LaporanKonstruksiController extends Controller
     public function deleteLaporanKonstruksi($id)
     {
         try {
+            $account = Auth::guard('account')->user();
             DB::beginTransaction();
 
             $tipe_kemitraan = LaporanKonstruksi::find($id);
@@ -183,17 +185,29 @@ class LaporanKonstruksiController extends Controller
 
             DB::commit();
 
-            return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("success", "Berhasil menghapus Laporan Konstruksi");
+            if ($account->role == "Konstruksi") {
+                return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("success", "Berhasil menghapus Laporan Konstruksi");
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_konstruksi'))->with("success", "Berhasil menghapus Laporan Konstruksi");
+            }
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            if ($account->role == "Konstruksi") {
+                return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
+            }
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("error", $e->getMessage());
+            if ($account->role == "Konstruksi") {
+                return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_konstruksi'))->with("error", $e->getMessage());
+            }
         }
     }
 
