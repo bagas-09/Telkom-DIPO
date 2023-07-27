@@ -38,7 +38,7 @@ class LaporanKonstruksi extends Migration
             $table->string('total_aktual');
             $table->string('keterangan');
             $table->integer("commerce")->nullable();
-            
+            $table->boolean('editable')->default(0);
         });
     }
 

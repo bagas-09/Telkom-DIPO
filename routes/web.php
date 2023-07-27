@@ -132,6 +132,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('laporankonstruksi/add/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'storeLaporanKonstruksi'])->name('admin.storeLaporanKonstruksi');
         Route::get('/laporankonstruksi/edit/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'editLaporanKonstruksi'])->name('admin.editLaporanKonstruksi');
         Route::post('/laporankonstruksi/edit/{id}/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'updateLaporanKonstruksi'])->name('admin.updateLaporanKonstruksi');
+        Route::get('/editable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Editable'])->name('admin.editableKonstruksi');
+        Route::get('/uneditable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Uneditable'])->name('admin.uneditableKonstruksi');
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
