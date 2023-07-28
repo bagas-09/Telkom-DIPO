@@ -60,7 +60,7 @@
                                         <tr>
                                             <th scope="row">{{$i++}}</th>
                                             <td>{{ $admins ->PR_SAP}}</td>
-                                            <td>{{ $admins ->PO SAP}}</td>
+                                            <td>{{ $admins ->PO_SAP}}</td>
                                             <td>{{ $admins ->tanggal_PO_SAP}}</td>
                                             <td>{{ $admins ->material_DRM}}</td>
                                             <td>{{ $admins ->jasa_DRM}}</td>

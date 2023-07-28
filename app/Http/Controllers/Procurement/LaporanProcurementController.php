@@ -47,7 +47,7 @@ class LaporanProcurementController extends Controller
             $status_tagihan_id[$statusT->id] = $statusT->nama_status_tagihan;
         }
         return view('procurement.dashboard.draft', [
-            "title" => "Draft",
+            "title" => "Draft Procurement",
             "procurement" => LaporanProcurement::all()->where('draft', '=', 1),
             "status_tagihan"=> $status_tagihan_id
         ]);
