@@ -39,6 +39,22 @@ class AccountSeeder extends Seeder
                 "id_nama_kota"=> 1
             ],
             [
+                'nama' => 'Kopleh',
+                'nik' => '456789123',
+                'password' => bcrypt('12345678'), 
+                'role' => "Procurement",
+                'keterangan' => "",
+                "id_nama_kota"=> 1
+            ],
+            [
+                'nama' => 'Willy',
+                'nik' => '567891234',
+                'password' => bcrypt('12345678'), 
+                'role' => "GM",
+                'keterangan' => "",
+                "id_nama_kota"=> 1
+            ],
+            [
                 'nama' => 'Admin',
                 'nik' => 'Admin',
                 'password' => bcrypt('12345678'), 
