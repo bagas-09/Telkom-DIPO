@@ -10,6 +10,7 @@ use App\Models\LaporanMaintenance;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanCommerceController extends Controller
 {
@@ -19,9 +20,23 @@ class LaporanCommerceController extends Controller
         foreach (Status::all() as $statusP) {
             $status_id[$statusP->id] = $statusP->nama_status;
         }
+        $commerce = DB::table('laporan_commerce')
+            ->join('status', 'laporan_commerce.status_id', '=', 'status.id')
+            ->select('*')
+            ->where([
+            [
+                'laporan_commerce.draft', '=', 0
+            ],
+            [
+                'status.nama_status', '=', 'CASH IN'
+            ]
+
+            ])
+            ->get();
         return view('commerce.laporan.index', [
             "title" => "Laporan Commerce",
-            "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
+            // "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
+            "commerce" => $commerce,
             "status"=> $status_id
         ]);
     }
@@ -34,7 +49,7 @@ class LaporanCommerceController extends Controller
             $status_id[$statusP->id] = $statusP->nama_status;
         }
         return view('commerce.laporan.draft', [
-            "title" => "Draft",
+            "title" => "OGP",
             "commerce" => LaporanCommerce::all()->where('draft', '=', 1),
             "status"=> $status_id
         ]);
@@ -114,7 +129,6 @@ class LaporanCommerceController extends Controller
             ]);
             return redirect()->intended(route('commerce.laporan.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
-            DB::beginTransaction();
             $messages = [
                 'required' => ':attribute wajib diisi',
                 'unique' => ':attribute sudah ada',
@@ -281,28 +295,36 @@ class LaporanCommerceController extends Controller
             DB::beginTransaction();
 
             $commerce = LaporanCommerce::find($id);
-
-            // Pengecekan di setiap tabel terkait
-            // if ($status->laporanCommerce()->count() > 0) {
-            //     throw new \Exception("Kota ini sedang digunakan di Tabel Account dan tidak dapat dihapus.");
-            // }
-
-            // Jika tidak ada pengecualian, hapus kota
             $commerce->delete();
 
             DB::commit();
+            $account = Auth::guard('account')->user();
+            if ($account->role == "Commerce") {
+                return redirect()->intended(route('commerce.laporan.index'))->with("success", "Berhasil menghapus Laporan Commerce");
+            } else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_commerce.index'))->with("success", "Berhasil menghapus Laporan Commerce");
 
-            return redirect()->intended(route('commerce.laporan.index'))->with("success", "Berhasil menghapus Laporan Commerce");
+            }
+            
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('commerce.laporan.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            if ($account->role == "Commerce") {
+                return redirect()->intended(route('commerce.laporan.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_commerce.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }
+
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('commerce.laporan.index'))->with("error", $e->getMessage());
+            if ($account->role == "Commerce") {
+                return redirect()->intended(route('commerce.laporan.index'))->with("error", $e->getMessage());
+            }else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_commerce.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }
         }
     }
 
@@ -399,5 +421,12 @@ class LaporanCommerceController extends Controller
         } else {
             //invalid action!
         }
+    }
+
+    public function drafted($id){
+        LaporanCommerce::where("no_PO", '=', $id)->update([
+            'draft' => 1
+        ]);
+        return redirect()->intended(route('admin.laporan_commerce.draft'))->with("success", "Laporan Berhasil Menjadi OGP");
     }
 }

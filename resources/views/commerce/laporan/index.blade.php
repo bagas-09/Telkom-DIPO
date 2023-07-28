@@ -34,7 +34,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-responsive">
+                                <table class="table table-responsive" id="table-1">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
@@ -83,20 +83,21 @@
                                             <td>{{ $admins ->PID_maintenance_id}}</td>
                                             <td>{{ $admins ->lokasi}}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id }}">Delete</a>
+                                                @if(Auth::user()->role == "Commerce")
+                                                <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->no_PO }}">Delete</a>
                                                 {{-- MODAL DELETE --}}
-                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id }}" data-backdrop="static">
+                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->no_PO }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Hapus Kota</h5>
+                                                                <h5 class="modal-title">Hapus Laporan</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommerce1">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             @csrf
                                                             <div class="modal-body">
-                                                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Kota yang dipilih.
+                                                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan yang dipilih.
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
@@ -105,6 +106,32 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endif
+
+                                                <!-- Drafted -->
+                                                @if(Auth::user()->role == "Admin")
+                                                <a class="btn btn-sm btn-warning"  style="color: white" data-toggle="modal" data-target="#draftLaporanCommerceModal{{ $admins->id }}">OGP</a>
+                                                <div class="modal fade" tabindex="-1" role="dialog" id="draftLaporanCommerceModal{{ $admins->id }}" data-backdrop="static">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Ubah Laporan</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanCommercedraft">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                Pilih "OGP" dibawah ini jika Anda ingin mengubah status menjadi OGP.
+                                                            </div>
+                                                            <div class="modal-footer bg-whitesmoke br">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommercedraft">Cancel</button>
+                                                                <a class="btn btn-warning" href="{{ route('admin.laporan_commerce.drafted', [$admins->no_PO]) }}" value="Delete">OGP</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -125,3 +152,11 @@
     }
 </style>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#table-1').dataTable();
+    });
+</script>
+@endpush

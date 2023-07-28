@@ -60,7 +60,7 @@ Dashboard
 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
               <div class="card-body table-responsive">
-                <table class="table" style="overflow-x:auto;">
+                <table class="table" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
                     <th scope="col">No</th>
@@ -222,3 +222,11 @@ Dashboard
 </style>
 
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#table-1').dataTable();
+    });
+</script>
+@endpush
