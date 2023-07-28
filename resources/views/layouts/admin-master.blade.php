@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -14,6 +15,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
+  <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.css" />
 </head>
 
 <body>
@@ -43,8 +46,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
-  @yield('scripts')
+  <script src="{{ asset('js/page/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
+  @stack('scripts')
   {{-- <script src="{{ asset('assets/js/modal.js') }}"></script> --}}
 </body>
 @include('layouts.modals')
+
 </html>

@@ -198,7 +198,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
+                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">OGP</button>
                             <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
                         </div>
                     </form>

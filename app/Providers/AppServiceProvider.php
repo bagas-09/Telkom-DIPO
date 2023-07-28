@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\LaporanCommerce;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view){
+            $count = LaporanCommerce::where('draft', 1)->count();
+            $view->with('count', $count);
+        });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     //
@@ -25,22 +26,22 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if(Auth::guard('account')->attempt($credentials)){
+        if (Auth::guard('account')->attempt($credentials)) {
             $request->session()->regenerate();
             $account = Auth::guard('account')->user();
-            if($account->role == "Commerce"){
+            if ($account->role == "Commerce") {
                 return redirect()->intended(route('commerce.laporan.index'));
-            }else if($account->role == 'Maintenance'){
+            } else if ($account->role == 'Maintenance') {
                 return redirect()->intended(route('admin.dashboard.jenisOrder'));
-            }else if($account->role == 'Konstruksi'){
+            } else if ($account->role == 'Konstruksi') {
+                return redirect()->intended(route('konstruksi.laporanKonstruksi.index'));
+            } else if ($account->role == 'GM') {
                 return redirect()->intended(route('admin.dashboard.index'));
-            }else if($account->role == 'GM'){
+            } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.dashboard.index'));
-            }else if($account->role == 'Admin'){
+            } else if ($account->role == 'Procurement') {
                 return redirect()->intended(route('admin.dashboard.index'));
-            }else if($account->role == 'Procurement'){
-                return redirect()->intended(route('admin.dashboard.index'));
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'NIK atau Password Salah');
             }
         }
