@@ -39,6 +39,25 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/commerce/add/storemaintenance/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'store_maintenance'])->name('commerce.laporan.store_maintenance');
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'edit'])->name('commerce.laporan.edit');
         Route::post('/commerce/update/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'update'])->name('commerce.laporan.update');
+
+    });
+    Route::group(['middleware' => ['auth:account', 'account-access:Procurement']], function () {
+
+        Route::get('/procurement', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'index'])->name('procurement.dashboard.index');
+        Route::get('/draft', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'draft'])->name('procurement.dashboard.draft');
+        Route::get('/procurement/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('procurement.konstruksi.index');
+        Route::get('/procurement/add/konstruksi/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'add_konstruksi'])->name('procurement.dashboard.add_konstruksi');
+        Route::post('/procurement/add/storekonstruksi/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'store_konstruksi'])->name('procurement.dashboard.store_konstruksi');
+        Route::get('/procurement/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('procurement.maintenance.index');
+        Route::get('/procurement/delete/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'deleteLaporanProcurement'])->name('procurement.delete_laporan_procurement');
+
+        Route::get('/procurement/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('procurement.maintenance.index');
+        Route::get('/procurement/add/maintenance/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'add_maintenance'])->name('procurement.dashboard.add_maintenance');
+        Route::post('/procurement/add/storemaintenance/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'store_maintenance'])->name('procurement.dashboard.store_maintenance');
+        Route::get('/procurement/edit/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'edit'])->name('procurement.dashboard.edit');
+        Route::post('/procurement/update/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'update'])->name('procurement.dashboard.update');
+
+
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Maintenance']], function () {
@@ -63,6 +82,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/admin/draft', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'draft'])->name('admin.laporan_commerce.draft');
         Route::get('/admin/draft/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'drafted'])->name('admin.laporan_commerce.drafted');
         Route::get('/admin/commerce/delete/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'deleteLaporanCommerce'])->name('admin.laporan_commerce.index_delete');
+       
+        Route::get('/admin/procurement', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'index'])->name('admin.laporan_procurement.index');
+        Route::get('/admin/draft', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'draft'])->name('admin.laporan_procurement.draft');
+        Route::get('/admin/draft/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'drafted'])->name('admin.laporan_procurement.drafted');
+        Route::get('/admin/procurement/delete/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'deleteLaporanProcurement'])->name('admin.laporan_procurement.index_delete');
 
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard.index');
         Route::get('/city', [App\Http\Controllers\CityController::class, 'index'])->name('admin.dashboard.city');
@@ -115,7 +139,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/mitra/deleteJenis/{id}', [App\Http\Controllers\MitraController::class, 'deleteMitra'])->name('admin.deleteMitra');
         Route::post('/mitra/update/{id}', [App\Http\Controllers\MitraController::class, 'updateMitra'])->name('admin.updateMitra');
 
-
+    
         Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('maintenance.laporan_maintenance');
         Route::get('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'addLaporanMaintenance'])->name('maintenance.addLaporanMaintenance');
         Route::post('/laporanmaintenance/store', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('maintenance.storeLaporanMaintenance');
@@ -126,15 +150,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/account/add', [App\Http\Controllers\AccountController::class, 'storeAccount'])->name('admin.storeAccount');
         Route::get('/account/deleteAccount/{id}', [App\Http\Controllers\AccountController::class, 'deleteAccount'])->name('admin.deleteAccount');
         Route::post('/account/update/{id}', [App\Http\Controllers\AccountController::class, 'updateAccount'])->name('admin.updateAccount');
-
-        Route::get('/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('admin.laporan_konstruksi');
-        Route::get('/laporankonstruksi/delete/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'deleteLaporanKonstruksi'])->name('admin.deleteLaporanKonstruksi');
-        Route::get('/laporankonstruksi/add/', [App\Http\Controllers\LaporanKonstruksiController::class, 'addLaporanKonstruksi'])->name('admin.addLaporanKonstruksi');
-        Route::post('laporankonstruksi/add/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'storeLaporanKonstruksi'])->name('admin.storeLaporanKonstruksi');
-        Route::get('/laporankonstruksi/edit/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'editLaporanKonstruksi'])->name('admin.editLaporanKonstruksi');
-        Route::post('/laporankonstruksi/edit/{id}/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'updateLaporanKonstruksi'])->name('admin.updateLaporanKonstruksi');
-        Route::get('/editable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Editable'])->name('admin.editableKonstruksi');
-        Route::get('/uneditable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Uneditable'])->name('admin.uneditableKonstruksi');
+        
+        Route::get('/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('konstruksi.laporan_konstruksi');
+        Route::get('/laporankonstruksi/delete/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'deleteLaporanKonstruksi'])->name('konstruksi.deleteLaporanKonstruksi');
+        Route::get('/laporankonstruksi/add/', [App\Http\Controllers\LaporanKonstruksiController::class, 'addLaporanKonstruksi'])->name('konstruksi.addLaporanKonstruksi');
+        Route::post('laporankonstruksi/add/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'storeLaporanKonstruksi'])->name('konstruksi.storeLaporanKonstruksi');
     });
     // Login untuk account
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
