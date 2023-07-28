@@ -117,7 +117,7 @@ Dashboard
                   </div>
 
                   <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="table-1">
                       <thead>
                         <tr>
                           <th scope="col">No</th>
@@ -260,3 +260,11 @@ Dashboard
   }
 </style>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#table-1').dataTable();
+    });
+</script>
+@endpush
