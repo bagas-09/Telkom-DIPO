@@ -59,8 +59,8 @@ Dashboard
               @endif
 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
-              <div class="card-body">
-                <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
+              <div class="card-body table-responsive">
+                <table class="table" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
                     <th scope="col">No</th>
@@ -111,7 +111,7 @@ Dashboard
                       <td>{{ $admins ->keterangan }}</td>
                       <td>
 
-                        @if(Auth::user()->role != "Maintenance" && Auth::user()->role != "GM")
+                        @if(Auth::user()->role != "Maintenance")
                         <!-- {{-- MODAL DELETE --}} -->
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}">Delete</a>
 
@@ -139,7 +139,6 @@ Dashboard
                         @endif
 
                         <!-- UPDATE Laporan Maintenance -->
-                        @if(Auth::user()->role == "Maintenance")
                         <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
                         <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
                           <div class="modal-dialog" role="document">
@@ -170,7 +169,6 @@ Dashboard
                             </div>
                           </div>
                         </div>
-                        @endif
                       </td>
                     </tr>
                     @endforeach

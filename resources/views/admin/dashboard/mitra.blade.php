@@ -7,7 +7,7 @@ Dashboard
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>Dropdown</h1>
+    <h1>Dashboard</h1>
   </div>
 
   <div class="section-body">
@@ -16,14 +16,14 @@ Dashboard
             <h1>Mitra</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-              <div class="breadcrumb-item active">Mitra</div>
+              <div class="breadcrumb-item">Mitra</div>
             </div>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Mitra</h2>
+            <h2 class="section-title">Tables</h2>
             <p class="section-lead">
-              Dropdown Mitra disini akan tampil dan muncul pada formulir yang diisi oleh Maintenance dan Konstruksi!
+              Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
             </p>
 
             @if(session()->has('success'))
