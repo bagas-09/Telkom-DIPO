@@ -11,7 +11,6 @@ class HomeController extends Controller
     {
         return view('admin.dashboard.index', [
             "title" => "Dashboard",
-            "dhito"=> "dhito"
         ]);
     }
 }
