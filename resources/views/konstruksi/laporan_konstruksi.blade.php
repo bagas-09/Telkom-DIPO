@@ -79,7 +79,7 @@ Dashboard
                       @endif
                     </tr>
                   </thead>
-                  @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin")
+                  @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin" || Auth::user()->role == "GM")
                   <tbody>
                     <?php $i = 1 ?>
                     @foreach ($laporanKonstruksis as $admins)
