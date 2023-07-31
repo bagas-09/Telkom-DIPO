@@ -7,7 +7,7 @@ Dashboard
 @section('content')
 <section class="section">
   <div class="section-header">
-    <h1>Dashboard</h1>
+    <h1>Dropdown</h1>
   </div>
 
   <div class="section-body">
@@ -21,9 +21,9 @@ Dashboard
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tables</h2>
+            <h2 class="section-title">Tabel Tipe Provisioning</h2>
             <p class="section-lead">
-              Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
+              Dropdown Tipe Kemitraan disini akan tampil dan muncul pada formulir yang diisi oleh Konstruksi dan Maintenance!
             </p>
 
             @if(session()->has('success'))
