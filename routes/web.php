@@ -62,9 +62,12 @@ Route::group(['middleware' => 'revalidate'], function () {
 
     Route::group(['middleware' => ['auth:account', 'account-access:Maintenance']], function () {
 
-        // Route::get('/commerce', function () {
-        //     return view('commerce.dashboard.index');
-        // });
+        Route::get('/laporanmain', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('maintenance.laporanMaintenance.index');
+        Route::get('/maintenance/delete/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('maintenance.laporan_maintenance_delete');
+        Route::get('/maintenance/add/', [App\Http\Controllers\LaporanMaintenanceController::class, 'addLaporanMaintenance'])->name('maintenance.laporan_maintenance_add');
+        Route::post('maintenance/add/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('maintenance.storeLaporanMaintenance');
+        Route::get('/maintenance/edit/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'editLaporanMaintenance'])->name('maintenance.laporan_maintenance_edit');
+        Route::post('/maintenance/edit/{id}/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('maintenance.updateLaporanMaintenance');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Konstruksi']], function () {
@@ -140,11 +143,14 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/mitra/update/{id}', [App\Http\Controllers\MitraController::class, 'updateMitra'])->name('admin.updateMitra');
 
     
-        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('maintenance.laporan_maintenance');
-        Route::get('/laporanmaintenance/add', [App\Http\Controllers\LaporanMaintenanceController::class, 'addLaporanMaintenance'])->name('maintenance.addLaporanMaintenance');
-        Route::post('/laporanmaintenance/store', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('maintenance.storeLaporanMaintenance');
-        Route::get('/laporanmaintenance/delete/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('maintenance.deleteLaporanMaintenance');
-        Route::post('/laporanmaintenance/update/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('maintenance.updateLaporanMaintenance');
+        Route::get('/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('admin.laporan_maintenance');
+        Route::get('/laporanmaintenance/add/', [App\Http\Controllers\LaporanMaintenanceController::class, 'addLaporanMaintenance'])->name('admin.addLaporanMaintenance');
+        Route::post('/laporanmaintenance/add/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('admin.storeLaporanMaintenance');
+        Route::get('/laporanmaintenance/delete/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'deleteLaporanMaintenance'])->name('admin.deleteLaporanMaintenance');
+        Route::get('/laporanmaintenance/edit/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'editLaporanMaintenance'])->name('admin.editLaporanMaintenance');
+        Route::post('/laporanmaintenance/edit/{id}/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('admin.updateLaporanMaintenance');
+        Route::get('/maineditable/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'Editable'])->name('admin.editableMaintenance');
+        Route::get('/mainuneditable/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'Uneditable'])->name('admin.uneditableMaintenance');
 
         Route::get('/account', [App\Http\Controllers\AccountController::class, 'index'])->name('admin.dashboard.account');
         Route::post('/account/add', [App\Http\Controllers\AccountController::class, 'storeAccount'])->name('admin.storeAccount');

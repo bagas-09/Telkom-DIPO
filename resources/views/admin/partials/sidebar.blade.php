@@ -40,7 +40,7 @@
       </ul>
     </li>
     <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_konstruksi')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
-    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('maintenance.laporan_maintenance')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
+    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_maintenance')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
     @endif
     @if(Auth::user()->role == "Commerce")
     <li class="nav-item dropdown {{ $title==='Laporan Commerce' || $title==='OGP' ? 'active' : '' }}">
@@ -77,10 +77,13 @@
     @if(Auth::user()->role == "Konstruksi")
     <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('konstruksi.laporanKonstruksi.index')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
     @endif
-    {{-- @if(Auth::user()->can('manage-users'))
+    <!-- @if(Auth::user()->can('manage-users'))
       <li class="menu-header">Users</li>
       <li class="{{ Request::route()->getName() == 'admin.users' ? ' active' : '' }}"><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Users</span></a>
     </li>
-    @endif --}}
+    @endif -->
+    @if(Auth::user()->role == "Maintenance")
+    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('maintenance.laporanMaintenance.index')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
+    @endif
   </ul>
 </aside>

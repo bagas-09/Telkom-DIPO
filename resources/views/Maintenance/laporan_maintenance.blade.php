@@ -16,17 +16,11 @@ Dashboard
         <h1>Table</h1>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-          <div class="breadcrumb-item"><a href="#">Bootstrap Components</a></div>
-          <div class="breadcrumb-item">Table</div>
+          <div class="breadcrumb-item"><a href="{{ route('maintenance.laporanMaintenance.index') }}">Laporan Maintenance</a></div>
         </div>
       </div>
 
       <div class="section-body">
-        <h2 class="section-title">Tables</h2>
-        <p class="section-lead">
-          Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
-        </p>
-
         @if(session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show">
           {{ session('success') }}
@@ -47,20 +41,20 @@ Dashboard
           <div class="col-12">
             <div class="card">
               <!-- ADD LAPORAN MAINTENANCE -->
-              @if(Auth::user()->role == "Admin" && Auth::user()->role != "Maintenance")
+              
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
                 </div>
+                @if(Auth::user()->role == "Maintenance")
                 <div class="col-4 d-flex justify-content-end">
-                  <a class="btn btn-primary" href="{{ route("maintenance.addLaporanMaintenance") }}">Buat Laporan</a>
+                  <a class="btn btn-primary" href="{{ route('maintenance.laporan_maintenance_add') }}">Buat Laporan</a>
                 </div>
-              </div>
-              @endif
-
+                @endif
+                </div> 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
-              <div class="card-body table-responsive">
-                <table class="table" style="overflow-x:auto;" id="table-1">
+              <div class="card-body ">
+                <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
                     <th scope="col">No</th>
@@ -83,9 +77,12 @@ Dashboard
                       <th scope="col">Total Aktual</th>
                       <th scope="col">Keterangan</th>
                       <th scope="col">Action</th>
+                      @if(Auth::user()->role == "Admin" )
+                      <th scope="col">Access</th>
+                      @endif
                     </tr>
                   </thead>
-                  @if(Auth::user()->role != "Commerce")
+                  @if(Auth::user()->role == "Maintenance" || Auth::user()->role == "Admin"|| Auth::user()->role == "Procurement")
                   <tbody>
                     <?php $i = 1 ?>
                     @foreach ($laporanMaintenances as $admins)
@@ -109,13 +106,29 @@ Dashboard
                       <td>{{ $admins -> jasa_aktual}}</td>
                       <td>{{ $admins -> total_aktual}}</td>
                       <td>{{ $admins ->keterangan }}</td>
+                      {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
                       <td>
 
-                        @if(Auth::user()->role != "Maintenance")
-                        <!-- {{-- MODAL DELETE --}} -->
-                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}">Delete</a>
+                      @if(Auth::user()->role == "Procurement")
+                      <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
+                      @endif
+
+                      @if(Auth::user()->role == "Maintenance" && $admins->editable == 1)
+                      <a class="btn btn-sm btn-warning"  
+                          href={{ route('maintenance.laporan_maintenance_edit', [$admins->PID_maintenance]) }}
+                          style="color: white">Edit</a>
+                        @endif
+
+                        @if(Auth::user()->role == "Maintenance")
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins->PID_maintenance }}">Delete</a>
+                        @endif
+
+                        @if(Auth::user()->role == "Admin")
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanAdminModal{{ $admins->PID_maintenance }}">Delete</a>
+                        @endif
 
                         <!-- {{-- MODAL DELETE --}} -->
+                        @if(Auth::user()->role == "Maintenance")
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}" data-backdrop="static">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -131,45 +144,50 @@ Dashboard
                               </div>
                               <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
-                                <a class="btn btn-danger" href="{{ route('maintenance.deleteLaporanMaintenance', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                                <a class="btn btn-danger" href="{{ route('maintenance.laporan_maintenance_delete', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
                               </div>
                             </div>
                           </div>
                         </div>
                         @endif
-
-                        <!-- UPDATE Laporan Maintenance -->
-                        <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
-                        <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
+                        @if(Auth::user()->role == "Admin")
+                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->PID_maintenance }}" data-backdrop="static">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                  <h5 class="modal-title">Ubah Laporan</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanMaintenance1">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
+                                <h5 class="modal-title">Hapus Laporan Maintenance</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanMaintenance1">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
                               </div>
-                              <form id="LaporanMaintenanceUpdateForm" class="form-validation" action="" method="POST">
-                                  @csrf
-                                  <div class="modal-body">
-                                      <div class="form-group">
-                                          <label for="nama_update_LaporanMaintenance" class="col-form-label">Nama Laporan: </label>
-                                          <input type="text" id="nama_update_LaporanMaintenance" name="nama_LaporanMaintenance" class="form-control required-input" value="{{ $admins->nama_LaporanMaintenance }}" required>
-                                          <span id="nama_LaporanMaintenance_error" class="error-message">Field Nama Laporan harus diisi!</span>
-                                          @if($errors->has('nama_LaporanMaintenance'))
-                                          <span class="invalid-feedback">{{ $errors->first('nama_LaporanMaintenance') }}</span>
-                                          @endif
-                                      </div>
-                                  </div>
-                                  <div class="modal-footer bg-whitesmoke br">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateLaporanMaintenance">Close</button>
-                                        <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
-                                  </div>
-                              </form>
+                              @csrf
+                              <div class="modal-body">
+                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Maintenance yang dipilih.
+                              </div>
+                              <div class="modal-footer bg-whitesmoke br">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
+                                <a class="btn btn-danger" href="{{ route('admin.deleteLaporanMaintenance', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        @endif
+                        </td>
+                       @if(Auth::user()->role == "Admin")
+                      <td>
+                          @if($admins->editable == 0)
+                            <a class="btn btn-sm btn-warning"  
+                              href={{ route('admin.editableMaintenance', [$admins->PID_maintenance]) }}
+                              style="color: white">Able Edit</a>
+                          @endif
+                          @if($admins->editable == 1)
+                            <a class="btn btn-sm btn-danger"  
+                              href={{ route('admin.uneditableMaintenance', [$admins->PID_maintenance]) }}
+                              style="color: white">Unable Edit</a>
+                          @endif
                       </td>
+                      @endif
+                      
                     </tr>
                     @endforeach
                   </tbody>
@@ -198,6 +216,7 @@ Dashboard
                       <td>{{ $admins -> jasa_aktual}}</td>
                       <td>{{ $admins -> total_aktual}}</td>
                       <td>{{ $admins ->keterangan }}</td>
+                      <!-- <td>{{ $citys[$admins->id_nama_kota]}}</td> -->
                       <td>
                       <a class="btn btn-primary" href="{{ route('commerce.laporan.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
                       </td>

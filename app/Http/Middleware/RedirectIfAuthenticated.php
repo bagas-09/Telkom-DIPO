@@ -27,7 +27,7 @@ class RedirectIfAuthenticated
                     if ($account->role == 'Commerce') {
                         return redirect()->route('commerce.laporan.index');
                     } else if ($account->role == 'Maintenance') {
-                        return redirect()->route('admin.dashboard.jenisOrder');
+                        return redirect()->route('maintenance.laporanMaintenance.index');
                     } else if ($account->role == 'Konstruksi') {
                         return redirect()->route('konstruksi.laporanKonstruksi.index');
                     } else if ($account->role == 'GM') {

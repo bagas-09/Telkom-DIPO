@@ -17,6 +17,8 @@ class TipeProvisioning extends Migration
         Schema::create('tipe_provisioning', function (Blueprint $table) {
             $table->id();
             $table->string('nama_tipe_provisioning');
+            $table->string('role');
+            $table->foreign('role')->references('nama_role')->on('role');
         });
     }
 
