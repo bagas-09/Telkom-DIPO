@@ -53,12 +53,8 @@ Dashboard
                 @endif
                 </div> 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
-<<<<<<< HEAD
-              <div class="card-body ">
-=======
-              <div class="card-body">
->>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
-                <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
+              <div class="card-body table-responsive">
+                <table class="table" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
                     <th scope="col">No</th>
@@ -166,7 +162,6 @@ Dashboard
 =======
 
                         <!-- UPDATE Laporan Maintenance -->
-                        @if(Auth::user()->role == "Maintenance")
                         <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
                         <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
 >>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
