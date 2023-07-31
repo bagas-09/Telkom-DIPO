@@ -59,8 +59,8 @@ Dashboard
               @endif
 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
-              <div class="card-body table-responsive">
-                <table class="table" style="overflow-x:auto;" id="table-1">
+              <div class="card-body">
+                <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
                     <th scope="col">No</th>
