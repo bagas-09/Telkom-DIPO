@@ -52,8 +52,8 @@ Dashboard
                 </div>
                 @endif
               </div> 
-              <div class="card-body table-responsive">
-                <table class="table" style="overflow-x: auto;" id="table-1">
+              <div class="card-body">
+                <table class="table table-responsive" style="overflow-x: auto;" id="table-1">
                   <thead>
                     <tr>
                       <th scope="col">PID Konstruksi</th>
@@ -79,7 +79,7 @@ Dashboard
                       @endif
                     </tr>
                   </thead>
-                  @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin")
+                  @if(Auth::user()->role == "Konstruksi" || Auth::user()->role == "Admin" || Auth::user()->role == "GM")
                   <tbody>
                     <?php $i = 1 ?>
                     @foreach ($laporanKonstruksis as $admins)

@@ -53,7 +53,11 @@ Dashboard
                 @endif
                 </div> 
               <!-- TAMBAH LAPORAN MAINTENANCE -->
+<<<<<<< HEAD
               <div class="card-body ">
+=======
+              <div class="card-body">
+>>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
                 <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
@@ -109,6 +113,7 @@ Dashboard
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
                       <td>
 
+<<<<<<< HEAD
                       @if(Auth::user()->role == "Procurement")
                       <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
                       @endif
@@ -126,6 +131,11 @@ Dashboard
                         @if(Auth::user()->role == "Admin")
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanAdminModal{{ $admins->PID_maintenance }}">Delete</a>
                         @endif
+=======
+                        @if(Auth::user()->role != "Maintenance" && Auth::user()->role != "GM")
+                        <!-- {{-- MODAL DELETE --}} -->
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}">Delete</a>
+>>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
 
                         <!-- {{-- MODAL DELETE --}} -->
                         @if(Auth::user()->role == "Maintenance")
@@ -150,8 +160,16 @@ Dashboard
                           </div>
                         </div>
                         @endif
+<<<<<<< HEAD
                         @if(Auth::user()->role == "Admin")
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->PID_maintenance }}" data-backdrop="static">
+=======
+
+                        <!-- UPDATE Laporan Maintenance -->
+                        @if(Auth::user()->role == "Maintenance")
+                        <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
+                        <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
+>>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -172,6 +190,7 @@ Dashboard
                           </div>
                         </div>
                         @endif
+<<<<<<< HEAD
                         </td>
                        @if(Auth::user()->role == "Admin")
                       <td>
@@ -185,6 +204,8 @@ Dashboard
                               href={{ route('admin.uneditableMaintenance', [$admins->PID_maintenance]) }}
                               style="color: white">Unable Edit</a>
                           @endif
+=======
+>>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
                       </td>
                       @endif
                       

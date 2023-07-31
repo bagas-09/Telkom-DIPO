@@ -9,6 +9,7 @@
     <li class="menu-header">Dashboard</li>
     @if(Auth::user()->role == "Admin")
     <li class="{{ $title==='Dashboard' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.dashboard.index')}}"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+    <li class="{{ $title==='Account' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.dashboard.account')}}"><i class="fa fa-user-friends"></i><span>User Management</span></a></li>
     <li class="nav-item dropdown {{ $title==='Mitra' || $title==='City' || $title==='Role' || $title==='Status' || $title==='Status Tagihan' || $title==='Jenis Order' || $title==='Jenis Program' || $title==='Status Pekerjaan' || $title==='Tipe Kemitraan' ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Dropdown</span></a>
       <ul class="dropdown-menu">
@@ -77,7 +78,30 @@
     @if(Auth::user()->role == "Konstruksi")
     <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('konstruksi.laporanKonstruksi.index')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
     @endif
+<<<<<<< HEAD
     <!-- @if(Auth::user()->can('manage-users'))
+=======
+    @if(Auth::user()->role == "GM")
+    <li class="{{ $title==='Dashboard' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.dashboard.index')}}"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+    <li class="nav-item dropdown {{ $title==='Laporan Commerce' || $title==='OGP' ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Laporan Commerce</span></a>
+      <ul class="dropdown-menu">
+        <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_commerce.index')}}"><i class="fa fa-envelope"></i><span>Selesai</span></a></li>
+        <li class="{{ $title==='OGP' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_commerce.draft')}}"><i class="fa fa-envelope-open"></i><span>OGP</span>@if($count != 0)<span style="color:red">{{$count}}</span>@endif</a></li>
+      </ul>
+    </li>
+    <li class="nav-item dropdown {{ $title==='Laporan Procurement' || $title==='Draft Procurement' ? 'active' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Laporan Procurement</span></a>
+      <ul class="dropdown-menu">
+        <li class="{{ $title==='Laporan Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_procurement.index')}}"><i class="fa fa-envelope"></i><span>Selesai</span></a></li>
+        <li class="{{ $title==='Draft Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_procurement.draft')}}"><i class="fa fa-envelope-open"></i><span>Draft</span></a></li>
+      </ul>
+    </li>
+    <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_konstruksi')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
+    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.maintenance.laporan_maintenance')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
+    @endif
+    {{-- @if(Auth::user()->can('manage-users'))
+>>>>>>> 3b192214ec08bba910775d323f66617b3e33ced5
       <li class="menu-header">Users</li>
       <li class="{{ Request::route()->getName() == 'admin.users' ? ' active' : '' }}"><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Users</span></a>
     </li>

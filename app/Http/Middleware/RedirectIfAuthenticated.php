@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
                     } else if ($account->role == 'Konstruksi') {
                         return redirect()->route('konstruksi.laporanKonstruksi.index');
                     } else if ($account->role == 'GM') {
-                        return redirect()->route('admin.dashboard.index');
+                        return redirect()->route('gm.dashboard.index');
                     } else if ($account->role == 'Admin') {
                         return redirect()->route('admin.dashboard.index');
                     } else if ($account->role == 'Procurement') {
