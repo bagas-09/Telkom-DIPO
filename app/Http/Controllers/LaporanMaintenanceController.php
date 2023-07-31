@@ -74,11 +74,11 @@ class LaporanMaintenanceController extends Controller
         return view('maintenance.laporan_maintenance_add',[
             "title" => "Buat Laporan Maintenance",
             "addcity" => City::all(),
-            "addsp" => StatusPekerjaan::all(),
-            "mitrass" => Mitra::all(),
-            "tipek" => TipeKemitraan::all(),
+            "addsp" => StatusPekerjaan::all()->where("role", "=", "Maintenance"),
+            "mitrass" => Mitra::all()->where("role", "=", "Maintenance"),
+            "tipek" => TipeKemitraan::all()->where("role", "=", "Maintenance"),
             "jenisp" => JenisProgram::all(),
-            "tipeprov" => TipeProvisioning::all(),
+            "tipeprov" => TipeProvisioning::all()->where("role", "=", "Maintenance"),
         ]);
     }
     

@@ -9,10 +9,10 @@ class LaporanProcurement extends Model
 {
     use HasFactory;
     protected $table = "laporan_procurement";
-    protected $primaryKey = "no_PR_SAP";
+    protected $primaryKey = "PR_SAP";
     public $timestamps = false;
     protected $fillable = [
-        "no_PR_SAP",
+        "PR_SAP",
         'PO_SAP',
         'tanggal_PO_SAP',
         'Material DRM',
