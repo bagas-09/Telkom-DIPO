@@ -34,7 +34,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table class="table table-responsive">
+                                <table class="table table-responsive" id="table-1">
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
@@ -124,3 +124,11 @@
     }
 </style>
 @endsection
+
+@push('scripts')
+<script>
+  $(document).ready(function() {
+    $('#table-1').dataTable();
+  });
+</script>
+@endpush

@@ -41,7 +41,7 @@ Dashboard
           <div class="col-12">
             <div class="card">
               <!-- ADD LAPORAN MAINTENANCE -->
-              
+
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
@@ -51,13 +51,13 @@ Dashboard
                   <a class="btn btn-primary" href="{{ route('maintenance.laporan_maintenance_add') }}">Buat Laporan</a>
                 </div>
                 @endif
-                </div> 
+              </div>
               <!-- TAMBAH LAPORAN MAINTENANCE -->
-              <div class="card-body table-responsive">
-                <table class="table" style="overflow-x:auto;" id="table-1">
+              <div class="card-body">
+                <table class="table table-responsive" style="overflow-x:auto;" id="table-1">
                   <thead>
                     <tr>
-                    <th scope="col">No</th>
+                      <th scope="col">No</th>
                       <th scope="col">PID</th>
                       <th scope="col">ID SAP</th>
                       <th scope="col">NO PR</th>
@@ -109,14 +109,12 @@ Dashboard
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
                       <td>
 
-                      @if(Auth::user()->role == "Procurement")
-                      <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
-                      @endif
+                        @if(Auth::user()->role == "Procurement")
+                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
+                        @endif
 
-                      @if(Auth::user()->role == "Maintenance" && $admins->editable == 1)
-                      <a class="btn btn-sm btn-warning"  
-                          href={{ route('maintenance.laporan_maintenance_edit', [$admins->PID_maintenance]) }}
-                          style="color: white">Edit</a>
+                        @if(Auth::user()->role == "Maintenance" && $admins->editable == 1)
+                        <a class="btn btn-sm btn-warning" href={{ route('maintenance.laporan_maintenance_edit', [$admins->PID_maintenance]) }} style="color: white">Edit</a>
                         @endif
 
                         @if(Auth::user()->role == "Maintenance")
@@ -129,7 +127,7 @@ Dashboard
                         @if(Auth::user()->role != "Maintenance" && Auth::user()->role != "GM")
                         <!-- {{-- MODAL DELETE --}} -->
                         <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}">Delete</a>
-
+                        @endif
                         <!-- {{-- MODAL DELETE --}} -->
                         @if(Auth::user()->role == "Maintenance")
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}" data-backdrop="static">
@@ -156,45 +154,41 @@ Dashboard
                         @if(Auth::user()->role == "Admin")
                         <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->PID_maintenance }}" data-backdrop="static">
 
-                        <!-- UPDATE Laporan Maintenance -->
-                        <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
-                        <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title">Hapus Laporan Maintenance</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanMaintenance1">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              @csrf
-                              <div class="modal-body">
-                                Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Maintenance yang dipilih.
-                              </div>
-                              <div class="modal-footer bg-whitesmoke br">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
-                                <a class="btn btn-danger" href="{{ route('admin.deleteLaporanMaintenance', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                          <!-- UPDATE Laporan Maintenance -->
+                          <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
+                          <div class="modal fade" tabindex="-1" role="dialog" id="editLaporanMaintenanceModal-{{$admins->id}}" data-backdrop="static">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Hapus Laporan Maintenance</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLaporanMaintenance1">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                @csrf
+                                <div class="modal-body">
+                                  Pilih "Delete" dibawah ini jika Anda yakin menghapus Laporan Maintenance yang dipilih.
+                                </div>
+                                <div class="modal-footer bg-whitesmoke br">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
+                                  <a class="btn btn-danger" href="{{ route('admin.deleteLaporanMaintenance', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      @endif
+                          @endif
                       </td>
                       @if(Auth::user()->role == "Admin")
                       <td>
-                          @if($admins->editable == 0)
-                            <a class="btn btn-sm btn-warning"  
-                              href={{ route('admin.editableMaintenance', [$admins->PID_maintenance]) }}
-                              style="color: white">Able Edit</a>
-                          @endif
-                          @if($admins->editable == 1)
-                            <a class="btn btn-sm btn-danger"  
-                              href={{ route('admin.uneditableMaintenance', [$admins->PID_maintenance]) }}
-                              style="color: white">Unable Edit</a>
-                          @endif
+                        @if($admins->editable == 0)
+                        <a class="btn btn-sm btn-warning" href={{ route('admin.editableMaintenance', [$admins->PID_maintenance]) }} style="color: white">Able Edit</a>
+                        @endif
+                        @if($admins->editable == 1)
+                        <a class="btn btn-sm btn-danger" href={{ route('admin.uneditableMaintenance', [$admins->PID_maintenance]) }} style="color: white">Unable Edit</a>
+                        @endif
                       </td>
                       @endif
-                      
+
                     </tr>
                     @endforeach
                   </tbody>
@@ -225,7 +219,7 @@ Dashboard
                       <td>{{ $admins ->keterangan }}</td>
                       <!-- <td>{{ $citys[$admins->id_nama_kota]}}</td> -->
                       <td>
-                      <a class="btn btn-primary" href="{{ route('commerce.laporan.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
+                        <a class="btn btn-primary" href="{{ route('commerce.laporan.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
                       </td>
                     </tr>
                     @endforeach
@@ -251,8 +245,8 @@ Dashboard
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#table-1').dataTable();
-    });
+  $(document).ready(function() {
+    $('#table-1').dataTable();
+  });
 </script>
 @endpush
