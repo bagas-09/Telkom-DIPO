@@ -12,6 +12,7 @@ use App\Models\Mitra;
 use App\Models\StatusPekerjaan;
 use App\Models\TipeKemitraan;
 use App\Models\TipeProvisioning;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanMaintenanceController extends Controller
 {
@@ -57,7 +58,7 @@ class LaporanMaintenanceController extends Controller
         return view('maintenance.laporan_maintenance', [
             "title" => "Laporan Maintenance",
             "laporanMaintenances" => LaporanMaintenance::all(),
-            "laporan_konstruksi_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
+            "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,
@@ -65,7 +66,7 @@ class LaporanMaintenanceController extends Controller
             "tipe_kemitraan_id" => $tipe_kemitraan_id,
             "jenis_program_id" => $jenis_program_id,
             "tipe_provisioning_id" => $tipe_provisioning_id,
-            "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
+            
         ]);
     }
 
@@ -153,7 +154,7 @@ class LaporanMaintenanceController extends Controller
             'keterangan' => $request->keterangan
 
         ]);
-        return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Laporan Berhasil Dibuat");
+        return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("success", "Laporan Berhasil Dibuat");
 
         
     }
@@ -161,33 +162,147 @@ class LaporanMaintenanceController extends Controller
     public function deleteLaporanMaintenance($id)
     {
         try {
+            $account = Auth::guard('account')->user();
             DB::beginTransaction();
 
-            $laporanMaintenance = LaporanMaintenance::find($id);
+            $laporan_maintenance = LaporanMaintenance::find($id);
 
             // Pengecekan di setiap tabel terkait
             // if ($status->laporanCommerce()->count() > 0) {
             //     throw new \Exception("Kota ini sedang digunakan di Tabel Account dan tidak dapat dihapus.");
             // }
 
-            // Jika tidak ada pengecualian, hapus kota
-            $laporanMaintenance->delete();
+            // Jika tidak ada pengecualian, hapus 
+            $laporan_maintenance->delete();
 
             DB::commit();
 
-            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("success", "Berhasil menghapus Laporan Maintenance");
+            if ($account->role == "Maintenance") {
+                return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("success", "Berhasil menghapus Laporan Maintenance");
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_maintenance'))->with("success", "Berhasil menghapus Laporan Maintenance");
+            }
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            if ($account->role == "Maintenance") {
+                return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_maintenance'))->with("error", $e->getMessage());
+            }
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('maintenance.laporan_maintenance'))->with("error", $e->getMessage());
+            if ($account->role == "Maintenance") {
+                return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("error", $e->getMessage());
+            } else if ($account->role == "Admin") {
+                return redirect()->intended(route('admin.laporan_maintenance'))->with("error", $e->getMessage());
+            }
         }
     }
+    public function editLaporanMaintenance($id)
+    {
+        return view('maintenance.laporan_maintenance_edit', [
+            "title" => "Edit Laporan Maintenance",
+            "maintenance" => LaporanMaintenance::where("PID_maintenance", "=", $id)->get(),
+            "addcity" => City::all(),
+            "addsp" => StatusPekerjaan::all()->where("role", "=", "Maintenance"),
+            "mitrass" => Mitra::all()->where("role", "=", "Maintenance"),
+            "tipek" => TipeKemitraan::all()->where("role", "=", "Maintenance"),
+            "jenisp" => JenisProgram::all(),
+            "tipeprov" => TipeProvisioning::all(),
+            "id" => $id,
+        ]);
+    }
 
+    public function updateLaporanMaintenance(Request $request, $id)
+    {
+        $messages = [
+            'required' => ':Field wajib diisi',
+        ];
+
+        $this->validate($request, [
+            'ID_SAP_maintenance' => 'required',
+            'NO_PR_maintenance' => 'required',
+            'tanggal_PR' => 'required',
+            'status_pekerjaan_id' => 'required',
+            'mitra_id' => 'required',
+            'tipe_kemitraan_id' => 'required',
+            'jenis_program_id' => 'required',
+            'tipe_provisioning_id' => 'required',
+            'periode_pekerjaan' => 'required',
+            'lokasi' => 'required',
+            'material_DRM' => 'required',
+            'jasa_DRM' => 'required',
+            'total_DRM' => 'required',
+            'material_aktual' => 'required',
+            'jasa_aktual' => 'required',
+            'total_aktual' => 'required',
+            'keterangan' => 'required',
+        ], $messages);
+
+        // Mengambil nilai dari form
+        // $jenisOrder = $request->jenis_order_id;
+        // $tipeProvisioning = $request->tipe_provisioning_id;
+        // $lokasi = $request->lokasi;
+
+        // $order = JenisOrder::where("id", "=", $jenisOrder)
+        //     ->get(["nama_jenis_order"]);
+        // $orderObject = json_decode($order[0]);
+        // $orderValue = $orderObject->nama_jenis_order;
+
+        // $tipeProv = TipeProvisioning::where("id", "=", $tipeProvisioning)
+        //     ->get(["nama_tipe_provisioning"]);
+        // $tipeProvObject = json_decode($tipeProv[0]);
+        // $tipeProvValue = $tipeProvObject->nama_tipe_provisioning;
+
+        // if ($orderValue == "Konsumer" || $orderValue == "HEM" || $orderValue == "Node B" || $orderValue == "Node B OLO") {
+        //     // Menggabungkan nilai autoGenerated dan inputLokasi
+        //     $nilaiDitambahkan = $orderValue . " - " . $tipeProvValue . " - " . $lokasi;
+        // } else {
+        //     $nilaiDitambahkan = $lokasi;
+        // }
+
+        LaporanMaintenance::where('PID_maintenance', $id)->update([
+            'ID_SAP_maintenance' => $request->ID_SAP_maintenance,
+            'NO_PR_maintenance' => $request->NO_PR_maintenance,
+            'tanggal_PR' => $request->tanggal_PR,
+            'status_pekerjaan_id' => $request->status_pekerjaan_id,
+            'mitra_id' => $request->mitra_id,
+            'tipe_kemitraan_id' => $request->tipe_kemitraan_id,
+            'jenis_order_id' => $request->jenis_order_id,
+            'tipe_provisioning_id' => $request->tipe_provisioning_id,
+            'periode_pekerjaan' => $request->periode_pekerjaan,
+            'lokasi' => $request->lokasi,
+            'material_DRM' => $request->material_DRM,
+            'jasa_DRM' => $request->jasa_DRM,
+            'total_DRM' => $request->total_DRM,
+            'material_aktual' => $request->material_aktual,
+            'jasa_aktual' => $request->jasa_aktual,
+            'total_aktual' => $request->total_aktual,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("success", "Berhasil mengubah Laporan Maintenance");
+    }
+
+    public function Editable($id)
+    {
+        LaporanMaintenance::where('PID_maintenance', $id)->update([
+            "editable" => 1
+        ]);
+
+        return redirect()->intended(route('admin.laporan_maintenance'))->with("success", "Berhasil memberi akses edit pada Laporan Maintenance");
+    }
+
+    public function Uneditable($id)
+    {
+        LaporanMaintenance::where('PID_maintenance', $id)->update([
+            "editable" => 0
+        ]);
+
+        return redirect()->intended(route('admin.laporan_maintenance'))->with("success", "Berhasil mengubah akses edit pada Laporan Maintenance");
+    }
 }
 

@@ -32,7 +32,7 @@ class LoginController extends Controller
             if ($account->role == "Commerce") {
                 return redirect()->intended(route('commerce.laporan.index'));
             } else if ($account->role == 'Maintenance') {
-                return redirect()->intended(route('admin.dashboard.jenisOrder'));
+                return redirect()->intended(route('maintenance.laporanMaintenance.index'));
             } else if ($account->role == 'Konstruksi') {
                 return redirect()->intended(route('konstruksi.laporanKonstruksi.index'));
             } else if ($account->role == 'GM') {
@@ -40,7 +40,7 @@ class LoginController extends Controller
             } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.dashboard.index'));
             } else if ($account->role == 'Procurement') {
-                return redirect()->intended(route('admin.dashboard.index'));
+                return redirect()->intended(route('procurement.dashboard.index'));
             } else {
                 return redirect()->back()->with('error', 'NIK atau Password Salah');
             }

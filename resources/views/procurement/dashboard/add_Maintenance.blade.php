@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="px-5 pt-4" style="font-size: 140%"><b>Buat Laporan dari Maintenance</b></div>
                     <div class="px-5 pt-2 pb-0">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</div>
-                    <form id="storeForm" action="{{route('procurement.laporan.store_maintenance', [$id])}}" method="POST">
+                    <form id="storeForm" action="{{route('procurement.dashboard.store_maintenance', [$id])}}" method="POST">
                         <div class="row">
                             @csrf
                             <div class="col-lg-6">
@@ -51,7 +51,7 @@
                                     <input type="text" id="lokasi" name="lokasi" class="form-control mb-2" value="{{ old('lokasi', $lokasi) }}" readonly>
                                     <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
 
-                                    ////////////////////////////////////////////////////////////////
+                                    
                                     <label for="PR_SAP" class="col-form-label">Nomor PR: </label>
                                     <input type="text" id="PR_SAP" name="PR_SAP" class="form-control @error('PR_SAP') is-invalid @enderror mb-2" value="{{ old('PR_SAP') }}">
                                     @error('PR_SAP')
@@ -182,10 +182,24 @@
                                     </div>
                                     @enderror
                                 </div>
+                                
+                            </div>
+                            <div class="mb-lg-5">
+                                <div class="col-lg-12" style="padding: 0 62px">
+                                <div class="form-group pb-0 mb-0">
+                                <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+                                <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
                             </div>
                         </div>
+                            
+                    </div>
+                        </div>
+                            
+                        </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
+                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">OGP</button>
                             <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatusTagihan()">Simpan</button>
                         </div>
                     </form>
