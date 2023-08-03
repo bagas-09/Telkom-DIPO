@@ -11,6 +11,9 @@ use App\Models\StatusTagihan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\ExcelExportP;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanProcurementController extends Controller
 {
@@ -38,8 +41,11 @@ class LaporanProcurementController extends Controller
             "procurement" => $procurement,
             "status_tagihan"=> $status_tagihan_id
         ]);
-    }
 
+    }
+    public function export(){
+        return Excel::download(new ExcelExportP, 'expor_procurement.xlsx', ExcelExcel::XLSX);
+    }
 
     public function draft()
     {

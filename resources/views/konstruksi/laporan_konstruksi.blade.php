@@ -41,7 +41,7 @@ Dashboard
           <div class="col-12">
             <div class="card">
               {{-- ADD LAPORAN KONSTRUKSI --}}
-              
+              <a class="btn btn-danger"  href="{{ route('konstruksi.laporanKonstruksi.export') }}">Export</a>
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
@@ -56,6 +56,7 @@ Dashboard
                 <table class="table table-responsive" style="overflow-x: auto;" id="table-1">
                   <thead>
                     <tr>
+                      <th scope="col">No</th>
                       <th scope="col">PID Konstruksi</th>
                       <th scope="col">ID SAP</th>
                       <th scope="col">Nomor PR</th>
@@ -84,7 +85,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporanKonstruksis as $admins)
                     <tr>
-                      {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -194,7 +195,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporan_konstruksi_commerce as $admins)
                     <tr>
-                    {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -224,7 +225,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporan_konstruksi_procurement as $admins)
                     <tr>
-                    {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>

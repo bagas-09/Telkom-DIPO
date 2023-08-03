@@ -33,6 +33,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                        <a class="btn btn-danger"  href="{{ route('procurement.dashboard.export') }}">Export</a>
                             <div class="card-body">
                                 <table class="table table-responsive" id="table-1">
                                     <thead>

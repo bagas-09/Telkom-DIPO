@@ -13,6 +13,9 @@ use App\Models\StatusPekerjaan;
 use App\Models\TipeKemitraan;
 use App\Models\TipeProvisioning;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\ExcelExportM;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanMaintenanceController extends Controller
 {
@@ -71,6 +74,10 @@ class LaporanMaintenanceController extends Controller
         ]);
     }
 
+    public function export(){
+        return Excel::download(new ExcelExportM, 'expor_maintenance.xlsx', ExcelExcel::XLSX);
+    }
+
     public function addLaporanMaintenance(Request $request)
     {
         return view('maintenance.laporan_maintenance_add',[
@@ -87,8 +94,8 @@ class LaporanMaintenanceController extends Controller
     public function storeLaporanMaintenance(Request $request)
     {
         $messages = [
-            'required' => ':Field wajib diisi',
-            'unique' => ':Nilai sudah ada',
+            'required' => 'Field wajib diisi',
+            'unique' => 'Nilai sudah ada',
         ];
         $this->validate($request, [
             "PID_maintenance" => 'required|unique:laporan_maintenance',

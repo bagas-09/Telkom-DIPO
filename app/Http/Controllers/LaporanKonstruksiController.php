@@ -13,6 +13,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\ExcelExportK;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 
 class LaporanKonstruksiController extends Controller
@@ -72,6 +75,9 @@ class LaporanKonstruksiController extends Controller
         ]);
     }
 
+    public function export(){
+        return Excel::download(new ExcelExportK, 'expor_konstruksi.xlsx', ExcelExcel::XLSX);
+    }
 
     public function addLaporanKonstruksi(Request $request)
     {
@@ -97,8 +103,8 @@ class LaporanKonstruksiController extends Controller
     public function storeLaporanKonstruksi(Request $request)
     {
         $messages = [
-            'required' => ':Field wajib diisi',
-            'unique' => ':Nilai sudah ada',
+            'required' => 'Field wajib diisi',
+            'unique' => 'Nilai sudah ada',
         ];
 
         $this->validate($request, [

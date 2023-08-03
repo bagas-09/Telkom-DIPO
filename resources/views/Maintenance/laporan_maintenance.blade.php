@@ -41,7 +41,7 @@ Dashboard
           <div class="col-12">
             <div class="card">
               <!-- ADD LAPORAN MAINTENANCE -->
-
+              <a class="btn btn-danger"  href="{{ route('maintenance.laporanMaintenance.export') }}">Export</a>
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
