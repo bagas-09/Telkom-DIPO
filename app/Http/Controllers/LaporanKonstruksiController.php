@@ -55,12 +55,12 @@ class LaporanKonstruksiController extends Controller
             $tipe_provisioning_id[$tipeP->id] = $tipeP->nama_tipe_provisioning;
         }
 
-
+        $account = Auth::guard('account')->user();
         return view('konstruksi.laporan_konstruksi', [
             "title" => "Laporan Konstruksi",
-            "laporanKonstruksis" => LaporanKonstruksi::all(),
-            "laporan_konstruksi_commerce" => LaporanKonstruksi::all()->where("commerce", "!=", 1),
-            "laporan_konstruksi_procurement" => LaporanKonstruksi::all()->where("procurement", "!=", 1),
+            "laporanKonstruksis" => LaporanKonstruksi::all()->where("kota_id", "=", $account->id_nama_kota),
+            "laporan_konstruksi_commerce" => LaporanKonstruksi::all()->where("commerce", "!=", 1)->where("kota_id", "=", $account->id_nama_kota),
+            "laporan_konstruksi_procurement" => LaporanKonstruksi::all()->where("procurement", "!=", 1)->where("kota_id", "=", $account->id_nama_kota),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,
@@ -143,6 +143,7 @@ class LaporanKonstruksiController extends Controller
             $nilaiDitambahkan = $lokasi;
         }
 
+        $account = Auth::guard('account')->user();
         LaporanKonstruksi::insert([
             // "id" => 2,
             // "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
@@ -164,6 +165,7 @@ class LaporanKonstruksiController extends Controller
             'jasa_aktual' => $request->jasa_aktual,
             'total_aktual' => $request->total_aktual,
             'keterangan' => $request->keterangan,
+            'kota_id' => $account->id_nama_kota
         ]);
         return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("success", "Berhasil menambahkan Laporan Konstruksi");
     }
@@ -273,7 +275,7 @@ class LaporanKonstruksiController extends Controller
         // } else {
         //     $nilaiDitambahkan = $lokasi;
         // }
-
+        $account = Auth::guard('account')->user();
         LaporanKonstruksi::where('PID_konstruksi', $id)->update([
             'ID_SAP_konstruksi' => $request->ID_SAP_konstruksi,
             'NO_PR_konstruksi' => $request->NO_PR_konstruksi,
@@ -291,6 +293,7 @@ class LaporanKonstruksiController extends Controller
             'jasa_aktual' => $request->jasa_aktual,
             'total_aktual' => $request->total_aktual,
             'keterangan' => $request->keterangan,
+            'kota_id' => $account->id_nama_kota
         ]);
         return redirect()->intended(route('konstruksi.laporanKonstruksi.index'))->with("success", "Berhasil mengubah Laporan Konstruksi");
     }

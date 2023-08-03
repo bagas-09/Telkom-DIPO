@@ -28,6 +28,7 @@ class LaporanCommerce extends Model
         'jasa_aktual',
         'total_aktual',
         'status_id',
+        'kota_id',
         'PID_konstruksi_id',
         'PID_maintenance_id',
         'lokasi',

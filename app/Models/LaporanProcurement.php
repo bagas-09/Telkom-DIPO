@@ -25,7 +25,8 @@ class LaporanProcurement extends Model
         'PID_konstruksi_id',
         'PID_maintenance_id',
         'lokasi',
-        'draft'
+        'draft',
+        'kota_id',
     ];
 
 

@@ -31,6 +31,8 @@ class LaporanProcurement extends Migration
             $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');
             $table->string('PID_maintenance_id')->nullable();
             $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
+            $table->unsignedBigInteger('kota_id');
+            $table->foreign('kota_id')->references('id')->on('city');
             $table->string('lokasi');
             $table->integer("draft")->nullable();
 

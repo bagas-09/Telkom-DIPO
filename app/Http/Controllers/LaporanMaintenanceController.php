@@ -54,12 +54,12 @@ class LaporanMaintenanceController extends Controller
             $tipe_provisioning_id[$tipeP->id] = $tipeP->nama_tipe_provisioning;
         }
 
-
+        $account = Auth::guard('account')->user();
         return view('maintenance.laporan_maintenance', [
             "title" => "Laporan Maintenance",
-            "laporanMaintenances" => LaporanMaintenance::all(),
-            "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
-            "laporan_maintenance_procurement"=> LaporanMaintenance::all()->where("procurement", "!=", 1),
+            "laporanMaintenances" => LaporanMaintenance::all()->where("kota_id", "=", $account->id_nama_kota),
+            "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1)->where("kota_id", "=", $account->id_nama_kota),
+            "laporan_maintenance_procurement"=> LaporanMaintenance::all()->where("procurement", "!=", 1)->where("kota_id", "=", $account->id_nama_kota),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,
@@ -86,6 +86,7 @@ class LaporanMaintenanceController extends Controller
     
     public function storeLaporanMaintenance(Request $request)
     {
+        $account = Auth::guard('account')->user();
         $messages = [
             'required' => ':Field wajib diisi',
             'unique' => ':Nilai sudah ada',
@@ -152,8 +153,8 @@ class LaporanMaintenanceController extends Controller
             'material_aktual' => $request->material_aktual,
             'jasa_aktual' => $request->jasa_aktual,
             'total_aktual' => $request->total_aktual,
-            'keterangan' => $request->keterangan
-
+            'keterangan' => $request->keterangan,
+            'kota_id' => $account->id_nama_kota
         ]);
         return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("success", "Laporan Berhasil Dibuat");
 
@@ -265,7 +266,7 @@ class LaporanMaintenanceController extends Controller
         // } else {
         //     $nilaiDitambahkan = $lokasi;
         // }
-
+        $account = Auth::guard('account')->user();
         LaporanMaintenance::where('PID_maintenance', $id)->update([
             'ID_SAP_maintenance' => $request->ID_SAP_maintenance,
             'NO_PR_maintenance' => $request->NO_PR_maintenance,
@@ -284,6 +285,7 @@ class LaporanMaintenanceController extends Controller
             'jasa_aktual' => $request->jasa_aktual,
             'total_aktual' => $request->total_aktual,
             'keterangan' => $request->keterangan,
+            'kota_id' => $account->id_nama_kota
         ]);
         return redirect()->intended(route('maintenance.laporanMaintenance.index'))->with("success", "Berhasil mengubah Laporan Maintenance");
     }

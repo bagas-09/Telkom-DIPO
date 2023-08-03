@@ -20,16 +20,20 @@ class LaporanCommerceController extends Controller
         foreach (Status::all() as $statusP) {
             $status_id[$statusP->id] = $statusP->nama_status;
         }
+        $account = Auth::guard('account')->user();
         $commerce = DB::table('laporan_commerce')
             ->join('status', 'laporan_commerce.status_id', '=', 'status.id')
             ->select('*')
             ->where([
-            [
-                'laporan_commerce.draft', '=', 0
-            ],
-            [
-                'status.nama_status', '=', 'CASH IN'
-            ]
+                [
+                    'laporan_commerce.draft', '=', 0
+                ],
+                [
+                    'status.nama_status', '=', 'CASH IN'
+                ],
+                [
+                    "kota_id", "=", $account->id_nama_kota
+                ]
 
             ])
             ->get();
@@ -37,21 +41,22 @@ class LaporanCommerceController extends Controller
             "title" => "Laporan Commerce",
             // "commerce" => LaporanCommerce::all()->where('draft', '=', 0),
             "commerce" => $commerce,
-            "status"=> $status_id
+            "status" => $status_id
         ]);
     }
 
 
     public function draft()
     {
+        $account = Auth::guard('account')->user();
         $status_id = array();
         foreach (Status::all() as $statusP) {
             $status_id[$statusP->id] = $statusP->nama_status;
         }
         return view('commerce.laporan.draft', [
             "title" => "OGP",
-            "commerce" => LaporanCommerce::all()->where('draft', '=', 1),
-            "status"=> $status_id
+            "commerce" => LaporanCommerce::all()->where('draft', '=', 1)->where("kota_id", "=", $account->id_nama_kota),
+            "status" => $status_id
         ]);
     }
 
@@ -92,6 +97,7 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -122,7 +128,9 @@ class LaporanCommerceController extends Controller
                 'status_id' => $request->status_id,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
+
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "commerce" => 1
@@ -174,7 +182,9 @@ class LaporanCommerceController extends Controller
                 'status_id' => $request->status_id,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
+
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "commerce" => 1
@@ -184,7 +194,6 @@ class LaporanCommerceController extends Controller
         } else {
             //invalid action!
         }
-
     }
 
 
@@ -194,6 +203,7 @@ class LaporanCommerceController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -224,7 +234,8 @@ class LaporanCommerceController extends Controller
                 'status_id' => $request->status_id,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
                 "commerce" => 1
@@ -277,7 +288,8 @@ class LaporanCommerceController extends Controller
                 'status_id' => $request->status_id,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
                 "commerce" => 1
@@ -303,32 +315,30 @@ class LaporanCommerceController extends Controller
                 return redirect()->intended(route('commerce.laporan.index'))->with("success", "Berhasil menghapus Laporan Commerce");
             } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.laporan_commerce.index'))->with("success", "Berhasil menghapus Laporan Commerce");
-
             }
-            
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
             if ($account->role == "Commerce") {
                 return redirect()->intended(route('commerce.laporan.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
-            }else if ($account->role == 'Admin') {
+            } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.laporan_commerce.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
             }
-
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
             if ($account->role == "Commerce") {
                 return redirect()->intended(route('commerce.laporan.index'))->with("error", $e->getMessage());
-            }else if ($account->role == 'Admin') {
+            } else if ($account->role == 'Admin') {
                 return redirect()->intended(route('admin.laporan_commerce.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
             }
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         return view('commerce.laporan.edit', [
             "title" => "Edit Laporan Commerce",
             "commerce" => LaporanCommerce::where("no_PO", "=", $id)->get(),
@@ -337,7 +347,9 @@ class LaporanCommerceController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -367,7 +379,8 @@ class LaporanCommerceController extends Controller
                 'PID_konstruksi_id'  => $request->PID_konstruksi_id,
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
                 'lokasi' => $request->lokasi,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
             ]);
             return redirect()->intended(route('commerce.laporan.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
@@ -415,7 +428,8 @@ class LaporanCommerceController extends Controller
                 'PID_konstruksi_id'  => $request->PID_konstruksi_id,
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
                 'lokasi' => $request->lokasi,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
             ]);
             return redirect()->intended(route('commerce.laporan.index'))->with("success", "Laporan Berhasil Dibuat");
         } else {
@@ -423,7 +437,8 @@ class LaporanCommerceController extends Controller
         }
     }
 
-    public function drafted($id){
+    public function drafted($id)
+    {
         LaporanCommerce::where("no_PO", '=', $id)->update([
             'draft' => 1
         ]);
