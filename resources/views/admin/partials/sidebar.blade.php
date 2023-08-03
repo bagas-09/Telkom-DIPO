@@ -1,6 +1,6 @@
 <aside id="sidebar-wrapper">
   <div class="sidebar-brand">
-    <a href="">TELKOM SEMARANG</a>
+    <a href="">TELKOM AKSES SEMARANG</a>
   </div>
   <div class="sidebar-brand sidebar-brand-sm">
     <a href="index.html">St</a>
@@ -33,11 +33,11 @@
         <li class="{{ $title==='OGP' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_commerce.draft')}}"><i class="fa fa-envelope-open"></i><span>OGP</span>@if($count != 0)<span style="color:red">{{$count}}</span>@endif</a></li>
       </ul>
     </li>
-    <li class="nav-item dropdown {{ $title==='Laporan Procurement' || $title==='Draft Procurement' ? 'active' : '' }}">
+    <li class="nav-item dropdown {{ $title==='Laporan Procurement' || $title==='OGP' ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Laporan Procurement</span></a>
       <ul class="dropdown-menu">
         <li class="{{ $title==='Laporan Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_procurement.index')}}"><i class="fa fa-envelope"></i><span>Selesai</span></a></li>
-        <li class="{{ $title==='Draft Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_procurement.draft')}}"><i class="fa fa-envelope-open"></i><span>Draft</span></a></li>
+        <li class="{{ $title==='OGP' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_procurement.draft')}}"><i class="fa fa-envelope-open"></i><span>Draft</span>@if($countp != 0)<span style="color:red">{{$countp}}</span>@endif</a></li>
       </ul>
     </li>
     <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('admin.laporan_konstruksi')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
@@ -60,11 +60,11 @@
     </li>
     @endif
     @if(Auth::user()->role == "Procurement")
-    <li class="nav-item dropdown {{ $title==='Laporan Procurement' || $title==='Draft' ? 'active' : '' }}">
+    <li class="nav-item dropdown {{ $title==='Laporan Procurement' || $title==='OGP' ? 'active' : '' }}">
       <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i> <span>Laporan Procurement</span></a>
       <ul class="dropdown-menu">
         <li class="{{ $title==='Laporan Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('procurement.dashboard.index')}}"><i class="fa fa-envelope"></i><span>Selesai</span></a></li>
-        <li class="{{ $title==='Draft' ? ' active' : '' }}"><a class="nav-link" href="{{route('procurement.dashboard.draft')}}"><i class="fa fa-envelope-open"></i><span>Draft</span></a></li>
+        <li class="{{ $title==='OGP' ? ' active' : '' }}"><a class="nav-link" href="{{route('procurement.dashboard.draft')}}"><i class="fa fa-envelope-open"></i><span>OGP</span>@if($countp != 0)<span style="color:red">{{$countp}}</span>@endif</a></li>
       </ul>
     </li>
     <li class="nav-item dropdown {{ $title==='Laporan Maintenance' || $title==='Laporan Konstruksi' ? 'active' : '' }}">

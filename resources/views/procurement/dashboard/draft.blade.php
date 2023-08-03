@@ -102,7 +102,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- UPDATE Laporan Procurement -->
-                                                <a class="btn btn-sm btn-warning" href="{{ route('procurement.laporan.edit', [$admins->PR_SAP]) }}" style="color: white">Edit</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ route('procurement.dashboard.edit', [$admins->PR_SAP]) }}" style="color: white">Edit</a>
                                                 @endif
                                             </td>
                                         </tr>

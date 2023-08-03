@@ -10,6 +10,7 @@ use App\Models\LaporanMaintenance;
 use App\Models\StatusTagihan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanProcurementController extends Controller
 {
@@ -30,7 +31,7 @@ class LaporanProcurementController extends Controller
                 'status_tagihan.nama_status_tagihan', '=', 'CASH & BANK'
             ]
             ])->get();
-            //  ->get();
+            
         return view('procurement.dashboard.index', [
             "title" => "Laporan Procurement",
             // "procurement" => LaporanProcurement::all()->where('draft', '=', 0),
@@ -47,7 +48,7 @@ class LaporanProcurementController extends Controller
             $status_tagihan_id[$statusT->id] = $statusT->nama_status_tagihan;
         }
         return view('procurement.dashboard.draft', [
-            "title" => "Draft Procurement",
+            "title" => "OGP",
             "procurement" => LaporanProcurement::all()->where('draft', '=', 1),
             "status_tagihan"=> $status_tagihan_id
         ]);
@@ -113,6 +114,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => $request->jasa_aktual,
                 'total_aktual'  => $request->total_aktual,
                 'status_tagihan_id' => $request->status_tagihan_id,
+                'keterangan' => $request->keterangan,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
                 'draft' => 1
@@ -120,6 +122,7 @@ class LaporanProcurementController extends Controller
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "procurement" => 1
             ]);
+            return redirect()->intended(route('procurement.dashboard.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
             DB::beginTransaction();
             $messages = [
@@ -133,7 +136,7 @@ class LaporanProcurementController extends Controller
             $this->validate($request, [
                 "PR_SAP" => 'required|unique:laporan_procurement',
                 "PID_konstruksi_id" => 'unique:laporan_procurement',
-                'No_SAP' => 'required',
+                'PO_SAP' => 'required',
                 'tanggal_PO_SAP' => 'required',
                 'material_DRM' => 'required',
                 'jasa_DRM' => 'required',
@@ -142,6 +145,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => 'required',
                 'total_aktual'  => 'required',
                 'status_tagihan_id' => 'required',
+                'keterangan' => 'required',
             ], $messages);
 
             LaporanProcurement::insert([
@@ -155,6 +159,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => $request->jasa_aktual,
                 'total_aktual'  => $request->total_aktual,
                 'status_tagihan_id' => $request->status_tagihan_id,
+                'keterangan' => $request->keterangan,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
                 'draft' => 0
@@ -200,6 +205,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => $request->jasa_aktual,
                 'total_aktual'  => $request->total_aktual,
                 'status_tagihan_id' => $request->status_tagihan_id,
+                'keterangan' => $request->keterangan,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
                 'draft' => 1
@@ -221,7 +227,7 @@ class LaporanProcurementController extends Controller
             $this->validate($request, [
                 "PR_SAP" => 'required|unique:laporan_procurement',
                 "PID_maintenance_id" => 'unique:laporan_procurement',
-                'No_SAP' => 'required',
+                'PO_SAP' => 'required',
                 'tanggal_PO_SAP' => 'required',
                 'material_DRM' => 'required',
                 'jasa_DRM' => 'required',
@@ -230,6 +236,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => 'required',
                 'total_aktual'  => 'required',
                 'status_tagihan_id' => 'required',
+                'keterangan' => 'required',
             ], $messages);
 
             LaporanProcurement::insert([
@@ -243,6 +250,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => $request->jasa_aktual,
                 'total_aktual'  => $request->total_aktual,
                 'status_tagihan_id' => $request->status_tagihan_id,
+                'keterangan' => $request->keterangan,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
                 'draft' => 0
@@ -263,32 +271,38 @@ class LaporanProcurementController extends Controller
             DB::beginTransaction();
 
             $procurement = LaporanProcurement::find($id);
-
-            // Pengecekan di setiap tabel terkait
-            // if ($status_tagihan->laporanProcurement()->count() > 0) {
-            //     throw new \Exception("Kota ini sedang digunakan di Tabel Account dan tidak dapat dihapus.");
-            // }
-
-            // Jika tidak ada pengecualian, hapus kota
             $procurement->delete();
 
             DB::commit();
+            $account = Auth::guard('account')->user();
+            if ($account->role == "Procurement") {
+                return redirect()->intended(route('procurement.dashboard.index'))->with("success", "Berhasil menghapus Laporan Procurement");
+            } else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_procurement.index'))->with("success", "Berhasil menghapus Laporan Procurement");
 
-            return redirect()->intended(route('procurement.dashboard.index'))->with("success", "Berhasil menghapus Laporan Procurement");
+            }
         } catch (QueryException $e) {
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('procurement.dashboard.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            if ($account->role == "Procurement") {
+                return redirect()->intended(route('procurement.dashboard.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_procurement.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }
+
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('procurement.dashboard.index'))->with("error", $e->getMessage());
-        }
+            if ($account->role == "Procurement") {
+                return redirect()->intended(route('procurement.dashboard.index'))->with("error", $e->getMessage());
+            }else if ($account->role == 'Admin') {
+                return redirect()->intended(route('admin.laporan_procurement.index'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            }        }
     }
     public function edit($id){
-        return view('procurement.laporan.edit', [
+        return view('procurement.dashboard.edit', [
             "title" => "Edit Laporan Procurement",
             "procurement" => LaporanProcurement::where("PR_SAP", "=", $id)->get(),
             "statustagihanmany" => StatusTagihan::all(),
@@ -320,6 +334,7 @@ class LaporanProcurementController extends Controller
                 'status_tagihan_id' => $request->status_tagihan_id,
                 'PID_konstruksi_id'  => $request->PID_konstruksi_id,
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
+                'keterangan' => $request->keterangan,
                 'lokasi' => $request->lokasi,
                 'draft' => 1
             ]);
@@ -344,6 +359,7 @@ class LaporanProcurementController extends Controller
                 'jasa_aktual'  => 'required',
                 'total_aktual'  => 'required',
                 'status_tagihan_id' => 'required',
+                'keterangan' => 'required',
             ], $messages);
 
             LaporanProcurement::where("PR_SAP", '=', $id)->update([
@@ -359,6 +375,7 @@ class LaporanProcurementController extends Controller
                 'status_tagihan_id' => $request->status_tagihan_id,
                 'PID_konstruksi_id'  => $request->PID_konstruksi_id,
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
+                'keterangan' => $request->keterangan,
                 'lokasi' => $request->lokasi,
                 'draft' => 0
             ]);

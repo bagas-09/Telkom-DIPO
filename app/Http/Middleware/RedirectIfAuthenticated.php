@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
                     } else if ($account->role == 'Admin') {
                         return redirect()->route('admin.dashboard.index');
                     } else if ($account->role == 'Procurement') {
-                        return redirect()->route('admin.dashboard.index');
+                        return redirect()->route('procurement.dashboard.index');
                     }
                 }
                 break;

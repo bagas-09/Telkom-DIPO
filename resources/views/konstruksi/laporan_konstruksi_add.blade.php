@@ -43,7 +43,7 @@ Dashboard
                             <span id="PID_konstruksi_error" style="display: none; color: red;">Field PID Kontruksi harus diisi!</span>
                             @error('PID_konstruksi')
                             <div class="invalid-feedback">
-                                {{ $message }}
+                            Field PID Kontruksi harus diisi!
                             </div>
                             @enderror
 
@@ -273,16 +273,14 @@ Dashboard
                             <div class="col-lg-12" style="padding: 0 62px">
                                 <div class="form-group pb-0 mb-0">
                                     <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                    {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                    <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
-                                    @error('keterangan')
-                                    <div class="invalid-feedback">
-                                        Field Keterangan harus diisi!
-                                    </div>
-                                    @enderror
+                                    <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control mb-2">
                                 </div>
                             </div>
+                            @error('total_aktual')
+                                <div class="invalid-feedback">
+                                    Keterangan harus diisi!
+                                </div>
+                                @enderror
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
                             <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>

@@ -37,7 +37,7 @@
                     <div class="px-5 pt-4" style="font-size: 140%"><b>Edit GDP Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</div>
                     @foreach ($procurement as $laporan)
-                    <form id="storeForm" action="{{route('procurement.laporan.update', [$id])}}" method="POST">
+                    <form id="storeForm" action="{{route('procurement.dashboard.update', [$id])}}" method="POST">
                         <div class="row">
                             @csrf
                             <div class="col-lg-6">
@@ -64,7 +64,7 @@
                                     <label for="lokasi" class="col-form-label">Lokasi: </label>
                                     <input type="text" id="lokasi" name="lokasi" class="form-control mb-2" value="{{ old('lokasi', $laporan->lokasi) }}" readonly>
                                     <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
-                                    ////////////////////////////////////////////////////////////////////////////////////////////////
+
                                     <label for="PR_SAP" class="col-form-label">Nomor PR: </label>
                                     <input type="text" id="PR_SAP" name="PR_SAP" class="form-control @error('PR_SAP') is-invalid @enderror mb-2" value="{{ old('PR_SAP', $laporan->PR_SAP) }}" readonly>
                                     @error('PR_SAP')

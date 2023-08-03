@@ -112,7 +112,7 @@
                                                             </div>
                                                             @csrf
                                                             <div class="modal-body">
-                                                                Pilih "Draft" dibawah ini jika Anda yakin menghapus Laporan yang dipilih.
+                                                                Pilih "OGP" dibawah ini jika Anda yakin menghapus Laporan yang dipilih.
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanProcurementdraft">Cancel</button>

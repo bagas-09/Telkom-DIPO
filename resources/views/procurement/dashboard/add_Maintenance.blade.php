@@ -175,28 +175,23 @@
                                         <option value="{{ $status_tagihan->id }}" {{ old('status_tagihan_id') == $status_tagihan->id ? 'selected' : '' }}>{{ $status_tagihan->nama_status_tagihan }}</option>
                                         @endforeach
                                     </select>
-                                    <span id="status_tagihan_id_error" style="display: none; color: red;">status_tagihan harus "CASH & BANK" jika ingin menyimpan!</span>
+                                    <span id="status_tagihan_id_error" style="display: none; color: red;">Status Tagihan harus "CASH & BANK" jika ingin menyimpan!</span>
                                     @error('status_tagihan_id')
                                     <div class="invalid-feedback">
                                         Status Tagihan Wajib Dipilih!!!
                                     </div>
                                     @enderror
                                 </div>
-                                
                             </div>
-                            <div class="mb-lg-5">
-                                <div class="col-lg-12" style="padding: 0 62px">
-                                <div class="form-group pb-0 mb-0">
-                                <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-                                <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                            <div class="col mb-lg-5">
+                                <div class="col-lg-12" style="padding: 0 50px">
+                                    <div class="form-group pb-0 mb-0">
+                                        <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                        <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                    </div>
                             </div>
-                        </div>
                             
                     </div>
-                        </div>
-                            
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
                             <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">OGP</button>
@@ -257,9 +252,9 @@
         // Find the dropdown element
         var statustagihanDropdown = document.getElementById('status_tagihan_id');
 
-        // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
+        // Check if the "Simpan" button is clicked and if the status is not "CASH & BANK"
         var simpanButton = document.querySelector('button[value="save"]');
-        if (simpanButton && statustagihanDropdown.value != 10) {
+        if (simpanButton && statustagihanDropdown.value != 6) {
             // Add the 'is-invalid' class to the dropdown to show the error state
             statustagihanDropdown.classList.add('is-invalid');
             // Display the error message

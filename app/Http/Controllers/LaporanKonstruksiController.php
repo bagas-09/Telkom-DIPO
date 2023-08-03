@@ -60,6 +60,7 @@ class LaporanKonstruksiController extends Controller
             "title" => "Laporan Konstruksi",
             "laporanKonstruksis" => LaporanKonstruksi::all(),
             "laporan_konstruksi_commerce" => LaporanKonstruksi::all()->where("commerce", "!=", 1),
+            "laporan_konstruksi_procurement" => LaporanKonstruksi::all()->where("procurement", "!=", 1),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,

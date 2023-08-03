@@ -149,22 +149,22 @@ Dashboard
                     <div class="col-lg-6">
                         <div class="form-group pt-4 pb-0 pr-5 mb-0">
                             <div class="form-group mb-2">
-                                <label>Lokasi</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <p id="autoFill" style="padding-top: 15px"></p>
+                                    <label>Lokasi</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <p id="autoFill" style="padding-top: 15px"></p>
+                                            </div>
                                         </div>
+                                        <input type="text" class="form-control @error('lokasi') is-invalid @enderror lokasi" id="lokasi" name="lokasi" value="{{ old('lokasi') }}">
                                     </div>
-                                    <input type="text" id="lokasi" name="lokasi" class="form-control @error('lokasi') is-invalid @enderror mb-2" value="{{ old('lokasi') }}" >
                                 </div>
-                            </div>
-                            <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
-                            @error('lokasi')
+                                <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
+                                @error('lokasi')
                                 <div class="invalid-feedback">
-                                Field Lokasi Wajib Diisi!!!
+                                    Field Lokasi harus diisi!
                                 </div>
-                            @enderror
+                                @enderror
 
                             <label for="periode_pekerjaan" class="col-form-label">Periode Pekerjaan: </label>
                             <input type="text" id="periode_pekerjaan" name="periode_pekerjaan" class="form-control @error('periode_pekerjaan') is-invalid @enderror mb-2" value="{{ old('periode_pekerjaan') }}"  >
@@ -276,9 +276,14 @@ Dashboard
                                 <label for="keterangan" class="col-form-label">Keterangan:</label>
                                 <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
                                 <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-                                <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+
                             </div>
                         </div>
+                        @error('total_aktual')
+                                <div class="invalid-feedback">
+                                    Keterangan wajib diisi!
+                                </div>
+                            @enderror
                             
                     </div>
                     <div class="d-flex justify-content-end pr-5 mb-5">

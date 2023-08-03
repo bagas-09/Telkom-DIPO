@@ -59,6 +59,7 @@ class LaporanMaintenanceController extends Controller
             "title" => "Laporan Maintenance",
             "laporanMaintenances" => LaporanMaintenance::all(),
             "laporan_maintenance_commerce"=> LaporanMaintenance::all()->where("commerce", "!=", 1),
+            "laporan_maintenance_procurement"=> LaporanMaintenance::all()->where("procurement", "!=", 1),
             "roles" => $roles,
             "citys" => $citys,
             "status_pekerjaan_id" => $status_pekerjaan_id,

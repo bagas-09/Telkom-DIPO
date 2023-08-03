@@ -15,21 +15,21 @@ class LaporanProcurement extends Migration
     {
         //
         Schema::create('laporan_procurement', function (Blueprint $table) {
-            $table->string("PR_SAP");
-            $table->integer('PO_SAP');
-            $table->date('tanggal_PO_SAP');
-            $table->integer('material_DRM_TA');
-            $table->integer('jasa_DRM_TA');
-            $table->integer('total_DRM_TA');
-            $table->integer('material_aktual');
-            $table->integer('jasa_aktual');
-            $table->integer('total_aktual');
-            $table->unsignedBigInteger('status_tagihan_id');
+            $table->string("PR_SAP")->primary();
+            $table->integer('PO_SAP')->nullable();
+            $table->date('tanggal_PO_SAP')->nullable();
+            $table->string('material_DRM')->nullable();
+            $table->string('jasa_DRM')->nullable();
+            $table->string('total_DRM')->nullable();
+            $table->string('material_aktual')->nullable();
+            $table->string('jasa_aktual')->nullable();
+            $table->string('total_aktual')->nullable();
+            $table->unsignedBigInteger('status_tagihan_id')->nullable();
             $table->foreign('status_tagihan_id')->references('id')->on('status_tagihan');
-            $table->string('keterangan');
-            $table->string('PID_konstruksi_id');
+            $table->string('keterangan')->nullable();
+            $table->string('PID_konstruksi_id')->nullable();
             $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');
-            $table->string('PID_maintenance_id');
+            $table->string('PID_maintenance_id')->nullable();
             $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
             $table->string('lokasi');
             $table->integer("draft")->nullable();
@@ -39,7 +39,7 @@ class LaporanProcurement extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     * 
      * @return void
      */
     public function down()

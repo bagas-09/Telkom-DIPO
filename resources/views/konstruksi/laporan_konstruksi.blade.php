@@ -105,6 +105,11 @@ Dashboard
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
 
                       <td>
+                        @if(Auth::user()->role == "Procurement")
+                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_konstruksi', [$admins->PID_konstruksi]) }}">Buat Laporan</a>
+          
+                        @endif
+
                         @if(Auth::user()->role == "Konstruksi" && $admins->editable == 1)
                         <a class="btn btn-sm btn-warning"  
                           href={{ route('konstruksi.laporan_konstruksi_edit', [$admins->PID_konstruksi]) }}
@@ -189,7 +194,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporan_konstruksi_commerce as $admins)
                     <tr>
-                      {{-- <th scope="row">{{$i++}}</th> --}}
+                    {{-- <th scope="row">{{$i++}}</th> --}}
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -208,12 +213,42 @@ Dashboard
                       <td>{{ $admins ->total_aktual }}</td>
                       <td>{{ $admins ->keterangan }}</td>
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
-
                       <td>
                         <a class="btn btn-primary" href="{{ route('commerce.laporan.add_konstruksi', [$admins->PID_konstruksi]) }}">Buat Laporan</a>
                       </td>
                     </tr>
                     @endforeach
+                    @endif
+                    @if(Auth::user()->role == "Procurement")
+                  <tbody>
+                    <?php $i = 1 ?>
+                    @foreach ($laporan_konstruksi_procurement as $admins)
+                    <tr>
+                    {{-- <th scope="row">{{$i++}}</th> --}}
+                      <td>{{ $admins ->PID_konstruksi}}</td>
+                      <td>{{ $admins ->ID_SAP_konstruksi}}</td>
+                      <td>{{ $admins ->NO_PR_konstruksi}}</td>
+                      <td>{{ $admins ->tanggal_PR}}</td>
+                      <td>{{ $status_pekerjaan_id[$admins->status_pekerjaan_id]}}</td>
+                      <td>{{ $mitra_id[$admins->mitra_id]}}</td>
+                      <td>{{ $tipe_kemitraan_id[$admins->tipe_kemitraan_id]}}</td>
+                      <td>{{ $jenis_order_id[$admins->jenis_order_id]}}</td>
+                      <td>{{ $tipe_provisioning_id[$admins->tipe_provisioning_id]}}</td>
+                      <td>{{ $admins ->lokasi }}</td>
+                      <td>{{ $admins ->material_DRM }}</td>
+                      <td>{{ $admins ->jasa_DRM }}</td>
+                      <td>{{ $admins ->total_DRM }}</td>
+                      <td>{{ $admins ->material_aktual }}</td>
+                      <td>{{ $admins ->jasa_aktual }}</td>
+                      <td>{{ $admins ->total_aktual }}</td>
+                      <td>{{ $admins ->keterangan }}</td>
+                      {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
+                      <td>
+                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_konstruksi', [$admins->PID_konstruksi]) }}">Buat Laporan</a>
+                      </td>
+                    </tr>
+                    @endforeach
+                    
                   </tbody>
                   @endif
                 </table>
