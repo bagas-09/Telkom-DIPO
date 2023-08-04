@@ -41,13 +41,13 @@ Dashboard
           <div class="col-12">
             <div class="card">
               <!-- ADD LAPORAN MAINTENANCE -->
-              <a class="btn btn-danger"  href="{{ route('maintenance.laporanMaintenance.export') }}">Export</a>
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
                 </div>
                 @if(Auth::user()->role == "Maintenance")
                 <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-info mr-3"  href="{{ route('maintenance.laporanMaintenance.export') }}">Export</a>
                   <a class="btn btn-primary" href="{{ route('maintenance.laporan_maintenance_add') }}">Buat Laporan</a>
                 </div>
                 @endif

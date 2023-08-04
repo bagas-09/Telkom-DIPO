@@ -41,13 +41,14 @@ Dashboard
           <div class="col-12">
             <div class="card">
               {{-- ADD LAPORAN KONSTRUKSI --}}
-              <a class="btn btn-danger"  href="{{ route('konstruksi.laporanKonstruksi.export') }}">Export</a>
+              
               <div class="card-header">
                 <div class="col-8">
                   <h4>Simple</h4>
                 </div>
                 @if(Auth::user()->role == "Konstruksi")
                 <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-info mr-3"  href="{{ route('konstruksi.laporanKonstruksi.export') }}">Export</a>
                   <a class="btn btn-primary" href="{{ route('konstruksi.laporan_konstruksi_add') }}">Buat Laporan</a>
                 </div>
                 @endif

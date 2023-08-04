@@ -8,6 +8,9 @@
 <section class="section">
     <div class="section-header">
         <h1>Laporan Commerce (Selesai)</h1>
+        <div class="col-8 d-flex justify-content-end">
+            <a class="btn btn-primary"  href="{{ route('commerce.laporan.export') }}">Export</a>
+        </div>
     </div>
 
     <div class="section-body">
@@ -33,7 +36,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                        <a class="btn btn-danger"  href="{{ route('commerce.laporan.export') }}">Export</a>
+                        
                             <div class="card-body">
                                 <table class="table table-responsive" id="table-1">
                                     <thead>
