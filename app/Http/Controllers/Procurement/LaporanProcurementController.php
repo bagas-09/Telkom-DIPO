@@ -20,6 +20,7 @@ class LaporanProcurementController extends Controller
         foreach (StatusTagihan::all() as $statusT) {
             $status_tagihan_id[$statusT->id] = $statusT->nama_status_tagihan;
         }
+        $account = Auth::guard('account')->user();
         $procurement = DB::table('laporan_procurement')
             ->join('status_tagihan', 'laporan_procurement.status_tagihan_id', '=', 'status_tagihan.id')
             ->select('*')
@@ -29,6 +30,9 @@ class LaporanProcurementController extends Controller
             ],
             [
                 'status_tagihan.nama_status_tagihan', '=', 'CASH & BANK'
+            ],
+            [
+                "kota_id", "=", $account->id_nama_kota
             ]
             ])->get();
             
@@ -49,7 +53,7 @@ class LaporanProcurementController extends Controller
         }
         return view('procurement.dashboard.draft', [
             "title" => "OGP",
-            "procurement" => LaporanProcurement::all()->where('draft', '=', 1),
+            "procurement" => LaporanProcurement::all()->where('draft', '=', 1)->where("kota_id", "=", $account->id_nama_kota),
             "status_tagihan"=> $status_tagihan_id
         ]);
     }
@@ -91,6 +95,7 @@ class LaporanProcurementController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -117,7 +122,8 @@ class LaporanProcurementController extends Controller
                 'keterangan' => $request->keterangan,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "procurement" => 1
@@ -162,7 +168,8 @@ class LaporanProcurementController extends Controller
                 'keterangan' => $request->keterangan,
                 'PID_konstruksi_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanKonstruksi::where('PID_konstruksi', $id)->update([
                 "procurement" => 1
@@ -182,6 +189,7 @@ class LaporanProcurementController extends Controller
             ->get(["lokasi"]);
         $lokasiObject = json_decode($lokasi[0]);
         $lokasiValue = $lokasiObject->lokasi;
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -208,7 +216,8 @@ class LaporanProcurementController extends Controller
                 'keterangan' => $request->keterangan,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
                 "procurement" => 1
@@ -253,7 +262,8 @@ class LaporanProcurementController extends Controller
                 'keterangan' => $request->keterangan,
                 'PID_maintenance_id'  => $id,
                 'lokasi' => $lokasiValue,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
             ]);
             LaporanMaintenance::where('PID_maintenance', $id)->update([
                 "procurement" => 1
@@ -310,6 +320,7 @@ class LaporanProcurementController extends Controller
         ]);
     }
     public function update(Request $request, $id){
+        $account = Auth::guard('account')->user();
         if ($_POST['submit'] == 'draft') {
             $messages = [
                 'required' => ':attribute wajib diisi',
@@ -336,7 +347,8 @@ class LaporanProcurementController extends Controller
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
                 'keterangan' => $request->keterangan,
                 'lokasi' => $request->lokasi,
-                'draft' => 1
+                'draft' => 1,
+                'kota_id' => $account->id_nama_kota
             ]);
             return redirect()->intended(route('procurement.dashboard.draft'))->with("success", "Laporan Berhasil Dibuat");
         } else if ($_POST['submit'] == 'save') {
@@ -377,7 +389,8 @@ class LaporanProcurementController extends Controller
                 'PID_maintenance_id'  => $request->PID_maintenance_id,
                 'keterangan' => $request->keterangan,
                 'lokasi' => $request->lokasi,
-                'draft' => 0
+                'draft' => 0,
+                'kota_id' => $account->id_nama_kota
             ]);
             return redirect()->intended(route('procurement.dashboard.index'))->with("success", "Laporan Berhasil Dibuat");
         } else {

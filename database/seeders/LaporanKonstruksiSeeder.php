@@ -32,6 +32,7 @@ class LaporanKonstruksiSeeder extends Seeder
                 'jasa_aktual' => 300,
                 'total_aktual' => 500,
                 'keterangan' => "testing",
+                'kota_id' => 1
             ],
 
         ];

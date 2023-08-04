@@ -31,7 +31,8 @@ class LaporanMaintenance extends Model
         'Jasa Aktual',
         'Total Aktual',
         'Keterangan',
-        'commerce'
+        'commerce',
+        'kota_id',
     ];
 
 }

@@ -29,6 +29,8 @@ class LaporanKonstruksi extends Migration
             $table->foreign('jenis_order_id')->references('id')->on('jenis_order');
             $table->unsignedBigInteger('tipe_provisioning_id');
             $table->foreign('tipe_provisioning_id')->references('id')->on('tipe_provisioning');
+            $table->unsignedBigInteger('kota_id');
+            $table->foreign('kota_id')->references('id')->on('city');
             $table->string('lokasi');
             $table->string('material_DRM');
             $table->string('jasa_DRM');
