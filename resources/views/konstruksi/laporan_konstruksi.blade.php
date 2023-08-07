@@ -52,6 +52,11 @@ Dashboard
                   <a class="btn btn-primary" href="{{ route('konstruksi.laporan_konstruksi_add') }}">Buat Laporan</a>
                 </div>
                 @endif
+                @if(Auth::user()->role == "Admin")
+                <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-outline-primary mr-3"  href="{{ route('admin.laporanKonstruksi.export') }}">Export</a>
+                </div>
+                @endif
               </div> 
               <div class="card-body">
                 <table class="table table-responsive" style="overflow-x: auto;" id="table-1">

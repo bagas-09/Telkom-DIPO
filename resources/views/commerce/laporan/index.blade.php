@@ -8,7 +8,12 @@
 <section class="section">
     <div class="section-header d-flex justify-content-between">
         <h1>Laporan Commerce (Selesai)</h1>
+        @if(Auth::user()->role == "Commerce")
         <a class="btn btn-outline-primary"  href="{{ route('commerce.laporan.export') }}">Export</a>
+        @endif
+        @if(Auth::user()->role == "Admin")
+        <a class="btn btn-outline-primary"  href="{{ route('admin.laporanCommerce.export') }}">Export</a>
+        @endif
     </div>
 
     <div class="section-body">

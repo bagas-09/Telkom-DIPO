@@ -172,6 +172,14 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/editable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Editable'])->name('admin.editableKonstruksi');
         Route::get('/uneditable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Uneditable'])->name('admin.uneditableKonstruksi');
 
+        Route::get('/admin/commerce/export', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'export'])->name('admin.laporanCommerce.export');
+
+        Route::get('/admin/procurement/export', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'export'])->name('admin.laporanProcurement.export');
+
+        Route::get('/admin/maintenance/export', [App\Http\Controllers\LaporanMaintenanceController::class, 'export'])->name('admin.laporanMaintenance.export');
+
+        Route::get('admin/konstruksi/export', [App\Http\Controllers\LaporanKonstruksiController::class, 'export'])->name('admin.laporanKonstruksi.export');
+
         
     });
     Route::group(['middleware' => ['auth:account', 'account-access:GM']], function () {

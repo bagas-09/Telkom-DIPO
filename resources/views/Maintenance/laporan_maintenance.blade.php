@@ -51,6 +51,11 @@ Dashboard
                   <a class="btn btn-primary" href="{{ route('maintenance.laporan_maintenance_add') }}">Buat Laporan</a>
                 </div>
                 @endif
+                @if(Auth::user()->role == "Admin")
+                <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-outline-primary mr-3"  href="{{ route('admin.laporanMaintenance.export') }}">Export</a>
+                </div>
+                @endif
               </div>
               <!-- TAMBAH LAPORAN MAINTENANCE -->
               <div class="card-body">
