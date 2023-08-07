@@ -6,11 +6,9 @@
 
 @section('content')
 <section class="section">
-    <div class="section-header">
+    <div class="section-header d-flex justify-content-between">
         <h1>Laporan Procurement (Selesai)</h1>
-        <div class="col-8 d-flex justify-content-end">
-            <a class="btn btn-primary"  href="{{ route('procurement.dashboard.export') }}">Export</a>
-        </div>
+        <a class="btn btn-outline-primary"  href="{{ route('procurement.dashboard.export') }}">Export</a>
     </div>
 
     <div class="section-body">

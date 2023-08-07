@@ -47,7 +47,7 @@ Dashboard
                 </div>
                 @if(Auth::user()->role == "Maintenance")
                 <div class="col-4 d-flex justify-content-end">
-                  <a class="btn btn-info mr-3"  href="{{ route('maintenance.laporanMaintenance.export') }}">Export</a>
+                  <a class="btn btn-outline-primary mr-3"  href="{{ route('maintenance.laporanMaintenance.export') }}">Export</a>
                   <a class="btn btn-primary" href="{{ route('maintenance.laporan_maintenance_add') }}">Buat Laporan</a>
                 </div>
                 @endif
