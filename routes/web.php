@@ -40,6 +40,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/commerce/edit/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'edit'])->name('commerce.laporan.edit');
         Route::post('/commerce/update/{id}', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'update'])->name('commerce.laporan.update');
 
+        Route::get('/exportcom', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'export'])->name('commerce.laporan.export');
+
     });
     Route::group(['middleware' => ['auth:account', 'account-access:Procurement']], function () {
 
@@ -57,6 +59,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('/procurement/edit/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'edit'])->name('procurement.dashboard.edit');
         Route::post('/procurement/update/{id}', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'update'])->name('procurement.dashboard.update');
 
+        Route::get('/exportproc', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'export'])->name('procurement.dashboard.export');
+
 
     });
 
@@ -68,6 +72,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('maintenance/add/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'storeLaporanMaintenance'])->name('maintenance.storeLaporanMaintenance');
         Route::get('/maintenance/edit/{id}', [App\Http\Controllers\LaporanMaintenanceController::class, 'editLaporanMaintenance'])->name('maintenance.laporan_maintenance_edit');
         Route::post('/maintenance/edit/{id}/success', [App\Http\Controllers\LaporanMaintenanceController::class, 'updateLaporanMaintenance'])->name('maintenance.updateLaporanMaintenance');
+        Route::get('/exportmain', [App\Http\Controllers\LaporanMaintenanceController::class, 'export'])->name('maintenance.laporanMaintenance.export');
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Konstruksi']], function () {
@@ -78,6 +83,8 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('konstruksi/add/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'storeLaporanKonstruksi'])->name('konstruksi.storeLaporanKonstruksi');
         Route::get('/konstruksi/edit/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'editLaporanKonstruksi'])->name('konstruksi.laporan_konstruksi_edit');
         Route::post('/konstruksi/edit/{id}/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'updateLaporanKonstruksi'])->name('konstruksi.updateLaporanKonstruksi');
+        Route::get('/exportkons', [App\Http\Controllers\LaporanKonstruksiController::class, 'export'])->name('konstruksi.laporanKonstruksi.export');
+
     });
 
     Route::group(['middleware' => ['auth:account', 'account-access:Admin']], function () {
@@ -164,6 +171,14 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('/laporankonstruksi/edit/{id}/success', [App\Http\Controllers\LaporanKonstruksiController::class, 'updateLaporanKonstruksi'])->name('admin.updateLaporanKonstruksi');
         Route::get('/editable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Editable'])->name('admin.editableKonstruksi');
         Route::get('/uneditable/{id}', [App\Http\Controllers\LaporanKonstruksiController::class, 'Uneditable'])->name('admin.uneditableKonstruksi');
+
+        Route::get('/admin/commerce/export', [App\Http\Controllers\Commerce\LaporanCommerceController::class, 'export'])->name('admin.laporanCommerce.export');
+
+        Route::get('/admin/procurement/export', [App\Http\Controllers\Procurement\LaporanProcurementController::class, 'export'])->name('admin.laporanProcurement.export');
+
+        Route::get('/admin/maintenance/export', [App\Http\Controllers\LaporanMaintenanceController::class, 'export'])->name('admin.laporanMaintenance.export');
+
+        Route::get('admin/konstruksi/export', [App\Http\Controllers\LaporanKonstruksiController::class, 'export'])->name('admin.laporanKonstruksi.export');
 
         
     });

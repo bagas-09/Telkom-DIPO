@@ -11,6 +11,9 @@ use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\ExcelExportC;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class LaporanCommerceController extends Controller
 {
@@ -45,6 +48,9 @@ class LaporanCommerceController extends Controller
         ]);
     }
 
+    public function export(){
+        return Excel::download(new ExcelExportC, 'expor_commerce.xlsx', ExcelExcel::XLSX);
+    }
 
     public function draft()
     {

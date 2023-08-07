@@ -6,8 +6,14 @@
 
 @section('content')
 <section class="section">
-    <div class="section-header">
+    <div class="section-header d-flex justify-content-between">
         <h1>Laporan Procurement (Selesai)</h1>
+        @if(Auth::user()->role == "Procurement")
+        <a class="btn btn-outline-primary"  href="{{ route('procurement.dashboard.export') }}">Export</a>
+        @endif
+        @if(Auth::user()->role == "Admin")
+        <a class="btn btn-outline-primary"  href="{{ route('admin.laporanProcurement.export') }}">Export</a>
+        @endif
     </div>
 
     <div class="section-body">
@@ -33,7 +39,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                        
                             <div class="card-body">
+                            
                                 <table class="table table-responsive" id="table-1">
                                     <thead>
                                         <tr>
@@ -128,6 +136,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

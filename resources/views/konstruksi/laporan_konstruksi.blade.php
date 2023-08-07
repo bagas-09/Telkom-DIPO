@@ -48,7 +48,13 @@ Dashboard
                 </div>
                 @if(Auth::user()->role == "Konstruksi")
                 <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-outline-primary mr-3"  href="{{ route('konstruksi.laporanKonstruksi.export') }}">Export</a>
                   <a class="btn btn-primary" href="{{ route('konstruksi.laporan_konstruksi_add') }}">Buat Laporan</a>
+                </div>
+                @endif
+                @if(Auth::user()->role == "Admin")
+                <div class="col-4 d-flex justify-content-end">
+                  <a class="btn btn-outline-primary mr-3"  href="{{ route('admin.laporanKonstruksi.export') }}">Export</a>
                 </div>
                 @endif
               </div> 
@@ -56,6 +62,7 @@ Dashboard
                 <table class="table table-responsive" style="overflow-x: auto;" id="table-1">
                   <thead>
                     <tr>
+                      <th scope="col">No</th>
                       <th scope="col">PID Konstruksi</th>
                       <th scope="col">ID SAP</th>
                       <th scope="col">Nomor PR</th>
@@ -84,7 +91,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporanKonstruksis as $admins)
                     <tr>
-                      {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -194,7 +201,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporan_konstruksi_commerce as $admins)
                     <tr>
-                    {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
@@ -224,7 +231,7 @@ Dashboard
                     <?php $i = 1 ?>
                     @foreach ($laporan_konstruksi_procurement as $admins)
                     <tr>
-                    {{-- <th scope="row">{{$i++}}</th> --}}
+                      <th scope="row">{{$i++}}</th>
                       <td>{{ $admins ->PID_konstruksi}}</td>
                       <td>{{ $admins ->ID_SAP_konstruksi}}</td>
                       <td>{{ $admins ->NO_PR_konstruksi}}</td>
