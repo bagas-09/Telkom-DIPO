@@ -53,6 +53,7 @@ class LaporanProcurementController extends Controller
 
     public function draft()
     {
+        $account = Auth::guard('account')->user();
         $status_tagihan_id = array();
         foreach (StatusTagihan::all() as $statusT) {
             $status_tagihan_id[$statusT->id] = $statusT->nama_status_tagihan;

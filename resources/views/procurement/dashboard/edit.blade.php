@@ -73,14 +73,14 @@
                                     </div>
                                     @enderror
                                     <label for="PO_SAP" class="col-form-label">Nomor PO SAP: </label>
-                                    <input type="text" id="PO_SAP" name="PO_SAP" class="form-control @error('PO_SAP') is-invalid @enderror mb-2" value="{{ old('PO_SAP') }}">
+                                    <input type="text" id="PO_SAP" name="PO_SAP" class="form-control @error('PO_SAP') is-invalid @enderror mb-2" value="{{ old('PO_SAP', $laporan->PO_SAP) }}">
                                     @error('PO_SAP')
                                     <div class="invalid-feedback">
-                                        {{$message}}
+                                    {{$message}}
                                     </div>
                                     @enderror
                                     <label for="tanggal_PO_SAP" class="col-form-label">Tanggal PO SAP: </label>
-                                    <input type="date" id="tanggal_PO_SAP" name="tanggal_PO_SAP" class="form-control @error('tanggal_PO_SAP') is-invalid @enderror mb-2" value="{{ old('tanggal_PO_SAP') }}">
+                                    <input type="date" id="tanggal_PO_SAP" name="tanggal_PO_SAP" class="form-control @error('tanggal_PO_SAP') is-invalid @enderror mb-2" value="{{ old('tanggal_PO_SAP', $laporan->tanggal_PO_SAP) }}">
                                     @error('tanggal_PO_SAP')
                                     <div class="invalid-feedback">
                                         {{$message}}
