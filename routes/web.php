@@ -215,7 +215,7 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         Route::get('/gm/home', [App\Http\Controllers\HomeController::class, 'index'])->name('gm.dashboard.index');
 
-        Route::get('/gm/laporanmaintenance', [App\Http\Controllers\LaporanMaintenanceController::class, 'index'])->name('gm.maintenance.laporan_maintenance');
+        Route::get('/gm/laporanmaintenance', [App\Http\Controllers\LaporanTiketController::class, 'index'])->name('maintenance.laporan_tiket');
 
         Route::get('/gm/laporankonstruksi', [App\Http\Controllers\LaporanKonstruksiController::class, 'index'])->name('gm.laporan_konstruksi');
 
@@ -226,4 +226,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('/login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
     Route::get('/login', [\App\Http\Controllers\LoginController::class, 'formLogin'])->name('login');
     Route::get('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    Route::get('/', function () {
+        return redirect('/login');
+    });
 });

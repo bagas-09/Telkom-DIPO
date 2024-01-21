@@ -111,7 +111,7 @@
     <li class="{{ $title==='Laporan Commerce' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_commerce.index')}}"><i class="fa fa-home"></i><span>Laporan Commerce</span></a></li>
     <li class="{{ $title==='Laporan Procurement' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_procurement.index')}}"><i class="fa fa-home"></i><span>Laporan Procurement</span></a></li>
     <li class="{{ $title==='Laporan Konstruksi' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.laporan_konstruksi')}}"><i class="fa fa-home"></i><span>Laporan Konstruksi</span></a></li>
-    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('gm.maintenance.laporan_maintenance')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
+    <li class="{{ $title==='Laporan Maintenance' ? ' active' : '' }}"><a class="nav-link" href="{{route('maintenance.laporan_tiket')}}"><i class="fa fa-home"></i><span>Laporan Maintenance</span></a></li>
     @endif
 
     

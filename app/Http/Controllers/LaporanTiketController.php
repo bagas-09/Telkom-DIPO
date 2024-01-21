@@ -76,7 +76,7 @@ class LaporanTiketController extends Controller
             "tipe_provisioning_id" => $tipe_provisioning_id,
         ]);
         } elseif ($account->role == "GM"){
-            return view('gm.laporan_tiket', [
+            return view('maintenance.laporan_tiket', [
                 "title" => "Laporan Tiket",
                 "laporanTikets" => LaporanTiket::all()->where("commerce", "=", 0)->where("draft", "=", 0),
                 "laporan_tiket_commerce"=> LaporanTiket::all()->where("commerce", "=", 0)->where("draft", "=", 0),
