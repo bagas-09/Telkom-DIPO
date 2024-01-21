@@ -58,12 +58,12 @@ class RoleController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('admin.dashboard.role'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('admin.dashboard.role'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('admin.dashboard.role'))->with("error", $e->getMessage());
+            return redirect()->intended(route('admin.dashboard.role'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         }
     }
     public function updateRole(Request $request, $id)

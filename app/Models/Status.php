@@ -14,4 +14,11 @@ class Status extends Model
     protected $fillable = [
         'nama_status'
     ];
+    public static $rules = [
+        'nama_status' => 'unique:status',
+    ];
+
+    public static $messages = [
+        'nama_status.unique' => 'Nama Status sudah ada dalam database.',
+    ];
 }

@@ -14,4 +14,11 @@ class JenisProgram extends Model
     protected $fillable = [
         'nama_jenis_program'
     ];
+    public static $rules = [
+        'nama_jenis_program' => 'unique:jenis_program',
+    ];
+
+    public static $messages = [
+        'nama_jenis_program.unique' => 'Nama Jenis Program sudah ada dalam database.',
+    ];
 }

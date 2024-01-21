@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Models\statustagihan;
+use Illuminate\Support\Facades\Validator;
 
 class StatusTagihanController extends Controller
 {
@@ -20,6 +21,11 @@ class StatusTagihanController extends Controller
 
     public function storeStatus(Request $request)
     {
+        $validator = Validator::make($request->all(), statustagihan::$rules, statustagihan::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         statustagihan::insert([
             "nama_status_tagihan" => $request->nama_status_tagihan,
         ]);
@@ -28,6 +34,20 @@ class StatusTagihanController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+         // Ambil aturan validasi dari model
+         $rules = statustagihan::$rules;
+         $messages = statustagihan::$messages;
+ 
+         // Modifikasi aturan validasi untuk keperluan update
+         $rules['nama_status_tagihan'] = 'unique:status_tagihan,nama_status_tagihan,'.$id.',id';
+ 
+         // Buat validator dengan aturan validasi yang telah dimodifikasi
+         $validator = Validator::make($request->all(), $rules, $messages);
+ 
+         // Lakukan validasi
+         if ($validator->fails()) {
+             return redirect()->back()->withErrors($validator)->withInput();
+         }
         statustagihan::where('id', $id)->update([
             "nama_status_tagihan" => $request->nama_status_tagihan,
         ]);
@@ -48,12 +68,12 @@ class StatusTagihanController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('admin.dashboard.statustagihan'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('admin.dashboard.statustagihan'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('admin.dashboard.statustagihan'))->with("error", $e->getMessage());
+            return redirect()->intended(route('admin.dashboard.statustagihan'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         }
     }
 }

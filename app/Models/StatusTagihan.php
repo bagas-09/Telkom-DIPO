@@ -14,4 +14,11 @@ class StatusTagihan extends Model
     protected $fillable = [
         'nama_status_tagihan'
     ];
+    public static $rules = [
+        'nama_status_tagihan' => 'unique:status_tagihan',
+    ];
+
+    public static $messages = [
+        'nama_status_tagihan.unique' => 'Nama Status Tagihan sudah ada dalam database.',
+    ];
 }

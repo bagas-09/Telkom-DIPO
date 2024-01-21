@@ -31,14 +31,19 @@ class LaporanCommerce extends Migration
             $table->string('total_aktual')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('status');
-            $table->string('PID_konstruksi_id')->nullable();
-            $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');
-            $table->string('PID_maintenance_id')->nullable();
-            $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
+            $table->string('ID_SAP_konstruksi_id')->nullable();
+            $table->foreign('ID_SAP_konstruksi_id')->references('ID_SAP_konstruksi')->on('laporan_konstruksi');
+            $table->string('ID_tiket_id')->nullable();
+            $table->foreign('ID_tiket_id')->references('ID_tiket')->on('laporan_tiket');
             $table->unsignedBigInteger('kota_id');
             $table->foreign('kota_id')->references('id')->on('city');
             $table->string('lokasi');
+            $table->timestamps();
+            $table->boolean('editable')->default(0);
+            $table->timestamp('tanggal')->nullable();
             $table->integer("draft")->nullable();
+            $table->string("slugc")->unique();
+            
         });
     }
 

@@ -40,7 +40,7 @@ Dashboard
                         <div class="col-lg-6">
                             <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
                                 <label for="PID_konstruksi" class="col-form-label">PID Konstruksi: </label>
-                                <input type="text" id="PID_konstruksi" name="PID_konstruksi" class="form-control @error('PID_konstruksi') is-invalid @enderror mb-2" value="{{ old('PID_konstruksi', $laporan->PID_konstruksi) }}" readonly>
+                                <input type="text" id="PID_konstruksi" name="PID_konstruksi" class="form-control @error('PID_konstruksi') is-invalid @enderror mb-2" value="{{ old('PID_konstruksi', $laporan->PID_konstruksi) }}" >
                                 <span id="PID_konstruksi_error" style="display: none; color: red;">Field PID Kontruksi harus diisi!</span>
                                 @error('PID_konstruksi')
                                 <div class="invalid-feedback">
@@ -49,7 +49,7 @@ Dashboard
                                 @enderror
 
                                 <label for="ID_SAP_konstruksi" class="col-form-label">ID SAP Konstruksi: </label>
-                                <input type="text" id="ID_SAP_konstruksi" name="ID_SAP_konstruksi" value="{{ old('ID_SAP_konstruksi', $laporan->ID_SAP_konstruksi) }}" class="form-control @error('ID_SAP_konstruksi') is-invalid @enderror mb-2">
+                                <input type="text" id="ID_SAP_konstruksi" name="ID_SAP_konstruksi" value="{{ old('ID_SAP_konstruksi', $laporan->slugk) }}" class="form-control @error('ID_SAP_konstruksi') is-invalid @enderror mb-2" readonly>
                                 <span id="ID_SAP_konstruksi_error" style="display: none; color: red;">Field ID SAP Konstruksi harus diisi!</span>
                                 @error('ID_SAP_konstruksi')
                                 <div class="invalid-feedback">
@@ -117,17 +117,17 @@ Dashboard
                                 </div>
                                 @enderror
 
-                                <label for="jenis_order_id" class="col-form-label">Jenis Order: </label>
-                                    <select class="jenis_order_id form-control @error('jenis_order_id') is-invalid @enderror mb-2" name="jenis_order_id" value="{{ old('jenis_order_id', $laporan->jenis_order_id) }}" id="inputJenisOrder">
-                                        <option value="" selected>-- Pilih Jenis Order --</option>
-                                        @foreach ($jeniso as $jenis_order)
-                                            <option value="{{ $jenis_order->id }}" {{ strcmp($laporan->jenis_order_id,"$jenis_order->id")==0? 'selected':''; }}>{{ $jenis_order->nama_jenis_order }}</option>
+                                <label for="program_id" class="col-form-label">Program: </label>
+                                    <select class="program_id form-control @error('program_id') is-invalid @enderror mb-2" name="program_id" value="{{ old('program_id', $laporan->program_id) }}" id="inputProgram">
+                                        <option value="" selected>-- Pilih Program --</option>
+                                        @foreach ($program as $program)
+                                            <option value="{{ $program->id }}" {{ strcmp($laporan->program_id,"$program->id")==0? 'selected':''; }}>{{ $program->nama_program }}</option>
                                         @endforeach
                                     </select>
-                                <span id="jenis_order_id_error" style="display: none; color: red;">Field Jenis Order harus diisi!</span>
-                                @error('jenis_order_id')
+                                <span id="program_id_error" style="display: none; color: red;">Field Program harus diisi!</span>
+                                @error('program_id')
                                 <div class="invalid-feedback">
-                                    Field Jenis Order harus diisi!
+                                    Field Program harus diisi!
                                 </div>
                                 @enderror
                             </div>
@@ -154,7 +154,7 @@ Dashboard
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <p id="autoFill" style="padding-top: 15px"></p>
-                                                {{-- {{ $laporan->jenis_order_id + " - " + $laporan->tipe_provisioning_id }} --}}
+                                                 
                                             </div>
                                         </div>
                                         <input type="text" class="form-control @error('lokasi') is-invalid @enderror lokasi" id="lokasi" name="lokasi" value="{{ old('lokasi', $laporan->lokasi) }}">
@@ -282,7 +282,7 @@ Dashboard
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button class="btn btn-primary" value="Simpan Data" type="submit">Ubah Laporan</button>
+                            <button class="btn btn-primary" name="submit" value="save" type="submit">Simpan</button>
                         </div>
                 </form>
                 @endforeach
@@ -304,17 +304,17 @@ Dashboard
 <script>
     // AUTO GENERATED LOKASI
     // document.addEventListener('DOMContentLoaded', function() {
-    //     document.getElementById('inputJenisOrder').addEventListener('change', autoGeneratedLokasi);
+    //     document.getElementById('inputProgram').addEventListener('change', autoGeneratedLokasi);
     //     document.getElementById('inputTipeProv').addEventListener('change', autoGeneratedLokasi);
         
     function autoGeneratedLokasi() {
-        var jenisOrder = document.getElementById('inputJenisOrder');
+        var Program = document.getElementById('inputProgram');
         var tipeProv = document.getElementById('inputTipeProv');
         var autoGenerated = document.getElementById('autoFill');
         var inputLokasi = document.getElementById('lokasi');
         
-        if(jenisOrder.options[jenisOrder.selectedIndex].text === "Konsumer" || jenisOrder.options[jenisOrder.selectedIndex].text === "HEM" || jenisOrder.options[jenisOrder.selectedIndex].text === "Node B" || jenisOrder.options[jenisOrder.selectedIndex].text === "Node B OLO"){
-            autoGenerated.innerText = jenisOrder.options[jenisOrder.selectedIndex].text + " - " + tipeProv.options[tipeProv.selectedIndex].text + " - "
+        if(Program.options[Program.selectedIndex].text === "Konsumer" || Program.options[Program.selectedIndex].text === "HEM" || Program.options[Program.selectedIndex].text === "Node B" || Program.options[Program.selectedIndex].text === "Node B OLO"){
+            autoGenerated.innerText = Program.options[Program.selectedIndex].text + " - " + tipeProv.options[tipeProv.selectedIndex].text + " - "
         } else {
             autoGenerated.innerText = " "
         }

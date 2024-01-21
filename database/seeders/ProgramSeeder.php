@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\JenisOrder;
+use App\Models\Program;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class JenisOrderSeeder extends Seeder
+class ProgramSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,32 +16,32 @@ class JenisOrderSeeder extends Seeder
         $jenis = [
             [
                 'id' => 1,
-                'nama_jenis_order' => 'Konsumer (Cons)',
+                'nama_program' => 'Konsumer (Cons)',
             ],
             [
                 'id' => 2,
-                'nama_jenis_order' => 'HEM',
+                'nama_program' => 'HEM',
             ],
             [
                 'id' => 3,
-                'nama_jenis_order' => 'Node B',
+                'nama_program' => 'Node B',
             ],
             [
                 'id' => 4,
-                'nama_jenis_order' => 'Node B OLO (MTEL)',
+                'nama_program' => 'Node B OLO (MTEL)',
             ],
             [
                 'id' => 5,
-                'nama_jenis_order' => 'OSP Granular',
+                'nama_program' => 'OSP Granular',
             ],
             [
                 'id' => 6,
-                'nama_jenis_order' => 'OSP',
+                'nama_program' => 'OSP',
             ],
         ];
 
-        foreach ($jenis as $jenisorder) {
-            JenisOrder::create($jenisorder);
+        foreach ($jenis as $program) {
+            Program::create($program);
         }
     }
 }

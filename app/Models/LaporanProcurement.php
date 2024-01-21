@@ -11,6 +11,7 @@ class LaporanProcurement extends Model
     protected $table = "laporan_procurement";
     protected $primaryKey = "PR_SAP";
     public $timestamps = false;
+    public $incrementing = false;
     protected $fillable = [
         "PR_SAP",
         'PO_SAP',
@@ -22,11 +23,15 @@ class LaporanProcurement extends Model
         'Jasa Aktual',
         'Total Aktual',
         'status_tagihan_id',
-        'PID_konstruksi_id',
-        'PID_maintenance_id',
+        'ID_SAP_konstruksi_id',
+        'ID_tiket_id',
         'lokasi',
-        'draft',
         'kota_id',
+        'created_at',
+        'updated_at',
+        'draft',
+        'tanggal',
+        'slugp',
     ];
 
 

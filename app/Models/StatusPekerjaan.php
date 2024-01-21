@@ -14,9 +14,16 @@ class StatusPekerjaan extends Model
     protected $fillable = [
         'nama_status_pekerjaan', 'role'
     ];
+    public static $rules = [
+        'nama_status_pekerjaan' => 'unique_with_role:status_pekerjaan',
+    ];
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'id');
-    }
+    public static $messages = [
+        'nama_status_pekerjaan.unique_with_role' => 'Kombinasi Nama Status Pekerjaan dan Role sudah ada dalam database.',
+    ];
+
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class, 'id');
+    // }
 }

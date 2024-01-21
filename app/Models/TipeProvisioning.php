@@ -12,6 +12,13 @@ class TipeProvisioning extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
     protected $fillable = [
-        'nama_tipe_provisioning'
+        'nama_tipe_provisioning', 'role'
+    ];
+    public static $rules = [
+        'nama_tipe_provisioning' => 'unique_with_role:tipe_provisioning',
+    ];
+
+    public static $messages = [
+        'nama_tipe_provisioning.unique_with_role' => 'Kombinasi Nama Tipe Provisioning dan Role sudah ada dalam database.',
     ];
 }

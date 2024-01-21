@@ -13,9 +13,9 @@ Dashboard
   <div class="section-body">
     <section class="section">
       <div class="section-header">
-        <h1>Table</h1>
+        <h1>Laporan Maintenance</h1>
         <div class="section-header-breadcrumb">
-          <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+          <div class="breadcrumb-item active"><a href="{{ route('maintenance.tiket.index') }}">Dashboard</a></div>
           <div class="breadcrumb-item"><a href="{{ route('maintenance.laporanMaintenance.index') }}">Laporan Maintenance</a></div>
         </div>
       </div>
@@ -63,27 +63,16 @@ Dashboard
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">PID Maintenance</th>
-                      <th scope="col">ID SAP</th>
-                      <th scope="col">NO PR</th>
-                      <th scope="col">Tanggal PR</th>
-                      <th scope="col">Status Pekerjaan</th>
-                      <th scope="col">Mitra</th>
-                      <th scope="col">Tipe Kemitraan</th>
-                      <th scope="col">Jenis Program</th>
-                      <th scope="col">Tipe Provisioning</th>
-                      <th scope="col">Periode Pekerjaan</th>
-                      <th scope="col">Lokasi</th>
-                      <th scope="col">Material DRM</th>
-                      <th scope="col">Jasa DRM</th>
-                      <th scope="col">Total DRM</th>
-                      <th scope="col">Material Aktual</th>
-                      <th scope="col">Jasa Aktual</th>
-                      <th scope="col">Total Aktual</th>
-                      <th scope="col">Keterangan</th>
-                      <th scope="col">Action</th>
+                      <th scope="col" class="w-50">PID Maintenance</th>
+                      <th scope="col" class="w-50">ID SAP</th>
+                      <th scope="col" class="w-50">NO PR</th>
+                      <th scope="col" class="w-50">Tanggal PR</th>
+                      <th scope="col" class="w-50">Keterangan</th>
+                      <th scope="col" class="w-50">Created At</th>
+                      <th scope="col" class="w-50">Updated At</th>
+                      <th scope="col" class="w-50">Action</th>
                       @if(Auth::user()->role == "Admin" )
-                      <th scope="col">Access</th>
+                      <th scope="col" class="w-50">Access</th>
                       @endif
                     </tr>
                   </thead>
@@ -93,47 +82,35 @@ Dashboard
                     @foreach ($laporanMaintenances as $admins)
                     <tr>
                       <th scope="row">{{$i++}}</th>
-                      <td>{{ $admins -> PID_maintenance}}</td>
-                      <td>{{ $admins -> ID_SAP_maintenance}}</td>
-                      <td>{{ $admins -> NO_PR_maintenance}}</td>
-                      <td>{{ $admins -> tanggal_PR}}</td>
-                      <td>{{ $status_pekerjaan_id [$admins -> status_pekerjaan_id]}}</td>
-                      <td>{{ $mitra_id [$admins -> mitra_id]}}</td>
-                      <td>{{ $tipe_kemitraan_id [$admins -> tipe_kemitraan_id]}}</td>
-                      <td>{{ $jenis_program_id [$admins -> jenis_program_id]}}</td>
-                      <td>{{ $tipe_provisioning_id [$admins -> tipe_provisioning_id]}}</td>
-                      <td>{{ $admins -> periode_pekerjaan}}</td>
-                      <td>{{ $admins -> lokasi }}</td>
-                      <td>{{ $admins -> material_DRM}}</td>
-                      <td>{{ $admins -> jasa_DRM}}</td>
-                      <td>{{ $admins -> total_DRM}}</td>
-                      <td>{{ $admins -> material_aktual}}</td>
-                      <td>{{ $admins -> jasa_aktual}}</td>
-                      <td>{{ $admins -> total_aktual}}</td>
-                      <td>{{ $admins ->keterangan }}</td>
+                      <td>{{ $admins->PID_maintenance}}</td>
+                      <td>{{ $admins ->ID_SAP_maintenance}}</td>
+                      <td>{{ $admins->NO_PR_maintenance}}</td>
+                      <td>{{ $admins->tanggal_PR}}</td>
+                      <td>{{ $admins->keterangan }}</td>
+                      <td>{{ $admins ->created_at}}</td>
+                      <td>{{ $admins ->updated_at}}</td>
                       {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
                       <td>
 
                         @if(Auth::user()->role == "Procurement")
-                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
+                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->slugm]) }}">Buat Laporan</a>
                         @endif
 
                         @if(Auth::user()->role == "Maintenance" && $admins->editable == 1)
-                        <a class="btn btn-sm btn-warning" href={{ route('maintenance.laporan_maintenance_edit', [$admins->PID_maintenance]) }} style="color: white">Edit</a>
+                        <a class="btn btn-sm btn-warning" href={{ route('maintenance.laporan_maintenance_edit', [$admins->slugm]) }} style="color: white">Edit</a>
                         @endif
 
-          
-
-                        @if(Auth::user()->role == "Admin")
-                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanAdminModal{{ $admins->PID_maintenance }}">Delete</a>
-                        @endif
+                        {{-- @if(Auth::user()->role == "Admin")
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanAdminModal{{ $admins->slugm }}">Delete</a>
+                        @endif --}}
+                        
                         @if(Auth::user()->role == "Maintenance" && Auth::user()->role != "GM")
                         <!-- {{-- MODAL DELETE --}} -->
-                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}">Delete</a>
+                        <a class="btn btn-sm btn-danger" style="color: white" data-toggle="modal" data-target="#deleteLaporanMaintenanceModal{{ $admins->slugm }}">Delete</a>
                         @endif
                         <!-- {{-- MODAL DELETE --}} -->
                         @if(Auth::user()->role == "Maintenance")
-                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanMaintenanceModal{{ $admins-> PID_maintenance }}" data-backdrop="static">
+                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanMaintenanceModal{{ $admins->slugm }}" data-backdrop="static">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -148,14 +125,14 @@ Dashboard
                               </div>
                               <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
-                                <a class="btn btn-danger" href="{{ route('maintenance.laporan_maintenance_delete', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                                <a class="btn btn-danger" href="{{ route('maintenance.laporan_maintenance_delete', [$admins->slugm]) }}" value="Delete">Delete</a>
                               </div>
                             </div>
                           </div>
                         </div>
                         @endif
                         @if(Auth::user()->role == "Admin")
-                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->PID_maintenance }}" data-backdrop="static">
+                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanAdminModal{{ $admins->slugm }}" data-backdrop="static">
 
                           <!-- UPDATE Laporan Maintenance -->
                           <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editLaporanMaintenanceModal-{{$admins->id}}" style="color: white">Edit</a>
@@ -174,93 +151,37 @@ Dashboard
                                 </div>
                                 <div class="modal-footer bg-whitesmoke br">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanMaintenance2">Cancel</button>
-                                  <a class="btn btn-danger" href="{{ route('admin.deleteLaporanMaintenance', [$admins->PID_maintenance]) }}" value="Delete">Delete</a>
+                                  <a class="btn btn-danger" href="{{ route('admin.deleteLaporanMaintenance', [$admins->slugm]) }}" value="Delete">Delete</a>
                                 </div>
                               </div>
                             </div>
                           </div>
                           @endif
                       </td>
-                      @if(Auth::user()->role == "Admin")
-                      <td>
-                        @if($admins->editable == 0)
-                        <a class="btn btn-sm btn-warning" href={{ route('admin.editableMaintenance', [$admins->PID_maintenance]) }} style="color: white">Able Edit</a>
-                        @endif
-                        @if($admins->editable == 1)
-                        <a class="btn btn-sm btn-danger" href={{ route('admin.uneditableMaintenance', [$admins->PID_maintenance]) }} style="color: white">Unable Edit</a>
-                        @endif
-                      </td>
-                      @endif
+                    </td>
+                    @if(Auth::user()->role == "Admin")
+                  <td>
+                    @if($admins->editable == 0)
+                    <a href={{ route('admin.editableMaintenance', [$admins->slugm]) }} class="btn btn-primary
+                        btn-sm rounded-0" type="button">
+                        <i class="fa fa-edit"></i> Open Edit</a>
+                    @endif
+                    @if($admins->editable == 1)
+                    <a href={{ route('admin.uneditableMaintenance', [$admins->slugm]) }} class="btn btn-danger
+                        btn-sm rounded-0" type="button">
+                        <i class="fa fa-edit"></i> Close Edit</a>
+                    @endif
+                  </td>
+                  @endif
 
                     </tr>
                     @endforeach
                   </tbody>
                   @endif
-                  @if(Auth::user()->role == "Commerce")
-                  <tbody>
-                    <?php $i = 1 ?>
-                    @foreach ($laporan_maintenance_commerce as $admins)
-                    <tr>
-                      <th scope="row">{{$i++}}</th>
-                      <td>{{ $admins -> PID_maintenance}}</td>
-                      <td>{{ $admins -> ID_SAP_maintenance}}</td>
-                      <td>{{ $admins -> NO_PR_maintenance}}</td>
-                      <td>{{ $admins -> tanggal_PR}}</td>
-                      <td>{{ $status_pekerjaan_id [$admins -> status_pekerjaan_id]}}</td>
-                      <td>{{ $mitra_id [$admins -> mitra_id]}}</td>
-                      <td>{{ $tipe_kemitraan_id [$admins -> tipe_kemitraan_id]}}</td>
-                      <td>{{ $jenis_program_id [$admins -> jenis_program_id]}}</td>
-                      <td>{{ $tipe_provisioning_id [$admins -> tipe_provisioning_id]}}</td>
-                      <td>{{ $admins -> periode_pekerjaan}}</td>
-                      <td>{{ $admins -> lokasi }}</td>
-                      <td>{{ $admins -> material_DRM}}</td>
-                      <td>{{ $admins -> jasa_DRM}}</td>
-                      <td>{{ $admins -> total_DRM}}</td>
-                      <td>{{ $admins -> material_aktual}}</td>
-                      <td>{{ $admins -> jasa_aktual}}</td>
-                      <td>{{ $admins -> total_aktual}}</td>
-                      <td>{{ $admins ->keterangan }}</td>
-                      {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
-                      <td>
-                        <a class="btn btn-primary" href="{{ route('commerce.laporan.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
-                      </td>
-                    </tr>
-                    @endforeach
-                    @endif
-                  </tbody>
-                  @if(Auth::user()->role == "Procurement")
-                  <tbody>
-                    <?php $i = 1 ?>
-                    @foreach ($laporan_maintenance_procurement as $admins)
-                    <tr>
-                      <th scope="row">{{$i++}}</th>
-                      <td>{{ $admins -> PID_maintenance}}</td>
-                      <td>{{ $admins -> ID_SAP_maintenance}}</td>
-                      <td>{{ $admins -> NO_PR_maintenance}}</td>
-                      <td>{{ $admins -> tanggal_PR}}</td>
-                      <td>{{ $status_pekerjaan_id [$admins -> status_pekerjaan_id]}}</td>
-                      <td>{{ $mitra_id [$admins -> mitra_id]}}</td>
-                      <td>{{ $tipe_kemitraan_id [$admins -> tipe_kemitraan_id]}}</td>
-                      <td>{{ $jenis_program_id [$admins -> jenis_program_id]}}</td>
-                      <td>{{ $tipe_provisioning_id [$admins -> tipe_provisioning_id]}}</td>
-                      <td>{{ $admins -> periode_pekerjaan}}</td>
-                      <td>{{ $admins -> lokasi }}</td>
-                      <td>{{ $admins -> material_DRM}}</td>
-                      <td>{{ $admins -> jasa_DRM}}</td>
-                      <td>{{ $admins -> total_DRM}}</td>
-                      <td>{{ $admins -> material_aktual}}</td>
-                      <td>{{ $admins -> jasa_aktual}}</td>
-                      <td>{{ $admins -> total_aktual}}</td>
-                      <td>{{ $admins ->keterangan }}</td>
-                      {{-- <td>{{ $citys[$admins->id_nama_kota]}}</td> --}}
-                      <td>
-                        <a class="btn btn-primary" href="{{ route('procurement.dashboard.add_maintenance', [$admins->PID_maintenance]) }}">Buat Laporan</a>
-                      </td>
-                    </tr>
-                    @endforeach
+                  
                     
                   </tbody>
-                  @endif
+                  
                 </table>
               </div>
             </div>

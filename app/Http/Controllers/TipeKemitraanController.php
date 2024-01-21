@@ -7,6 +7,8 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class TipeKemitraanController extends Controller
 {
@@ -30,6 +32,22 @@ class TipeKemitraanController extends Controller
 
     public function storeTipeKemitraan(Request $request)
     {
+        // Lakukan validasi menggunakan Validator di dalam kontroller
+        $validator = Validator::make($request->all(), [
+            'nama_tipe_kemitraan' => [
+                Rule::unique('tipe_kemitraan')->where(function ($query) use ($request) {
+                    return $query->where('nama_tipe_kemitraan', $request->nama_tipe_kemitraan)
+                                ->where('role', $request->role);
+                }),
+            ],
+        ], [
+            'nama_tipe_kemitraan.unique' => 'Kombinasi Nama Tipe Kemitraaan dan Role sudah ada dalam database.',
+        ]);
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } 
         // $request->validate([
         //     'nama_city' => 'required'
         // ]);
@@ -64,17 +82,36 @@ class TipeKemitraanController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("error", $e->getMessage());
+            return redirect()->intended(route('admin.dashboard.tipe_kemitraan'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         }
     }
 
     public function updateTipeKemitraan(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'nama_tipe_kemitraan' => [
+                Rule::unique('tipe_kemitraan')->where(function ($query) use ($request, $id) {
+                    return $query->where('nama_tipe_kemitraan', $request->nama_tipe_kemitraan)
+                        ->where('role', $request->role)
+                        ->where('id', '!=', $id); // Tambahkan kondisi untuk memeriksa id
+                }),
+            ],
+            // ... definisi validasi untuk field lainnya
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $tipe_kemitraan = TipeKemitraan::find($id);
+        $tipe_kemitraan->nama_tipe_kemitraan = $request->nama_tipe_kemitraan;
+        $tipe_kemitraan->role = $request->role;
+        $tipe_kemitraan->save();
         TipeKemitraan::where('id', $id)->update([
             "nama_tipe_kemitraan" => $request->nama_tipe_kemitraan,
             "role" => $request->role,

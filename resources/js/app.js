@@ -8,6 +8,8 @@ Vue.use(iosAlertView);
 import UsersComponent from './components/UsersComponent';
 import ProfileComponent from './components/ProfileComponent';
 import AdduserComponent from './components/AdduserComponent';
+import 'daterangepicker/daterangepicker';
+
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
 Vue.component('adduser-component', AdduserComponent);
@@ -31,3 +33,4 @@ const app = new Vue({
         }
     }
 });
+

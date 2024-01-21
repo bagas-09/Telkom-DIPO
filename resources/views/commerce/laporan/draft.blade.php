@@ -53,8 +53,8 @@
                                     <th scope="col" class="w-50">Jasa Aktual</th>
                                     <th scope="col" class="w-50">Total Aktual</th>
                                     <th scope="col" class="w-50">Status</th>
-                                    <th scope="col" class="w-50">PID Konstruksi</th>
-                                    <th scope="col" class="w-50">PID Maintenance</th>
+                                    <th scope="col" class="w-50">ID SAP Konstruksi</th>
+                                    <th scope="col" class="w-50">ID Tiket Maintenance</th>
                                     <th scope="col" class="w-50">Lokasi</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -75,23 +75,23 @@
                                     <td>{{ $admins ->tanggal_BAR}}</td>
                                     <td>{{ $admins ->NO_BAST}}</td>
                                     <td>{{ $admins ->tanggal_BAST}}</td>
-                                    <td>{{ $admins ->material_aktual}}</td>
-                                    <td>{{ $admins ->jasa_aktual}}</td>
-                                    <td>{{ $admins ->total_aktual}}</td>
+                                    <td class="currency-field">{{ $admins ->material_aktual}}</td>
+                                    <td class="currency-field">{{ $admins ->jasa_aktual}}</td>
+                                    <td class="currency-field">{{ $admins ->total_aktual}}</td>
                                     @if($admins ->status_id != null)
                                     <td>{{ $status[$admins ->status_id]}}</td>
                                     @endif
                                     @if($admins ->status_id == null)
                                     <td></td>
                                     @endif
-                                    <td>{{ $admins ->PID_konstruksi_id}}</td>
-                                    <td>{{ $admins ->PID_maintenance_id}}</td>
+                                    <td>{{ $admins ->ID_SAP_konstruksi_id}}</td>
+                                    <td>{{ $admins ->ID_tiket_id}}</td>
                                     <td>{{ $admins ->lokasi}}</td>
                                     <td>
                                         @if(Auth::user()->role == "Commerce")
-                                        <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->id }}">Delete</a>
+                                        <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanCommerceModal{{ $admins->slugc }}">Delete</a>
                                         {{-- MODAL DELETE --}}
-                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->id }}" data-backdrop="static">
+                                        <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanCommerceModal{{ $admins->slugc }}" data-backdrop="static">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -106,13 +106,13 @@
                                                     </div>
                                                     <div class="modal-footer bg-whitesmoke br">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanCommerce2">Cancel</button>
-                                                        <a class="btn btn-danger" href="{{ route('commerce.delete_laporan_commerce', [$admins->no_PO]) }}" value="Delete">Delete</a>
+                                                        <a class="btn btn-danger" href="{{ route('commerce.delete_laporan_commerce', [$admins->slugc]) }}" value="Delete">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         {{-- UPDATE LaporanCommerce --}}
-                                        <a class="btn btn-sm btn-warning" href="{{ route('commerce.laporan.edit', [$admins->no_PO]) }}" style="color: white">Edit</a>
+                                        <a class="btn btn-sm btn-warning" href="{{ route('commerce.laporan.edit', [$admins->slugc]) }}" style="color: white">Edit</a>
                                         @endif
                                     </td>
                                 </tr>

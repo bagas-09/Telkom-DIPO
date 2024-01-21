@@ -103,7 +103,7 @@ Dashboard
                               <label for="keterangan" class="col-form-label">Keterangan: </label>
                               <input type="text" id="keterangan" name="keterangan" class="form-control">
                               {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                              <span class="input-error" id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                             
                             </div>
                           </div>
                           <div class="modal-footer bg-whitesmoke br">
@@ -226,7 +226,7 @@ Dashboard
                                         <label for="keterangan" class="col-form-label">Keterangan: </label>
                                         <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{ $admins->keterangan }}">
                                         {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                        <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                                        
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">

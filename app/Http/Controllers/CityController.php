@@ -7,6 +7,7 @@ use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CityController extends Controller
 {
@@ -25,6 +26,12 @@ class CityController extends Controller
         // $request->validate([
         //     'nama_city' => 'required'
         // ]);
+
+        $validator = Validator::make($request->all(), City::$rules, City::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         City::insert([
             // "id" => 2,
@@ -78,17 +85,31 @@ class CityController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('admin.dashboard.city'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('admin.dashboard.city'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('admin.dashboard.city'))->with("error", $e->getMessage());
+            return redirect()->intended(route('admin.dashboard.city'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         }
     }
 
     public function updateCity(Request $request, $id)
     {
+        // Ambil aturan validasi dari model
+        $rules = City::$rules;
+        $messages = City::$messages;
+
+        // Modifikasi aturan validasi untuk keperluan update
+        $rules['nama_city'] = 'unique:city,nama_city,'.$id.',id';
+
+        // Buat validator dengan aturan validasi yang telah dimodifikasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Lakukan validasi
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         City::where('id', $id)->update([
             "nama_city" => $request->nama_city,
         ]);

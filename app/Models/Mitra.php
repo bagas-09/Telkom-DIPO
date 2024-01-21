@@ -14,4 +14,11 @@ class Mitra extends Model
     protected $fillable = [
         'nama_mitra', 'role'
     ];
+    public static $rules = [
+        'nama_mitra' => 'unique_with_role:mitra',
+    ];
+
+    public static $messages = [
+        'nama_mitra.unique_with_role' => 'Kombinasi Nama Mitra dan Role sudah ada dalam database.',
+    ];
 }
