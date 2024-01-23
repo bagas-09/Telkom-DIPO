@@ -63,16 +63,16 @@ Dashboard
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col" class="w-50">PID Maintenance</th>
-                      <th scope="col" class="w-50">ID SAP</th>
-                      <th scope="col" class="w-50">NO PR</th>
-                      <th scope="col" class="w-50">Tanggal PR</th>
-                      <th scope="col" class="w-50">Keterangan</th>
+                      <th scope="col" class="w-25">PID Maintenance</th>
+                      <th scope="col" class="w-25">ID SAP</th>
+                      <th scope="col" class="w-25">NO PR</th>
+                      <th scope="col" class="w-25">Tanggal PR</th>
+                      <th scope="col" class="w-25">Keterangan</th>
                       <th scope="col" class="w-50">Created At</th>
                       <th scope="col" class="w-50">Updated At</th>
-                      <th scope="col" class="w-50">Action</th>
+                      <th scope="col" class="w-25">Action</th>
                       @if(Auth::user()->role == "Admin" )
-                      <th scope="col" class="w-50">Access</th>
+                      <th scope="col" class="w-25">Access</th>
                       @endif
                     </tr>
                   </thead>

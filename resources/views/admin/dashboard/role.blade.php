@@ -65,13 +65,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="roleForm" action="{{ route('admin.storeRole') }}" method="POST">
+                        <form class="form-validation" id="roleForm" action="{{ route('admin.storeRole') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_role" class="col-form-label">Nama Role: </label>
-                                <input type="text" id="nama_role" name="nama_role" class="form-control">
-                                <span id="nama_role_error" style="display: none; color: red;">Field Nama Role harus diisi!</span>
+                                <input type="text" id="nama_role" name="nama_role" class="required-input form-control">
+                                <span class="error-message" id="nama_role_error" style="display: none; color: red;">Field Nama Role harus diisi!</span>
                                 <!-- @if($errors->has('nama_role'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_role') }}</span>
                                 @endif -->

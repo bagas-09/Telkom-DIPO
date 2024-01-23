@@ -74,7 +74,7 @@ Dashboard
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form id="statusForm" action="
+                            <form class="form-validation" id="statusForm" action="
                             {{ route('admin.storeStatus') }}
                             {{-- {{route('admin.storeStatus')}} --}}
                             " method="POST">
@@ -82,8 +82,8 @@ Dashboard
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="nama_status" class="col-form-label">Nama Status: </label>
-                                        <input type="text" id="nama_status" name="nama_status" class="form-control">
-                                        <span id="nama_status_error" style="display: none; color: red;">Field Nama Status harus diisi!</span>
+                                        <input type="text" id="nama_status" name="nama_status" class="required-input form-control">
+                                        <span class="error-message" id="nama_status_error" style="display: none; color: red;">Field Nama Status harus diisi!</span>
                                         {{-- @if($errors->has('nama_status'))
                                         <span class="invalid-feedback">{{ $errors->first('nama_status') }}</span>
                                         @endif --}}

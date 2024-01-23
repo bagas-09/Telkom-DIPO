@@ -74,22 +74,22 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="statusPekerjaanForm" action="{{route('admin.storeStatusPekerjaan')}}" method="POST">
+                        <form class="form-validation" id="statusPekerjaanForm" action="{{route('admin.storeStatusPekerjaan')}}" method="POST">
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
                               <label for="nama_status_pekerjaan" class="col-form-label">Nama Status Pekerjaan: </label>
-                              <input type="text" name="nama_status_pekerjaan" class="nama_status_pekerjaan form-control">
-                              <span class="nama_status_pekerjaan_error" style="display: none; color: red;">Field Nama Status Pekerjaan harus diisi!</span>
+                              <input type="text" name="nama_status_pekerjaan" class="required-input nama_status_pekerjaan form-control">
+                              <span class="error-message" style="display: none; color: red;">Field Nama Status Pekerjaan harus diisi!</span>
 
                               <label for="role_status_pekerjaan" class="col-form-label">Role: </label>
-                              <select class="role_status_pekerjaan form-control" name="role">
+                              <select class="required-input role_status_pekerjaan form-control" name="role">
                                 <option value="" selected>-- Pilih Role --</option>
                                 @foreach ($roless as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
-                              <span class="role_status_pekerjaan_error" style="display: none; color: red;">Field Role harus dipilih!</span>
+                              <span class="error-message" style="display: none; color: red;">Field Role harus dipilih!</span>
                               {{-- @if($errors->has('nama_city'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}

@@ -74,15 +74,15 @@ Dashboard
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form id="tipeProvisioningForm" action="
+                            <form class="form-validation" id="tipeProvisioningForm" action="
                             {{ route('admin.storeTipeProvisioning') }}
                             " method="POST">
                             @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="tipe_provisioning" class="col-form-label">Nama Tipe Provisioning: </label>
-                                        <input type="text" id="nama_tipe_provisioning" name="nama_tipe_provisioning" class="form-control">
-                                        <span id="nama_tipe_provisioning_error" style="display: none; color: red;">Field Nama Tipe Provisioning harus diisi!</span>
+                                        <input type="text" id="nama_tipe_provisioning" name="nama_tipe_provisioning" class="required-input form-control">
+                                        <span class="error-message" id="nama_tipe_provisioning_error" style="display: none; color: red;">Field Nama Tipe Provisioning harus diisi!</span>
                                         {{-- @if($errors->has('tipe_provisioning'))
                                         <span class="invalid-feedback">{{ $errors->first('tipe_provisioning') }}</span>
                                         @endif --}}

@@ -74,13 +74,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="jenisform" action="{{ route('admin.storeJenisProgram') }}" method="POST">
+                        <form class="form-validation" id="jenisform" action="{{ route('admin.storeJenisProgram') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_jenis_program" class="col-form-label">Nama Jenis Program: </label>
-                                <input type="text" id="nama_jenis_program" name="nama_jenis_program" class="form-control">
-                                <span id="nama_jenis_program_error" style="display: none; color: red;">Field Nama Jenis Program harus diisi!</span>
+                                <input type="text" id="nama_jenis_program" name="nama_jenis_program" class="required-input form-control">
+                                <span class="error-message" id="nama_jenis_program_error" style="display: none; color: red;">Field Nama Jenis Program harus diisi!</span>
                                 {{-- @if($errors->has('nama_jenis_program'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_jenis_program') }}</span>
                                 @endif --}}

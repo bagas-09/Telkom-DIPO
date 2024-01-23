@@ -46,7 +46,7 @@
       </footer>
     </div>
   </div>
-
+  
   {{-- <script src="{{ route('js.dynamic') }}"></script> --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script>
@@ -76,14 +76,14 @@
       });
     });
     $(document).ready(function() {
-        $('#table-4').dataTable({
-          scrollX: true
-        });
+      $('#table-4').dataTable({
+        scrollX: true
+      });
     });
-  </script>
+    </script>
   @stack('scripts')
 </body>
-<script src="{{ asset('assets/js/modals.js') }}"></script>
 <script src="{{ asset('assets/js/currency.js') }}"></script>
+<script src="{{ asset('assets/js/modal.js') }}"></script>
 
 </html>

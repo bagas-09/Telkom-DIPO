@@ -74,22 +74,22 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="mitraForm" action="{{route('admin.storeMitra')}}" method="POST">
+                        <form class="form-validation" id="mitraForm" action="{{route('admin.storeMitra')}}" method="POST">
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
                               <label for="nama_mitra" class="col-form-label">Nama Mitra: </label>
-                              <input type="text" name="nama_mitra" class="nama_mitra form-control">
-                              <span class="nama_mitra_error" style="display: none; color: red;">Field Nama Mitra harus diisi!</span>
+                              <input type="text" name="nama_mitra" class="required-input nama_mitra form-control">
+                              <span class="error-message" class="nama_mitra_error" style="display: none; color: red;">Field Nama Mitra harus diisi!</span>
 
                               <label for="role_mitra" class="col-form-label">Role: </label>
-                              <select class="role_mitra form-control" name="role">
+                              <select class="required-input role_mitra form-control" name="role">
                                 <option value="" selected>-- Pilih Role --</option>
                                 @foreach ($roless as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
-                              <span class="role_mitra_error" style="display: none; color: red;">Field Role harus dipilih!</span>
+                              <span class="error-message" style="display: none; color: red;">Field Role harus dipilih!</span>
                               {{-- @if($errors->has('nama_city'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}
