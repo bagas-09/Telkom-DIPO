@@ -162,7 +162,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_tipe_provisioning" class="col-form-label">Nama Kota: </label>
-                                        <input type="text" id="nama_update_tipe_provisioning" name="nama_tipe_provisioning" class="form-control required-input" value="{{ $admins->nama_tipe_provisioning }}" required>
+                                        <input type="text" id="nama_update_tipe_provisioning" name="nama_tipe_provisioning" class="form-control" value="{{ $admins->nama_tipe_provisioning }}" required>
                                         {{-- <span id="nama_tipe_provisioning_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_tipe_provisioning'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_tipe_provisioning') }}</span>

@@ -156,7 +156,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_program" class="col-form-label">Nama Program: </label>
-                                        <input type="text" id="nama_update_program" name="nama_program" class="form-control required-input" value="{{ $admins->nama_program }}" required>
+                                        <input type="text" id="nama_update_program" name="nama_program" class="form-control" value="{{ $admins->nama_program }}" required>
                                         {{-- <span id="nama_program_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_program'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_program') }}</span>

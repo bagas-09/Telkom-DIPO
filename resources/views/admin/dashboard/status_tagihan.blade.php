@@ -163,7 +163,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_Status" class="col-form-label">Nama Status Tagihan: </label>
-                                        <input type="text" id="nama_update_Status" name="nama_status_tagihan" class="form-control required-input" value="{{ $admins->nama_status_tagihan }}" required>
+                                        <input type="text" id="nama_update_Status" name="nama_status_tagihan" class="form-control" value="{{ $admins->nama_status_tagihan }}" required>
                                         <span id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
                                         {{-- @if($errors->has('nama_status_tagihan'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_status_tagihan') }}</span>
