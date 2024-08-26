@@ -137,9 +137,9 @@ class LaporanTiketController extends Controller
             $tipe_kemitraan_id[$tipeK->id] = $tipeK->nama_tipe_kemitraan;
         }
 
-        $program_id = array();
-        foreach (JenisProgram::all() as $program) {
-            $program_id[$program->id] = $program->nama_program;
+        $jenis_program_id = array();
+        foreach (JenisProgram::all() as $jenis_program) {
+            $jenis_program_id[$jenis_program->id] = $jenis_program->nama_jenis_program;
         }
 
         $tipe_provisioning_id = array();
@@ -156,7 +156,7 @@ class LaporanTiketController extends Controller
             "status_pekerjaan_id" => $status_pekerjaan_id,
             "mitra_id" => $mitra_id,
             "tipe_kemitraan_id" => $tipe_kemitraan_id,
-            "program_id" => $program_id,
+            "jenis_program_id" => $jenis_program_id,
             "tipe_provisioning_id" => $tipe_provisioning_id,
         ]);
     }

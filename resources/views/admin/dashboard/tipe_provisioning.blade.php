@@ -152,7 +152,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Kota</h5>
+                                    <h5 class="modal-title">Ubah Tipe Provisioning</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeTipeProvisioning1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -161,7 +161,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_tipe_provisioning" class="col-form-label">Nama Kota: </label>
+                                        <label for="nama_update_tipe_provisioning" class="col-form-label">Nama Tipe Provisioning: </label>
                                         <input type="text" id="nama_update_tipe_provisioning" name="nama_tipe_provisioning" class="form-control" value="{{ $admins->nama_tipe_provisioning }}" required>
                                         {{-- <span id="nama_tipe_provisioning_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_tipe_provisioning'))

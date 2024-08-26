@@ -76,7 +76,7 @@ Dashboard
                             @enderror
 
                             <label for="datek" class="col-form-label">Datek: </label>
-                            <input type="text" id="datek" name="datek" value="{{ old('datek') }}" class="form-control @error('datek') is-invalid @enderror mb-2">
+                            <input type="text" id="datek" name="datek" value="{{ old('datek') }}" class="datek form-control @error('datek') is-invalid @enderror mb-2">
                             <span id="datek_error" style="display: none; color: red;">Field Datek harus diisi!</span>
                             @error('datek')
                             <div class="invalid-feedback">

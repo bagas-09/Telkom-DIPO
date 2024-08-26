@@ -87,7 +87,7 @@ Dashboard
                                         <td></td>
                                         @endif
                                     @if($admins ->jenis_program_id != null)
-                                    <td>{{ $program_id[$admins->jenis_program_id]}}</td>
+                                    <td>{{ $jenis_program_id[$admins->jenis_program_id]}}</td>
                                     @endif
                                     @if($admins ->jenis_program_id == null)
                                         <td></td>

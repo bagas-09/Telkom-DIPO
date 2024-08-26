@@ -153,7 +153,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Kota</h5>
+                                    <h5 class="modal-title">Ubah Status</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeStatus1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -162,7 +162,7 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_status" class="col-form-label">Nama Kota: </label>
+                                        <label for="nama_update_status" class="col-form-label">Nama Status: </label>
                                         <input type="text" id="nama_update_status" name="nama_status" class="form-control" value="{{ $admins->nama_status }}" required>
                                         {{-- <span id="nama_status_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_status'))
