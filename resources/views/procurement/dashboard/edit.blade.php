@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit GDP Laporan</b></div>
+                    <div class="px-5 pt-4" style="font-size: 140%"><b>Edit Draft Laporan</b></div>
                     <div class="px-5 pt-2 pb-0">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</div>
                     @foreach ($procurement as $laporan)
                     <form id="storeForm" action="{{route('procurement.dashboard.update', [$id])}}" method="POST">
@@ -42,20 +42,20 @@
                             @csrf
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
-                                    @if($laporan->PID_maintenance_id != "")
-                                    <label for="PID_maintenance_id" class="col-form-label">PID maintenance: </label>
-                                    <input type="text" id="PID_maintenance_id" name="PID_maintenance_id" class="form-control @error('PID_maintenance_id') is-invalid @enderror mb-2" value="{{ old('PID_maintenance_id', $laporan->PID_maintenance_id) }}" readonly>
-                                    <span id="PID_maintenance_id_error" style="display: none; color: red;">Field PID Maintenance harus diisi!</span>
-                                    @error('PID_maintenance_id')
+                                    @if($laporan->ID_tiket_id != "")
+                                    <label for="ID_tiket_id" class="col-form-label">ID Tiket Maintenance: </label>
+                                    <input type="text" id="ID_tiket_id" name="ID_tiket_id" class="form-control @error('ID_tiket_id') is-invalid @enderror mb-2" value="{{ old('ID_tiket_id', $laporan->ID_tiket_id) }}" readonly>
+                                    <span id="ID_tiket_id_error" style="display: none; color: red;">Field ID Tiket Maintenance harus diisi!</span>
+                                    @error('ID_tiket_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
                                     @enderror
                                     @endif
-                                    @if($laporan->PID_konstruksi_id != "")
-                                    <label for="PID_konstruksi_id" class="col-form-label">PID Konstruksi: </label>
-                                    <input type="text" id="PID_konstruksi_id" name="PID_konstruksi_id" class="form-control @error('PID_konstruksi_id') is-invalid @enderror mb-2" value="{{ old('PID_konstruksi_id', $laporan->PID_konstruksi_id) }}" readonly>
-                                    @error('PID_konstruksi_id')
+                                    @if($laporan->ID_SAP_konstruksi_id != "")
+                                    <label for="ID_SAP_konstruksi_id" class="col-form-label">PID Konstruksi: </label>
+                                    <input type="text" id="ID_SAP_konstruksi_id" name="ID_SAP_konstruksi_id" class="form-control @error('ID_SAP_konstruksi_id') is-invalid @enderror mb-2" value="{{ old('ID_SAP_konstruksi_id', $laporan->ID_SAP_konstruksi_id) }}" readonly>
+                                    @error('ID_SAP_konstruksi_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -101,8 +101,6 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    
-
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -131,9 +129,9 @@
                                         </div>
                                         <input type="text" id="total_DRM" name="total_DRM" class="form-control @error('total_DRM') is-invalid @enderror mb-2" onkeyup="totalDRM()" oninput="formatCurrency(this)" value="{{ old('total_DRM', $laporan->total_DRM) }}" readonly>
                                         <span id="total_DRM_error" style="display: none; color: red;">Field Total DRM harus diisi!</span>
-                                        @error('Total_DRM')
+                                        @error('total_DRM')
                                         <div class="invalid-feedback">
-                                            total DRM Wajib Diisi!!!
+                                            Total DRM Wajib Diisi!!!
                                         </div>
                                         @enderror
                                     </div>
@@ -186,10 +184,10 @@
                                     <select class="form-control @error('status_tagihan_id') is-invalid @enderror mb-2" name="status_tagihan_id" id="status_tagihan_id" value="{{ old('status_tagihan_id', $laporan->status_tagihan_id) }}">
                                         <option value="" selected>-- Pilih Status Tagihan --</option>
                                         @foreach ($statustagihanmany as $status_tagihan)
-                                        <option value="{{ $status_tagihan->id }}" {{ old('status_tagihan_id') == $status_tagihan->id ? 'selected' : '' }}>{{ $status_tagihan->nama_status_tagihan }}</option>
+                                        <option value="{{ $status_tagihan->id }}" {{ old('status_tagihan_id', $laporan->status_tagihan_id) == $status_tagihan->id ? 'selected' : '' }}>{{ $status_tagihan->nama_status_tagihan }}</option>
                                         @endforeach
                                     </select>
-                                    <span id="status_tagihan_id_error" style="display: none; color: red;">status_tagihan harus "CASH & BANK" jika ingin menyimpan!</span>
+                                    <span id="status_tagihan_id_error" style="display: none; color: red;">Status Tagihan harus "CASH & BANK" jika ingin menyimpan!</span>
                                     @error('status_tagihan_id')
                                     <div class="invalid-feedback">
                                         Status Tagihan Wajib Dipilih!!!
@@ -198,9 +196,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mb-lg-5">
+                        <div class="col-lg-12" style="padding: 0 62px">
+                            <div class="form-group pb-0 mb-0">
+                                <label for="keterangan" class="col-form-label">Keterangan:</label>
+                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan', $laporan->keterangan) }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
+                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
+
+                            </div>
+                        </div>
+
+                            
+                    </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
-                            <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
+                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">OGP</button>
+                            <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatusTagihan()">Simpan</button>
                         </div>
                     </form>
                     @endforeach
@@ -217,6 +227,17 @@
     }
 </style>
 <script>
+    function totalDRM() {
+        let jasaDRM = document.getElementById('jasa_DRM').value.replace(/[^\d]/g, '');
+        let materialDRM = document.getElementById('material_DRM').value.replace(/[^\d]/g, '');
+        
+        // Mengubah nilai mata uang dalam format teks menjadi angka
+        let sumDRM = Number(jasaDRM.replace(/\./g, '')) + Number(materialDRM.replace(/\./g, ''));
+        
+        // Menampilkan hasil jumlah kembali dalam format mata uang dengan pemisah ribuan (.)
+        let total_DRM_input = document.getElementById('total_DRM');
+        total_DRM_input.value = sumDRM.toLocaleString('id-ID');
+    }
     function totalAktual() {
         let jasaAktual = document.getElementById('jasa_aktual').value.replace(/[^\d]/g, '');
         let materialAktual = document.getElementById('material_aktual').value.replace(/[^\d]/g, '');
@@ -248,7 +269,7 @@
 
     // Check if the "Simpan" button is clicked and if the status is not "CASH IN"
     var simpanButton = document.querySelector('button[value="save"]');
-    if (simpanButton && statustagihanDropdown.value != 10) {
+    if (simpanButton && statustagihanDropdown.value != 6) {
         // Add the 'is-invalid' class to the dropdown to show the error state
         statustagihanDropdown.classList.add('is-invalid');
         // Display the error message

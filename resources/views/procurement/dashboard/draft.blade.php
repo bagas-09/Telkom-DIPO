@@ -48,8 +48,8 @@
                                             <th scope="col" class="w-50">Jasa Aktual</th>
                                             <th scope="col" class="w-50">Total Aktual</th>
                                             <th scope="col" class="w-50">Status Tagihan</th>
-                                            <th scope="col" class="w-50">PID Konstruksi</th>
-                                            <th scope="col" class="w-50">PID Maintenance</th>
+                                            <th scope="col" class="w-50">ID SAP Konstruksi</th>
+                                            <th scope="col" class="w-50">ID Tiket Maintenance</th>
                                             <th scope="col" class="w-50">Lokasi</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -62,9 +62,9 @@
                                             <td>{{ $admins ->PR_SAP}}</td>
                                             <td>{{ $admins ->PO_SAP}}</td>
                                             <td>{{ $admins ->tanggal_PO_SAP}}</td>
-                                            <td>{{ $admins ->material_DRM}}</td>
-                                            <td>{{ $admins ->jasa_DRM}}</td>
-                                            <td>{{ $admins ->total_DRM}}</td>
+                                            <td class="currency-field">{{ $admins ->material_DRM}}</td>
+                      <td class="currency-field">{{ $admins ->jasa_DRM}}</td>
+                      <td class="currency-field">{{ $admins ->total_DRM}}</td>
                                             <td>{{ $admins ->material_aktual}}</td>
                                             <td>{{ $admins ->jasa_aktual}}</td>
                                             <td>{{ $admins ->total_aktual}}</td>
@@ -74,14 +74,14 @@
                                             @if($admins ->status_tagihan_id == null)
                                             <td></td>
                                             @endif
-                                            <td>{{ $admins ->PID_konstruksi_id}}</td>
-                                            <td>{{ $admins ->PID_maintenance_id}}</td>
+                                            <td>{{ $admins ->ID_SAP_konstruksi_id}}</td>
+                                            <td>{{ $admins ->ID_tiket_id}}</td>
                                             <td>{{ $admins ->lokasi}}</td>
                                             <td>
                                                 @if(Auth::user()->role == "Procurement")
-                                                <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanProcurementModal{{ $admins->id }}">Delete</a>
+                                                <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanProcurementModal{{ $admins->slugp }}">Delete</a>
                                                 <!-- MODAL DELETE -->
-                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanProcurementModal{{ $admins->id }}" data-backdrop="static">
+                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanProcurementModal{{ $admins->slugp }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -96,13 +96,13 @@
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanProcurement2">Cancel</button>
-                                                                <a class="btn btn-danger" href="{{ route('procurement.delete_laporan_procurement', [$admins->PR_SAP]) }}" value="Delete">Delete</a>
+                                                                <a class="btn btn-danger" href="{{ route('procurement.delete_laporan_procurement', [$admins->slugp]) }}" value="Delete">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- UPDATE Laporan Procurement -->
-                                                <a class="btn btn-sm btn-warning" href="{{ route('procurement.dashboard.edit', [$admins->PR_SAP]) }}" style="color: white">Edit</a>
+                                                <a class="btn btn-sm btn-warning" href="{{ route('procurement.dashboard.edit', [$admins->slugp]) }}" style="color: white">Edit</a>
                                                 @endif
                                             </td>
                                         </tr>

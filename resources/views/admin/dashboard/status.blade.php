@@ -42,6 +42,15 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_status')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -65,7 +74,7 @@ Dashboard
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form id="statusForm" action="
+                            <form class="form-validation" id="statusForm" action="
                             {{ route('admin.storeStatus') }}
                             {{-- {{route('admin.storeStatus')}} --}}
                             " method="POST">
@@ -73,8 +82,8 @@ Dashboard
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="nama_status" class="col-form-label">Nama Status: </label>
-                                        <input type="text" id="nama_status" name="nama_status" class="form-control">
-                                        <span id="nama_status_error" style="display: none; color: red;">Field Nama Status harus diisi!</span>
+                                        <input type="text" id="nama_status" name="nama_status" class="required-input form-control">
+                                        <span class="error-message" id="nama_status_error" style="display: none; color: red;">Field Nama Status harus diisi!</span>
                                         {{-- @if($errors->has('nama_status'))
                                         <span class="invalid-feedback">{{ $errors->first('nama_status') }}</span>
                                         @endif --}}
@@ -144,7 +153,7 @@ Dashboard
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Kota</h5>
+                                    <h5 class="modal-title">Ubah Status</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeStatus1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -153,8 +162,8 @@ Dashboard
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_status" class="col-form-label">Nama Kota: </label>
-                                        <input type="text" id="nama_update_status" name="nama_status" class="form-control required-input" value="{{ $admins->nama_status }}" required>
+                                        <label for="nama_update_status" class="col-form-label">Nama Status: </label>
+                                        <input type="text" id="nama_update_status" name="nama_status" class="form-control" value="{{ $admins->nama_status }}" required>
                                         {{-- <span id="nama_status_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_status'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_status') }}</span>

@@ -10,7 +10,14 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+    <!-- Icon Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <!-- CSS Libraries -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -39,21 +46,44 @@
       </footer>
     </div>
   </div>
-
+  
   {{-- <script src="{{ route('js.dynamic') }}"></script> --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('js/page/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
-  <!-- Page Specific JS File -->
-  <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
+  @yield('footer')
+  <script>
+    $(function() {
+      $("#tahun").datepicker({
+        format: "yyyy", // Format hanya tahun
+        viewMode: "years", // Hanya menampilkan tahun
+        minViewMode: "years", // Tidak ada pilihan bulan saat klik
+        orientation: 'auto top' // Orientasi tampilan
+      });
+      $("#bulan-test").datepicker({
+        format: "mm", // Format hanya tahun
+        viewMode: "months", // Hanya menampilkan tahun
+        minViewMode: "months", // Tidak ada pilihan bulan saat klik
+        orientation: 'auto top' // Orientasi tampilan
+      });
+    });
+    $(document).ready(function() {
+      $('#table-4').dataTable({
+        scrollX: true
+      });
+    });
+    </script>
   @stack('scripts')
-  {{-- <script src="{{ asset('assets/js/modal.js') }}"></script> --}}
 </body>
-@include('layouts.modals')
+<script src="{{ asset('assets/js/currency.js') }}"></script>
+<script src="{{ asset('assets/js/modal.js') }}"></script>
 
 </html>

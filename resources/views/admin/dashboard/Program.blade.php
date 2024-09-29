@@ -13,17 +13,17 @@ Dashboard
   <div class="section-body">
         <section class="section">
           <div class="section-header">
-            <h1>Jenis Order</h1>
+            <h1>Program</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item"><a href="#">Dropdown</a></div>
-              <div class="breadcrumb-item active">Jenis Order</div>
+              <div class="breadcrumb-item active">Program</div>
             </div>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">Tabel Jenis Order</h2>
+            <h2 class="section-title">Tabel Program</h2>
             <p class="section-lead">
-              Dropdown Jenis Order disini akan tampil dan muncul pada formulir yang diisi oleh Konstruksi!
+              Dropdown Program disini akan tampil dan muncul pada formulir yang diisi oleh Konstruksi!
             </p>
 
             @if(session()->has('success'))
@@ -42,43 +42,52 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_program')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
-                  {{-- ADD JENIS ORDER --}}
+                  {{-- ADD Program --}}
                   <div class="card-header">
                     <div class="col-8">
                       <h4>Simple</h4>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addJenisOrder">Add Jenis Order</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProgram">Add Program</button>
                     </div>
                   </div>
 
-                  <!-- TAMBAH JENIS ORDER -->
-                  <div class="modal fade" tabindex="-1" role="dialog" id="addJenisOrder" data-backdrop="static">
+                  <!-- TAMBAH Program -->
+                  <div class="modal fade" tabindex="-1" role="dialog" id="addProgram" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Tambah Jenis Order</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeJenisOrder1">
+                          <h5 class="modal-title">Tambah Program</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="jenisOrderForm" action="{{route('admin.storeJenisOrder')}}" method="POST">
+                        <form class="form-validation" id="ProgramForm" action="{{route('admin.storeProgram')}}" method="POST">
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
-                              <label for="nama_jenis_order" class="col-form-label">Nama Jenis Order: </label>
-                              <input type="text" id="nama_jenis_order" name="nama_jenis_order" class="form-control">
-                              <span id="nama_jenis_order_error" style="display: none; color: red;">Field Nama Jenis Order harus diisi!</span>
+                              <label for="nama_program" class="col-form-label">Nama Program: </label>
+                              <input type="text" id="nama_program" name="nama_program" class="required-input form-control">
+                              <span class="error-message" id="nama_program_error" style="display: none; color: red;">Field Nama Program harus diisi!</span>
                               {{-- @if($errors->has('nama_city'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}
                             </div>
                           </div>
                           <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeJenisOrder2">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeProgram2">Close</button>
                             <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
                           </div>
                         </form>
@@ -91,71 +100,71 @@ Dashboard
                       <thead>
                         <tr>
                           <th scope="col">No</th>
-                          <th scope="col" class="w-50">Nama Jenis Order</th>
+                          <th scope="col" class="w-50">Nama Program</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php $i=1 ?>
-                        @foreach ($jenisOrder as $admins)
+                        @foreach ($program as $admins)
                         <tr>
                           <th scope="row">{{$i++}}</th>
-                          <td>{{ $admins ->nama_jenis_order}}</td>
+                          <td>{{ $admins ->nama_program}}</td>
                           <td>
                             <a class="btn btn-sm btn-danger" 
                             {{-- data-toggle="modal" data-target="#deleteModal{{$admins->id}}" --}}
                             style="color: white"
-                            data-toggle="modal" data-target="#deleteJenisOrderModal{{ $admins->id }}"
+                            data-toggle="modal" data-target="#deleteProgramModal{{ $admins->id }}"
                             >Delete</a>
                             {{-- MODAL DELETE --}}
-                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteJenisOrderModal{{ $admins->id }}" data-backdrop="static">
+                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteProgramModal{{ $admins->id }}" data-backdrop="static">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Jenis Order</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeJenisOrder1">
+                                      <h5 class="modal-title">Hapus Program</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                                         <span aria-hidden="true">&times;</span>
                                       </button>
                                     </div>
                                     @csrf
                                       <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Jenis Order yang dipilih.
+                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Program yang dipilih.
                                       </div>
                                       <div class="modal-footer bg-whitesmoke br">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeJenisOrder2">Cancel</button>
-                                        <a class="btn btn-danger" href="{{ route('admin.deleteJenisOrder', [$admins->id]) }}" value="Delete">Delete</a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeProgram2">Cancel</button>
+                                        <a class="btn btn-danger" href="{{ route('admin.deleteProgram', [$admins->id]) }}" value="Delete">Delete</a>
                                       </div>
                                   </div>
                                 </div>
                             </div>
                             {{-- <a class="btn btn-sm btn-warning" href="#">Edit</a> --}}
 
-                            {{-- UPDATE JENIS ORDER --}}
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editJenisOrderModal-{{$admins->id}}" style="color: white" 
+                            {{-- UPDATE Program --}}
+                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editProgramModal-{{$admins->id}}" style="color: white" 
                             >Edit</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="editJenisOrderModal-{{$admins->id}}" data-backdrop="static">
+                            <div class="modal fade" tabindex="-1" role="dialog" id="editProgramModal-{{$admins->id}}" data-backdrop="static">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Jenis Order</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeJenisOrder1">
+                                    <h5 class="modal-title">Ubah Program</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeProgram1">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                  <form id="jenisOrderUpdateForm" class="form-validation" action="{{route('admin.updateJenisOrder', [$admins->id])}}" method="POST">
+                                  <form id="ProgramUpdateForm" class="form-validation" action="{{route('admin.updateProgram', [$admins->id])}}" method="POST">
                                   @csrf
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label for="nama_update_jenis_order" class="col-form-label">Nama Jenis Order: </label>
-                                        <input type="text" id="nama_update_jenis_order" name="nama_jenis_order" class="form-control required-input" value="{{ $admins->nama_jenis_order }}" required>
-                                        {{-- <span id="nama_jenis_order_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
-                                        {{-- @if($errors->has('nama_jenis_order'))
-                                          <span class="invalid-feedback">{{ $errors->first('nama_jenis_order') }}</span>
+                                        <label for="nama_update_program" class="col-form-label">Nama Program: </label>
+                                        <input type="text" id="nama_update_program" name="nama_program" class="form-control" value="{{ $admins->nama_program }}" required>
+                                        {{-- <span id="nama_program_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
+                                        {{-- @if($errors->has('nama_program'))
+                                          <span class="invalid-feedback">{{ $errors->first('nama_program') }}</span>
                                         @endif --}}
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateJenisOrder">Close</button>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateProgram">Close</button>
                                       <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
                                     </div>
                                   </form>

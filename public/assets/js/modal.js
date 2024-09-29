@@ -1,58 +1,52 @@
-document.addEventListener("DOMContentLoaded", function () {
-    var forms = document.getElementsByClassName("form-validation");
+// public/js/form_validation.js
 
-    // Fungsi untuk mereset validasi form
-    function resetFormValidation(form) {
-        var inputFields = form.getElementsByClassName("required-input");
-        var errorMessages = form.getElementsByClassName("error-message");
+// Fungsi untuk mereset field dan pesan error
+function resetForm1() {
+    var inputField = document.getElementsByClassName("required-input");
+    var errorMessage = document.getElementsByClassName("error-message");
 
-        // Menghapus pesan error dan kelas 'is-invalid'
-        Array.from(inputFields).forEach(function (inputField) {
-            inputField.classList.remove("is-invalid");
-        });
-
-        Array.from(errorMessages).forEach(function (errorMessage) {
-            errorMessage.style.display = "none";
-        });
+    for (var i = 0; i < inputField.length; i++) {
+        inputField[i].value = ""; // Menghapus nilai di field input
+        inputField[i].classList.remove("is-invalid"); // Menghapus kelas CSS 'is-invalid'
     }
 
-    // Melakukan iterasi pada setiap form
-    Array.from(forms).forEach(function (form) {
-        form.addEventListener("submit", function (event) {
-            var inputFields = form.getElementsByClassName("required-input");
-            var errorMessages = form.getElementsByClassName("error-message");
+    for (var j = 0; j < errorMessage.length; j++) {
+        errorMessage[j].style.display = "none"; // Menyembunyikan pesan error
+    }
+}
 
-            // Menghapus pesan error sebelum validasi
-            Array.from(errorMessages).forEach(function (errorMessage) {
-                errorMessage.style.display = "none";
-            });
-
-            // Melakukan validasi pada setiap input field
-            var hasError = false;
-            Array.from(inputFields).forEach(function (inputField) {
-                if (inputField.value.trim() === "") {
-                    hasError = true;
-                    var fieldName = inputField.getAttribute("name");
-                    var errorMessage = form.querySelector(
-                        '.error-message[data-for="' + fieldName + '"]'
-                    );
-                    inputField.classList.add("is-invalid");
-                    errorMessage.style.display = "block";
-                } else {
-                    inputField.classList.remove("is-invalid");
-                }
-            });
-
-            // Mencegah pengiriman form jika terdapat error
-            if (hasError) {
-                event.preventDefault();
-            }
-        });
-
-        // Event listener untuk menutup modal
-        form.addEventListener("hidden.bs.modal", function (e) {
-            form.reset(); // Menggunakan method reset() untuk mereset nilai field
-            resetFormValidation(form); // Memanggil fungsi resetFormValidation
-        });
+// Event listener untuk menutup modal
+$(".modal").each(function () {
+    $(this).on("hidden.bs.modal", function (e) {
+        resetForm1(); // Memanggil fungsi resetForm saat modal ditutup
     });
 });
+
+// Event listener saat form dikirim
+document
+    .getElementsByClassName("form-validation")[0]
+    .addEventListener("submit", function (event) {
+        var inputFields = document.getElementsByClassName("required-input");
+        var errorMessages = document.getElementsByClassName("error-message");
+
+        var hasError = false;
+
+        for (var i = 0; i < inputFields.length; i++) {
+            if (inputFields[i] && errorMessages[i]) {
+                if (inputFields[i].value.trim() === "") {
+                    event.preventDefault();
+                    inputFields[i].classList.add("is-invalid");
+                    errorMessages[i].style.display = "block";
+                    hasError = true;
+                } else {
+                    inputFields[i].classList.remove("is-invalid");
+                    errorMessages[i].style.display = "none";
+                }
+            }
+        }
+
+        if (!hasError) {
+            // Form valid, submit form
+            // document.getElementsByClassName("form-validation")[0].submit();
+        }
+    });

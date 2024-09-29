@@ -42,6 +42,15 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_city')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -65,13 +74,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="cityForm" action="{{route('admin.storeCity')}}" method="POST">
+                        <form id="cityForm" class="form-validation" action="{{route('admin.storeCity')}}" method="POST">
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
                               <label for="nama_city" class="col-form-label">Nama Kota: </label>
-                              <input type="text" id="nama_city" name="nama_city" class="form-control">
-                              <span id="nama_city_error" style="display: none; color: red;">Field Nama Kota harus diisi!</span>
+                              <input type="text" class="required-input form-control" id="nama_city" name="nama_city">
+                              <span class="error-message" id="nama_city_error" style="display: none; color: red;">Field Nama Kota harus diisi!</span>
                               {{-- @if($errors->has('nama_city'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>
                               @endif --}}
@@ -147,7 +156,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_city" class="col-form-label">Nama Kota: </label>
-                                        <input type="text" id="nama_update_city" name="nama_city" class="form-control required-input" value="{{ $admins->nama_city }}" required>
+                                        <input type="text" id="nama_update_city" name="nama_city" class="form-control" value="{{ $admins->nama_city }}" required>
                                         {{-- <span id="nama_city_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_city'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_city') }}</span>

@@ -42,6 +42,15 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_jenis_program')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -65,13 +74,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="jenisform" action="{{ route('admin.storeJenisProgram') }}" method="POST">
+                        <form class="form-validation" id="jenisform" action="{{ route('admin.storeJenisProgram') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_jenis_program" class="col-form-label">Nama Jenis Program: </label>
-                                <input type="text" id="nama_jenis_program" name="nama_jenis_program" class="form-control">
-                                <span id="nama_jenis_program_error" style="display: none; color: red;">Field Nama Jenis Program harus diisi!</span>
+                                <input type="text" id="nama_jenis_program" name="nama_jenis_program" class="required-input form-control">
+                                <span class="error-message" id="nama_jenis_program_error" style="display: none; color: red;">Field Nama Jenis Program harus diisi!</span>
                                 {{-- @if($errors->has('nama_jenis_program'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_jenis_program') }}</span>
                                 @endif --}}
@@ -154,7 +163,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_Jenis" class="col-form-label">Nama Jenis Program: </label>
-                                        <input type="text" id="nama_update_Jenis" name="nama_jenis_program" class="form-control required-input" value="{{ $admins->nama_jenis_program }}" required>
+                                        <input type="text" id="nama_update_Jenis" name="nama_jenis_program" class="form-control" value="{{ $admins->nama_jenis_program }}" required>
                                         {{-- <span id="nama_jenis_program_error" class="error-message">Field Nama Kota harus diisi!</span> --}}
                                         {{-- @if($errors->has('nama_jenis_program'))
                                           <span class="invalid-feedback">{{ $errors->first(nama_jenis_program') }}</span>

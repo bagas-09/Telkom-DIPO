@@ -56,8 +56,8 @@
                                             <th scope="col" class="w-50">Jasa Aktual</th>
                                             <th scope="col" class="w-50">Total Aktual</th>
                                             <th scope="col" class="w-50">Status Tagihan</th>
-                                            <th scope="col" class="w-50">PID Konstruksi</th>
-                                            <th scope="col" class="w-50">PID Maintenance</th>
+                                            <th scope="col" class="w-50">ID SAP Konstruksi</th>
+                                            <th scope="col" class="w-50">ID Tiket Maintenance</th>
                                             <th scope="col" class="w-50">Lokasi</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -76,15 +76,15 @@
                                             <td>{{ $admins ->material_aktual}}</td>
                                             <td>{{ $admins ->jasa_aktual}}</td>
                                             <td>{{ $admins ->total_aktual}}</td>
-                                            <td>{{ $admins ->status_tagihan_id}}</td>
-                                            <td>{{ $admins ->PID_konstruksi_id}}</td>
-                                            <td>{{ $admins ->PID_maintenance_id}}</td>
+                                            <td>{{ $status_tagihan[$admins ->status_tagihan_id]}}</td>
+                                            <td>{{ $admins ->ID_SAP_konstruksi_id}}</td>
+                                            <td>{{ $admins ->ID_tiket_id}}</td>
                                             <td>{{ $admins ->lokasi}}</td>
                                             <td>
                                                 @if(Auth::user()->role == "Procurement")
-                                                <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->PR_SAP}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanProcurementModal{{ $admins->PR_SAP }}">Delete</a>
+                                                <a class="btn btn-sm btn-danger" {{-- data-toggle="modal" data-target="#deleteModal{{$admins->PR_SAP}}" --}} style="color: white" data-toggle="modal" data-target="#deleteLaporanProcurementModal{{ $admins->slugp }}">Delete</a>
                                                 {{-- MODAL DELETE --}}
-                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanProcurementModal{{ $admins->PR_SAP }}" data-backdrop="static">
+                                                <div class="modal fade" tabindex="-1" role="dialog" id="deleteLaporanProcurementModal{{ $admins->slugp }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -99,7 +99,7 @@
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanProcurement2">Cancel</button>
-                                                                <a class="btn btn-danger" href="{{ route('procurement.delete_laporan_procurement', [$admins->PR_SAP]) }}" value="Delete">Delete</a>
+                                                                <a class="btn btn-danger" href="{{ route('procurement.delete_laporan_procurement', [$admins->slugp]) }}" value="Delete">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -108,7 +108,7 @@
 
                                                 <!-- Drafted -->
                                                 @if(Auth::user()->role == "Admin")
-                                                <a class="btn btn-sm btn-warning"  style="color: white" data-toggle="modal" data-target="#draftLaporanProcurementModal{{ $admins->id }}">Draft</a>
+                                                <a class="btn btn-sm btn-warning"  style="color: white" data-toggle="modal" data-target="#draftLaporanProcurementModal{{ $admins->id }}">OGP</a>
                                                 <div class="modal fade" tabindex="-1" role="dialog" id="draftLaporanProcurementModal{{ $admins->id }}" data-backdrop="static">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -120,11 +120,11 @@
                                                             </div>
                                                             @csrf
                                                             <div class="modal-body">
-                                                                Pilih "OGP" dibawah ini jika Anda yakin menghapus Laporan yang dipilih.
+                                                                Pilih "OGP" dibawah ini jika Anda ingin mengubah status menjadi OGP.
                                                             </div>
                                                             <div class="modal-footer bg-whitesmoke br">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeLaporanProcurementdraft">Cancel</button>
-                                                                <a class="btn btn-warning" href="{{ route('admin.laporan_procurement.drafted', [$admins->PR_SAP]) }}" value="Delete">Draft</a>
+                                                                <a class="btn btn-warning" href="{{ route('admin.laporan_procurement.drafted', [$admins->slugp]) }}" value="Delete">OGP</a>
                                                             </div>
                                                         </div>
                                                     </div>

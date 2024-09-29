@@ -14,6 +14,13 @@ class TipeKemitraan extends Model
     protected $fillable = [
         'nama_tipe_kemitraan', 'role'
     ];
+    public static $rules = [
+        'nama_tipe_kemitraan' => 'unique_with_role:tipe_kemitraan',
+    ];
+
+    public static $messages = [
+        'nama_tipe_kemitraan.unique_with_role' => 'Kombinasi Nama Tipe Kemitraan dan Role sudah ada dalam database.',
+    ];
 
     // public function role()
     // {

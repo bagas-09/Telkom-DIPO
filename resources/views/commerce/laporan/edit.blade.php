@@ -42,20 +42,20 @@
                             @csrf
                             <div class="col-lg-6">
                                 <div class="form-group pt-4 pb-0 pl-5 mb-0 pb-0">
-                                    @if($laporan->PID_maintenance_id != "")
-                                    <label for="PID_maintenance_id" class="col-form-label">PID maintenance: </label>
-                                    <input type="text" id="PID_maintenance_id" name="PID_maintenance_id" class="form-control @error('PID_maintenance_id') is-invalid @enderror mb-2" value="{{ old('PID_maintenance_id', $laporan->PID_maintenance_id) }}" readonly>
-                                    <span id="PID_maintenance_id_error" style="display: none; color: red;">Field PID Kontruksi harus diisi!</span>
-                                    @error('PID_maintenance_id')
+                                    @if($laporan->ID_tiket_id != "")
+                                    <label for="ID_tiket_id" class="col-form-label">ID Tiket maintenance: </label>
+                                    <input type="text" id="ID_tiket_id" name="ID_tiket_id" class="form-control @error('ID_tiket_id') is-invalid @enderror mb-2" value="{{ old('ID_tiket_id', $laporan->ID_tiket_id) }}" readonly>
+                                    <span id="ID_tiket_id_error" style="display: none; color: red;">Field ID Maintenance harus diisi!</span>
+                                    @error('ID_tiket_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
                                     @enderror
                                     @endif
-                                    @if($laporan->PID_konstruksi_id != "")
-                                    <label for="PID_konstruksi_id" class="col-form-label">PID Konstruksi: </label>
-                                    <input type="text" id="PID_konstruksi_id" name="PID_konstruksi_id" class="form-control @error('PID_konstruksi_id') is-invalid @enderror mb-2" value="{{ old('PID_konstruksi_id', $laporan->PID_konstruksi_id) }}" readonly>
-                                    @error('PID_konstruksi_id')
+                                    @if($laporan->ID_SAP_konstruksi_id != "")
+                                    <label for="ID_SAP_konstruksi_id" class="col-form-label">ID SAP Konstruksi: </label>
+                                    <input type="text" id="ID_SAP_konstruksi_id" name="ID_SAP_konstruksi_id" class="form-control @error('ID_SAP_konstruksi_id') is-invalid @enderror mb-2" value="{{ old('ID_SAP_konstruksi_id', $laporan->ID_SAP_konstruksi_id) }}" readonly>
+                                    @error('ID_SAP_konstruksi_id')
                                     <div class="invalid-feedback">
                                         {{$message}}
                                     </div>
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pr-5 mb-5">
-                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">Draft</button>
+                            <button type="submit" name="submit" class="btn btn-secondary mr-2" value="draft">OGP</button>
                             <button type="submit" name="submit" class="btn btn-primary" value="save" onclick="validateStatus()">Simpan</button>
                         </div>
                     </form>

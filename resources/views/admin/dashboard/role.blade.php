@@ -65,13 +65,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="roleForm" action="{{ route('admin.storeRole') }}" method="POST">
+                        <form class="form-validation" id="roleForm" action="{{ route('admin.storeRole') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_role" class="col-form-label">Nama Role: </label>
-                                <input type="text" id="nama_role" name="nama_role" class="form-control">
-                                <span id="nama_role_error" style="display: none; color: red;">Field Nama Role harus diisi!</span>
+                                <input type="text" id="nama_role" name="nama_role" class="required-input form-control">
+                                <span class="error-message" id="nama_role_error" style="display: none; color: red;">Field Nama Role harus diisi!</span>
                                 <!-- @if($errors->has('nama_role'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_role') }}</span>
                                 @endif -->
@@ -90,9 +90,9 @@ Dashboard
                     <table class="table" id="table-1">
                       <thead>
                         <tr>
-                          <th scope="col">No</th>
+                          <th scope="col" class="w-50">No</th>
                           <th scope="col" class="w-50">Nama Role</th>
-                          <th scope="col">Action</th>
+                    
                         </tr>
                       </thead>
                       <tbody>
@@ -104,72 +104,6 @@ Dashboard
                           <td>
 
                           <!-- MODAL DELETE -->
-                          <a class="btn btn-sm btn-danger" 
-                            data-toggle="modal" 
-                            data-target="#deleteRoleModal"
-                            style="color: white"
-                            data-toggle="modal" 
-                            
-                            >Delete</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="deleteRoleModal{{ $admins->nama_role }}" data-backdrop="static">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">Hapus Role</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeRole1">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    @csrf
-                                      <div class="modal-body">
-                                        Pilih "Delete" dibawah ini jika Anda yakin menghapus Role yang dipilih.
-                                      </div>
-                                      <div class="modal-footer bg-whitesmoke br">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeRole2">Cancel</button>
-                                        <a class="btn btn-danger" href="{{ route('admin.deleteRole', [$admins->nama_role]) }}" value="Delete">Delete</a>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-
-                            <!-- MODAL UPDATE -->
-                            <a class="btn btn-sm btn-warning" data-toggle="modal" 
-                            data-target="#editRoleModal-{{$admins->nama_role}}"
-                            
-                            style="color: white" 
-                            >Edit</a>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="editRoleModal-{{$admins->nama_role}}" data-backdrop="static">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title">Ubah Role</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeRole1">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <form id="RoleUpdateForm" class="form-validation" 
-                                  action="{{route('admin.updateRole', [$admins->nama_role])}}" 
-                                  method="POST">
-                                  @csrf
-                                    <div class="modal-body">
-                                      <div class="form-group">
-                                        <label for="nama_update_role" class="col-form-label">Nama Role: </label>
-                                        <input type="text" id="nama_update_role" name="nama_role" class="form-control required-input" value="{{ $admins->nama_role }}" required>
-                                        <!-- <span id="nama_role_error" class="error-message">Field Nama Kota harus diisi!</span>
-                                        @if($errors->has('nama_role'))
-                                          <span class="invalid-feedback">{{ $errors->first('nama_role') }}</span>
-                                        @endif -->
-                                      </div>
-                                    </div>
-                                    <div class="modal-footer bg-whitesmoke br">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeUpdateRole">Close</button>
-                                      <button type="submit" class="btn btn-primary" value="Simpan Data">Save changes</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
 
                         </tr>
                         @endforeach

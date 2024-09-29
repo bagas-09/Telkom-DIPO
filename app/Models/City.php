@@ -14,6 +14,13 @@ class City extends Model
     protected $fillable = [
         'nama_city'
     ];
+    public static $rules = [
+        'nama_city' => 'unique:city',
+    ];
+
+    public static $messages = [
+        'nama_city.unique' => 'Nama Kota sudah ada dalam database.',
+    ];
 
     public function accounts()
     {

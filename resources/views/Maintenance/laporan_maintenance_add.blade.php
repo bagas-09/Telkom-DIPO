@@ -21,7 +21,6 @@ Dashboard
                     </div>
                 </div>
         
-                
                 <p style="padding-left: 43px; padding-bottom:10px">Buat Laporan sesuai dengan ketentuan dan SOP yang berlaku di Telkom Akses. Anda dapat mengubah laporan ini nanti.</p>
             </div>
         </div>
@@ -57,234 +56,39 @@ Dashboard
                             ID SAP Wajib Diisi!
                         </div>
                         @enderror
-
-                        <label for="NO_PR_maintenance" class="col-form-label">No PR Maintenance: </label>
-                        <input type="text" id="NO_PR_maintenance" name="NO_PR_maintenance" class="form-control @error('NO_PR_maintenance') is-invalid @enderror mb-2" value="{{ old('NO_PR_maintenance') }}" >
-                        <span id="NO_PR_maintenance_error" style="display: none; color: red;">Field No PR Maintenance harus diisi!</span>
-                        @error('NO_PR_maintenance')
-                        <div class="invalid-feedback">
-                            NO PR Wajib Diisi!
-                        </div>
-                        @enderror
-
-                        <label for="tanggal_PR" class="col-form-label">Tanggal PR: </label>
-                        <input type="date" id="tanggal_PR" name="tanggal_PR" class="form-control @error('tanggal_PR') is-invalid @enderror mb-2" value="{{ old('tanggal_PR') }}" >
-                        <span id="tanggal_PR_error" style="display: none; color: red;">Field Tanggal PR harus diisi!</span>
-                        @error('tanggal_PR')
-                        <div class="invalid-feedback">
-                            Tanggal PR Wajib Diisi!
-                        </div>
-                        @enderror
-
-                        <label for="status_pekerjaan_id" class="col-form-label">Status Pekerjaan: </label>
-                        <select name="status_pekerjaan_id"  class="status_pekerjaan_id form-control @error('status_pekerjaan_id') is-invalid @enderror mb-2" value="{{ old('status_pekerjaan_id') }}" >
-                            <option value="" selected>-- Pilih Status Pekerjaan --</option>
-                            @foreach ($addsp as $status_pekerjaan)
-                                <option @selected(old('status_pekerjaan_id') == $status_pekerjaan->id) value=<?= $status_pekerjaan->id ?>>{{ $status_pekerjaan->nama_status_pekerjaan }}</option>
-                            @endforeach
-                        </select>
-                        <span id="status_pekerjaan_id_error" style="display: none; color: red;">Field Status Pekerjaan harus diisi!</span>
-                        @error('status_pekerjaan_id')
-                            <div class="invalid-feedback">
-                            Field Status Pekerjaan Wajib Dipilih!!!
-                            </div>
-                        @enderror
-
-                        <label for="mitra_id" class="col-form-label">Mitra: </label>
-                        <select class="mitra_id form-control @error('mitra_id') is-invalid @enderror mb-2" name="mitra_id" value="{{ old('mitra_id') }}" >
-                            <option value="" selected>-- Pilih Mitra --</option>
-                            @foreach ($mitrass as $mitra)
-                                <option @selected(old('mitra_id') == $mitra->id) value=<?= $mitra->id ?>>{{ $mitra->nama_mitra }}</option>
-                            @endforeach
-                        </select>
-                        <span id="mitra_id_error" style="display: none; color: red;">Field Mitra harus diisi!</span>
-                        @error('mitra_id')
-                                    <div class="invalid-feedback">
-                                    Field Mitra Wajib Dipilih!!!
-                                    </div>
-                                    @enderror
-
-                        <label for="tipe_kemitraan_id" class="col-form-label">Tipe Kemitraan: </label>
-                        <select class="tipe_kemitraan_id form-control @error('tipe_kemitraan_id') is-invalid @enderror mb-2" name="tipe_kemitraan_id"  value="{{ old('tipe_kemitraan_id') }}" >
-                            <option value="" selected>-- Pilih Tipe Kemitraan --</option>
-                            @foreach ($tipek as $tipe_kemitraan)
-                                <option @selected(old('tipe_kemitraan_id') == $tipe_kemitraan->id) value=<?= $tipe_kemitraan->id ?>>{{ $tipe_kemitraan->nama_tipe_kemitraan }}</option>
-                            @endforeach
-                        </select>
-                        <span id="tipe_kemitraan_id_error" style="display: none; color: red;">Field Tipe Kemitraan harus diisi!</span>
-                        @error('tipe_kemitraan_id')
-                                    <div class="invalid-feedback">
-                                    Field Tipe Kemitraan Wajib Dipilih!!!
-                                    </div>
-                                    @enderror
-
-                        <label for="jenis_program_id" class="col-form-label">Jenis Program: </label>
-                            <select class="jenis_program_id form-control @error('jenis_program_id') is-invalid @enderror mb-2" name="jenis_program_id" id="inputJenisProgram" value="{{ old('jenis_program_id') }}"  onchange="autoGeneratedLokasi()">
-                                <option value="" selected>-- Pilih Jenis Program --</option>
-                                @foreach ($jenisp as $jenis_program)
-                                    <option @selected(old('jenis_program_id') == $jenis_program->id) value=<?= $jenis_program->id ?>>{{ $jenis_program->nama_jenis_program }}</option>
-                                @endforeach
-                            </select>
-                        <span id="jenis_program_id_error" style="display: none; color: red;">Field Jenis Program harus diisi!</span>
-                        @error('jenis_program_id')
-                            <div class="invalid-feedback">
-                                Field Jenis Program Wajib Dipilih!!!
-                            </div>
-                        @enderror
-
-                        <label for="tipe_provisioning_id" class="col-form-label">Tipe Provisioning: </label>
-                            <select class="tipe_provisioning_id form-control @error('tipe_provisioning_id') is-invalid @enderror mb-2" name="tipe_provisioning_id" id="inputTipeProv" value="{{ old('tipe_provisioning_id') }}"  onchange="autoGeneratedLokasi()">
-                                <option value="" selected>-- Pilih Tipe Provisioning --</option>
-                                @foreach ($tipeprov as $tipe_provisioning)
-                                    <option value={{ $tipe_provisioning->id }} @selected(old('tipe_provisioning_id') == $tipe_provisioning->id)>{{ $tipe_provisioning->nama_tipe_provisioning }}</option>
-                                @endforeach
-                            </select>
-                        @error('tipe_provisioning_id')
-                                    <div class="invalid-feedback">
-                                    Field Tipe Provisioning Wajib Dipilih!!!
-                                    </div>
-                                    @enderror
-                        </div>
                     </div>
+                </div>
                     <div class="col-lg-6">
                         <div class="form-group pt-4 pb-0 pr-5 mb-0">
                             <div class="form-group mb-2">
-                                    <label>Lokasi</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <p id="autoFill" style="padding-top: 15px"></p>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control @error('lokasi') is-invalid @enderror lokasi" id="lokasi" name="lokasi" value="{{ old('lokasi') }}">
-                                    </div>
-                                </div>
-                                <span id="lokasi_error" style="display: none; color: red;">Field Lokasi harus diisi!</span>
-                                @error('lokasi')
+                                <label for="NO_PR_maintenance" class="col-form-label">No PR Maintenance: </label>
+                                <input type="text" id="NO_PR_maintenance" name="NO_PR_maintenance" class="form-control @error('NO_PR_maintenance') is-invalid @enderror mb-2" value="{{ old('NO_PR_maintenance') }}" >
+                                <span id="NO_PR_maintenance_error" style="display: none; color: red;">Field No PR Maintenance harus diisi!</span>
+                                @error('NO_PR_maintenance')
                                 <div class="invalid-feedback">
-                                    Field Lokasi harus diisi!
+                                    NO PR Wajib Diisi!
                                 </div>
                                 @enderror
-
-                            <label for="periode_pekerjaan" class="col-form-label">Periode Pekerjaan: </label>
-                            <input type="text" id="periode_pekerjaan" name="periode_pekerjaan" class="form-control @error('periode_pekerjaan') is-invalid @enderror mb-2" value="{{ old('periode_pekerjaan') }}"  >
-                            @error('periode_pekerjaan')
-                            <div class="invalid-feedback">
-                                Periode Pekerjaan Wajib Diisi!!!
+        
+                                <label for="tanggal_PR" class="col-form-label">Tanggal PR: </label>
+                                <input type="date" id="tanggal_PR" name="tanggal_PR" class="form-control @error('tanggal_PR') is-invalid @enderror mb-2" value="{{ old('tanggal_PR') }}" >
+                                <span id="tanggal_PR_error" style="display: none; color: red;">Field Tanggal PR harus diisi!</span>
+                                @error('tanggal_PR')
+                                <div class="invalid-feedback">
+                                    Tanggal PR Wajib Diisi!
+                                </div>
+                                @enderror
                             </div>
-                            @enderror
-
-                            <label for="material_DRM" class="col-form-label">Material DRM: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="material_DRM" name="material_DRM" value="{{ old('material_DRM') }}" class="form-control @error('material_DRM') is-invalid @enderror mb-2" onkeyup="totalDRM();" oninput="formatCurrency(this)">  
-                                </div>
-                            <span id="material_DRM_error" style="display: none; color: red;">Field Material DRM harus diisi!</span>
-                            @error('material_DRM')
-                                        <div class="invalid-feedback">
-                                            Material DRM Wajib Diisi!!!
-                                        </div>
-                                        @enderror
-
-                            <label for="jasa_DRM" class="col-form-label">Jasa DRM: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="jasa_DRM" name="jasa_DRM" value="{{ old('jasa_DRM') }}" class="form-control @error('jasa_DRM') is-invalid @enderror mb-2" onkeyup="totalDRM()" oninput="formatCurrency(this)">
-                                </div>
-                            <span id="jasa_DRM_error" style="display: none; color: red;">Field Jasa DRM harus diisi!</span>
-                            @error('material_DRM')
-                                        <div class="invalid-feedback">
-                                            Jasa DRM Wajib Diisi!!!
-                                        </div>
-                                        @enderror
-
-                            <label for="total_DRM" class="col-form-label">Total DRM: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="total_DRM" name="total_DRM" value="{{ old('total_DRM') }}" class="form-control @error('total_DRM') is-invalid @enderror mb-2" onkeyup="totalDRM()" readonly>
-                                </div>
-                            <span id="total_DRM_error" style="display: none; color: red;">Field Total DRM harus diisi!</span>
-                            @error('total_DRM')
-                                        <div class="invalid-feedback">
-                                            Total DRM Wajib Diisi!!!
-                                        </div>
-                                        @enderror
-
-                            <label for="material_aktual" class="col-form-label">Material Aktual: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="material_aktual" name="material_aktual" value="{{ old('material_aktual') }}" class="form-control @error('material_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)">
-                                </div>
-                            @error('material_aktual')
-                                        <div class="invalid-feedback">
-                                            Material Aktual Wajib Diisi!!!
-                                        </div>
-                                        @enderror
-
-                            <label for="jasa_aktual" class="col-form-label">Jasa Aktual: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="jasa_aktual" name="jasa_aktual" value="{{ old('jasa_aktual') }}" class="form-control @error('jasa_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)">
-                                </div>
-                            @error('jasa_aktual')
-                                <div class="invalid-feedback">
-                                    Jasa Aktual Wajib Diisi!!!
-                                </div>
-                            @enderror
-
-                            <label for="total_aktual" class="col-form-label">Total Aktual: </label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            Rp.
-                                        </div>
-                                    </div>
-                                    <input type="text" id="total_aktual" name="total_aktual" value="{{ old('total_aktual') }}" class="form-control @error('total_aktual') is-invalid @enderror mb-2" onkeyup="totalAktual()" oninput="formatCurrency(this)" readonly>
-                                </div>
-                            @error('total_aktual')
-                                <div class="invalid-feedback">
-                                    Jasa Aktual Wajib Diisi!!!
-                                </div>
-                            @enderror
-
                         </div>
-                    </div>
+                        </div>
                     </div>
                     <div class="row mb-lg-5">
                         <div class="col-lg-12" style="padding: 0 62px">
                             <div class="form-group pb-0 mb-0">
                                 <label for="keterangan" class="col-form-label">Keterangan:</label>
-                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control @error('keterangan') is-invalid @enderror mb-2">
-                                <!-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> -->
-
+                                <input type="text" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" class="form-control mb-2">
                             </div>
                         </div>
-                        @error('total_aktual')
-                                <div class="invalid-feedback">
-                                    Keterangan wajib diisi!
-                                </div>
-                            @enderror
-                            
                     </div>
                     <div class="d-flex justify-content-end pr-5 mb-5">
                         <button class="btn btn-primary" value="Simpan Data" type="submit">Buat Laporan</button>
@@ -367,4 +171,5 @@ Dashboard
   
 //   console.log(autoGeneratedLokasi()); 
 </script>
+
 @endsection

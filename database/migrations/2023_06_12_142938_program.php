@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class JenisOrder extends Migration
+class Program extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class JenisOrder extends Migration
     public function up()
     {
         //
-        Schema::create('jenis_order', function (Blueprint $table) {
+        Schema::create('program', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_jenis_order');
+            $table->string('nama_program');
         });
     }
 
@@ -28,7 +28,7 @@ class JenisOrder extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('jenis_order');
+        Schema::dropIfExists('program');
         
     }
 }

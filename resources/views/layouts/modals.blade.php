@@ -159,25 +159,25 @@
   });
 </script>
 
-{{-- VALIDASI ADD JENIS ORDER --}}
+{{-- VALIDASI ADD PROGRAM --}}
 <script>
   // Fungsi untuk mereset field dan pesan error
   function resetForm6() {
-    var inputField = document.getElementById('nama_jenis_order');
-    var errorMessage = document.getElementById('nama_jenis_order_error');
+    var inputField = document.getElementById('nama_program');
+    var errorMessage = document.getElementById('nama_program_error');
     
     inputField.value = ''; // Menghapus nilai di field input
     inputField.classList.remove('is-invalid'); // Menghapus kelas CSS 'is-invalid'
     errorMessage.style.display = 'none'; // Menyembunyikan pesan error
   }
   // Event listener untuk menutup modal
-  $('#addJenisOrder').on('hidden.bs.modal', function (e) {
+  $('#addProgram').on('hidden.bs.modal', function (e) {
     resetForm6(); // Memanggil fungsi resetForm saat modal ditutup
   });
   // Event listener saat form dikirim
-  document.getElementById('jenisOrderForm').addEventListener('submit', function(event) {
-    var inputField = document.getElementById('nama_jenis_order');
-    var errorMessage = document.getElementById('nama_jenis_order_error');
+  document.getElementById('ProgramForm').addEventListener('submit', function(event) {
+    var inputField = document.getElementById('nama_program');
+    var errorMessage = document.getElementById('nama_program_error');
     if (inputField.value.trim() === '') {
       event.preventDefault(); // Mencegah pengiriman form
       inputField.classList.add('is-invalid'); // Menambahkan kelas CSS 'is-invalid'

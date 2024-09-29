@@ -42,6 +42,15 @@ Dashboard
             </div>
             @endif
 
+            @error('nama_status_tagihan')
+            <div class="alert alert-danger alert-dismissible fade show">
+              {{ $message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @enderror
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -65,13 +74,13 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="StatusTagihanform" action="{{ route('admin.storestatustagihan') }}" method="POST">
+                        <form class="form-validation" id="StatusTagihanform" action="{{ route('admin.storestatustagihan') }}" method="POST">
                         @csrf
                             <div class="modal-body">
                             <div class="form-group">
                                 <label for="nama_status_tagihan" class="col-form-label">Nama Status Tagihan: </label>
-                                <input type="text" id="nama_status_tagihan" name="nama_status_tagihan" class="form-control">
-                                <span id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
+                                <input type="text" id="nama_status_tagihan" name="nama_status_tagihan" class="required-input form-control">
+                                <span class="error-message" id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
                                 {{-- @if($errors->has('nama_status_tagihan'))
                                 <span class="invalid-feedback">{{ $errors->first('nama_status_tagihan') }}</span>
                                 @endif --}}
@@ -154,7 +163,7 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama_update_Status" class="col-form-label">Nama Status Tagihan: </label>
-                                        <input type="text" id="nama_update_Status" name="nama_status_tagihan" class="form-control required-input" value="{{ $admins->nama_status_tagihan }}" required>
+                                        <input type="text" id="nama_update_Status" name="nama_status_tagihan" class="form-control" value="{{ $admins->nama_status_tagihan }}" required>
                                         <span id="nama_status_tagihan_error" style="display: none; color: red;">Field Nama Status Tagihan harus diisi!</span>
                                         {{-- @if($errors->has('nama_status_tagihan'))
                                           <span class="invalid-feedback">{{ $errors->first('nama_status_tagihan') }}</span>

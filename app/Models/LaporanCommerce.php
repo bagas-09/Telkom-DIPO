@@ -29,10 +29,14 @@ class LaporanCommerce extends Model
         'total_aktual',
         'status_id',
         'kota_id',
-        'PID_konstruksi_id',
-        'PID_maintenance_id',
+        'ID_SAP_konstruksi_id',
+        'ID_tiket_id',
         'lokasi',
-        'draft'
+        'created_at',
+        'updated_at',
+        'draft',
+        'tanggal',
+        'slugc',
     ];
 
 

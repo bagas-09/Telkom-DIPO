@@ -36,9 +36,9 @@ class LoginController extends Controller
             } else if ($account->role == 'Konstruksi') {
                 return redirect()->intended(route('konstruksi.laporanKonstruksi.index'));
             } else if ($account->role == 'GM') {
-                return redirect()->intended(route('gm.dashboard.index'));
+                return redirect()->intended(route('gm.laporan_commerce.index'));
             } else if ($account->role == 'Admin') {
-                return redirect()->intended(route('admin.dashboard.index'));
+                return redirect()->intended(route('admin.dashboard.account'));
             } else if ($account->role == 'Procurement') {
                 return redirect()->intended(route('procurement.dashboard.index'));
             } else {

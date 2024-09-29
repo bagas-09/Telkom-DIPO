@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use App\Models\JenisProgram;
+use Illuminate\Support\Facades\Validator;
 
 class JenisProgramController extends Controller
 {
     public function index()
     {
-        $role = array();
+        $jenisprogram = array();
         return view('admin.dashboard.jenis_program', [
             "title" => "Jenis Program",
             "type" => JenisProgram::all(),
@@ -21,6 +22,11 @@ class JenisProgramController extends Controller
 
     public function storeJenis(Request $request)
     {
+        $validator = Validator::make($request->all(), JenisProgram::$rules, JenisProgram::$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         JenisProgram::insert([
             "nama_jenis_program" => $request->nama_jenis_program,
         ]);
@@ -29,6 +35,20 @@ class JenisProgramController extends Controller
 
     public function updateJenis(Request $request, $id)
     {
+        // Ambil aturan validasi dari model
+        $rules = JenisProgram::$rules;
+        $messages = JenisProgram::$messages;
+
+        // Modifikasi aturan validasi untuk keperluan update
+        $rules['nama_jenis_program'] = 'unique:jenis_program,nama_jenis_program,'.$id.',id';
+
+        // Buat validator dengan aturan validasi yang telah dimodifikasi
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        // Lakukan validasi
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         JenisProgram::where('id', $id)->update([
             "nama_jenis_program" => $request->nama_jenis_program,
         ]);
@@ -41,7 +61,7 @@ class JenisProgramController extends Controller
         try {
             DB::beginTransaction();
 
-            $type = JenisProgram::find($id);
+            $jenisprogram = JenisProgram::find($id);
 
             // Pengecekan di setiap tabel terkait
             // if ($type->accounts()->count() > 0) {
@@ -53,7 +73,7 @@ class JenisProgramController extends Controller
             // }
 
             // Jika tidak ada pengecualian, hapus kota
-            $type->delete();
+            $jenisprogram->delete();
 
             DB::commit();
 
@@ -62,12 +82,12 @@ class JenisProgramController extends Controller
             DB::rollback();
 
             // Tangkap pengecualian QueryException jika terjadi kesalahan database
-            return redirect()->intended(route('admin.dashboard.jenisprogram'))->with("error", "Terjadi kesalahan database. Silakan coba lagi.");
+            return redirect()->intended(route('admin.dashboard.jenisprogram'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         } catch (\Exception $e) {
             DB::rollback();
 
             // Tangkap pengecualian umum dan tampilkan pesan error
-            return redirect()->intended(route('admin.dashboard.jenisprogram'))->with("error", $e->getMessage());
+            return redirect()->intended(route('admin.dashboard.jenisprogram'))->with("error", "Terjadi Error karena data ini sedang digunakan");
         }
     }
 }

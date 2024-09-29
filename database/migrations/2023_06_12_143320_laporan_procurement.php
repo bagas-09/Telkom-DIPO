@@ -16,7 +16,7 @@ class LaporanProcurement extends Migration
         //
         Schema::create('laporan_procurement', function (Blueprint $table) {
             $table->string("PR_SAP")->primary();
-            $table->integer('PO_SAP')->nullable();
+            $table->string('PO_SAP')->nullable();
             $table->date('tanggal_PO_SAP')->nullable();
             $table->string('material_DRM')->nullable();
             $table->string('jasa_DRM')->nullable();
@@ -27,14 +27,18 @@ class LaporanProcurement extends Migration
             $table->unsignedBigInteger('status_tagihan_id')->nullable();
             $table->foreign('status_tagihan_id')->references('id')->on('status_tagihan');
             $table->string('keterangan')->nullable();
-            $table->string('PID_konstruksi_id')->nullable();
-            $table->foreign('PID_konstruksi_id')->references('PID_konstruksi')->on('laporan_konstruksi');
-            $table->string('PID_maintenance_id')->nullable();
-            $table->foreign('PID_maintenance_id')->references('PID_maintenance')->on('laporan_maintenance');
+            $table->string('ID_SAP_konstruksi_id')->nullable();
+            $table->foreign('ID_SAP_konstruksi_id')->references('ID_SAP_konstruksi')->on('laporan_konstruksi');
+            $table->string('ID_tiket_id')->nullable();
+            $table->foreign('ID_tiket_id')->references('ID_tiket')->on('laporan_tiket');
             $table->unsignedBigInteger('kota_id');
             $table->foreign('kota_id')->references('id')->on('city');
             $table->string('lokasi');
+            $table->timestamps();
+            $table->boolean('editable')->default(0);
+            $table->timestamp('tanggal')->nullable();
             $table->integer("draft")->nullable();
+            $table->string("slugp")->unique();
 
         });
     }

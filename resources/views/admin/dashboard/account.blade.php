@@ -65,45 +65,47 @@ Dashboard
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <form id="accountForm" action="{{route('admin.storeAccount')}}" method="POST">
+                        <form id="accountForm" class="form-validation" action="{{route('admin.storeAccount')}}" method="POST">
                         @csrf
                           <div class="modal-body">
                             <div class="form-group">
                               
                               <label for="nama" class="col-form-label">Nama: </label>
-                              <input type="text" id="nama" name="nama" class="form-control">
-                              <span class="input-error" id="nama" style="display: none; color: red;">Field Nama harus diisi!</span>
+                              <input type="text" id="nama" name="nama" class="required-input form-control">
+                              <span  class="error-message input-error" id="nama" style="display: none; color: red;">Field Nama harus diisi!</span>
 
                               <label for="nik" class="col-form-label">NIK: </label>
-                              <input type="text" id="nik" name="nik" class="form-control">
-                              <span class="input-error" id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
+                              <input type="text" id="nik" name="nik" class="required-input form-control">
+                              <span class="error-message input-error" id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
 
                               <label for="password" class="col-form-label">Password: </label>
-                              <input type="password" id="password" name="password" class="form-control">
-                              <span class="input-error" id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
+                              <input type="password" id="password" name="password" class="required-input form-control">
+                              <span class="error-message input-error" id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
 
                               <label for="role" class="col-form-label">Role: </label>
-                              <select class="role form-control" name="role">
+                              <select class="required-input role form-control" name="role">
                                 <option value="" selected>-- Pilih Role --</option>
                                 @foreach ($roles as $role)
                                     <option value=<?= $role->nama_role ?>>{{ $role->nama_role }}</option>
                                 @endforeach
                               </select>
-                              <span class="input-error" id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
+                              <span class="error-message input-error" id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
 
                               <label for="id_nama_kota" class="col-form-label">Kota: </label>
-                              <select class="id_nama_kota form-control" name="id_nama_kota">
+                              <select class="required-input id_nama_kota form-control" name="id_nama_kota">
                                 <option value="" onclick="pushData('id_nama_kota')" selected>-- Pilih Kota --</option>
                                 @foreach ($addcity as $city)
                                     <option value= {{ $city->id }}>{{ $city->nama_city }}</option>
                                 @endforeach
                               </select>
-                              <span class="input-error" id="kota_error" style="display: none; color: red;">Field Kota harus diisi!</span>
+                              <span class="error-message input-error" id="kota_error" style="display: none; color: red;">Field Kota harus diisi!</span>
 
                               <label for="keterangan" class="col-form-label">Keterangan: </label>
-                              <input type="text" id="keterangan" name="keterangan" class="form-control">
+                              <input type="text" id="keterangan" name="keterangan" class="required-input form-control">
+                              <span class="error-message input-error" id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+
                               {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                              <span class="input-error" id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                             
                             </div>
                           </div>
                           <div class="modal-footer bg-whitesmoke br">
@@ -190,11 +192,11 @@ Dashboard
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label for="nama" class="col-form-label">Nama: </label>
-                                        <input type="text" id="nama" name="nama" class="form-control" value="{{ $admins->nama }}">
+                                        <input type="text" id="nama" name="nama" class="form-control" value="{{ $admins->nama }}" required>
                                         <span id="nama" style="display: none; color: red;">Field Nama harus diisi!</span>
 
                                         <label for="nik" class="col-form-label">NIK: </label>
-                                        <input type="text" id="nik" name="nik" class="form-control" value="{{ $admins->nik }}">
+                                        <input type="text" id="nik" name="nik" class="form-control" value="{{ $admins->nik }}" required>
                                         <span id="nik" style="display: none; color: red;">Field NIK harus diisi!</span>
 
                                         <label for="password" class="col-form-label">Password: </label>
@@ -202,7 +204,7 @@ Dashboard
                                         <span id="password_error" style="display: none; color: red;">Field Password harus diisi!</span>
 
                                         <label for="role" class="col-form-label">Role: </label>
-                                        <select class="role form-control" name="role">
+                                        <select class="role form-control" name="role" required>
                                           <option value="{{$admins->role}}" selected>{{$admins->role}}</option>
                                           @foreach ($roles as $role)
                                               @if ($role->nama_role !== $admins->role)
@@ -213,7 +215,7 @@ Dashboard
                                         <span id="role_error" style="display: none; color: red;">Field Role harus diisi!</span>
 
                                         <label for="id_nama_kota" class="col-form-label">Kota: </label>
-                                        <select class="id_nama_kota form-control" name="id_nama_kota">
+                                        <select class="id_nama_kota form-control" name="id_nama_kota" required>
                                           <option value="{{$admins->id_nama_kota}}" onclick="pushData('id_nama_kota')" selected>{{$citys[$admins->id_nama_kota]}}</option>
                                           @foreach ($addcity as $city)
                                             @if ($citys[$admins->id_nama_kota] !== $city->nama_city)
@@ -224,9 +226,9 @@ Dashboard
                                         <span id="kota_error" style="display: none; color: red;">Field Kota harus diisi!</span>
 
                                         <label for="keterangan" class="col-form-label">Keterangan: </label>
-                                        <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{ $admins->keterangan }}">
+                                        <input type="text" id="keterangan" name="keterangan" class="form-control" value="{{ $admins->keterangan }}" required>
                                         {{-- <textarea id="keterangan" name="keterangan" class="form-control" rows="10" cols="500"></textarea> --}}
-                                        <span id="keterangan_error" style="display: none; color: red;">Field Keterangan harus diisi!</span>
+                                        
                                       </div>
                                     </div>
                                     <div class="modal-footer bg-whitesmoke br">
